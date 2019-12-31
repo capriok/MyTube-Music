@@ -1,5 +1,5 @@
 import axios from 'axios';
-const KEY = 'AIzaSyBs_y-gyjJ9ACgPoXFiaLvdn1p04BMk-vk';
+const KEY = 'AIzaSyANq1oGYM_kIzVqJV4y8RQYNvU47O0X9gM';
 
 // MAIN KEY // AIzaSyBs_y-gyjJ9ACgPoXFiaLvdn1p04BMk-vk //
 
@@ -10,13 +10,10 @@ const KEY = 'AIzaSyBs_y-gyjJ9ACgPoXFiaLvdn1p04BMk-vk';
 //ALT KEY // AIzaSyANq1oGYM_kIzVqJV4y8RQYNvU47O0X9gM //
 
 
-export const baseParams = {
+export const playlistItemsParams = {
    part: "snippet",
-   maxResults: 2,
-   type: 'video',
-   key: KEY
 };
 export default axios.create({
    baseURL: "https://www.googleapis.com/youtube/v3",
-   params: baseParams
+   params: playlistItemsParams
 });

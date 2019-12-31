@@ -10,26 +10,12 @@ export default function Navbar({ search, playlist, profile, settings }) {
          </a>
          <div className="nav-buttons">
             <div className="nav-button">
-               <a href="/search">
-                  <img src={search} alt=""></img>
-               </a>
+               <img src={playlist} alt=""></img>
             </div>
             <div className="nav-button">
-               <a href="/playlist">
-                  <img src={playlist} alt=""></img>
-               </a>
-            </div>
-            <div className="nav-button">
-               <a href="/profile">
-                  <img src={profile} alt=""></img>
-               </a>
-            </div>
-            <div className="nav-button">
-               <a href="/settings">
-                  <img src={settings} alt=""></img>
-               </a>
+               <img src={settings} alt=""></img>
             </div>
          </div>
-      </nav>
+      </nav >
    )
 }

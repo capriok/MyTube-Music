@@ -12,19 +12,16 @@ nav{
    z-index: 100;
    box-shadow: -0px 1px 10px black;
 }
-
 nav .nav-logo {
    height: 50px;
    margin-left: 20px;
    justify-content: start;
    cursor: pointer;
 }
-
 .nav-buttons img{
    height: 30px;
    margin: 10px;
 }
-
 .nav-buttons{display: flex;}
 .nav-button{
    cursor: pointer;
@@ -34,159 +31,75 @@ nav .nav-logo {
 
 /* NAVABR END */
 
-/* HOMETILE */
-
-.landing-tile{
-   width: 10vw;
-   height: 10vh;
-   min-height: 5vh;
-   color: white;
-   margin: 40px;
-   padding: 50px;
-   cursor: pointer;
-   user-select: none;
-   border: 1px solid rgba(255, 255, 255, 0.3);
-   box-shadow: -5px 5px 10px black;
-   background-color: rgba(0, 0, 0, 0.7);
-   border-radius: 15px;
-}
-
-.tile-content{
-   width: 100%;
-   height: 100%;
-   display: flex;
-   flex-wrap: wrap;
-   align-items: flex-start;
-   justify-content: center;
-}
-
-.tile-content h1{flex:100%;font-size:calc(12px + .8vw);}
-.tile-content img{width: 30%;}
-
-/* HOMETILE END */
-
-/* SEARCHPAGE */
-
-.search-ops{
-   font-size:calc(12px + .4vw);
-   display: flex;
-   flex: 1;
-   justify-content: center;
-}
-
-.ops-center{
-   display: flex;
-   flex-direction: column;
-   align-items: flex-start;
-}
-
-.search-ops input{width: 15px;height: 15px;}
-.search-ops span{margin: 10px;}
-.search-ops label{cursor: pointer; margin: 10px;}
+/* SEARCH */
 
 .search-form{
-   flex: 2;
-   display: flex;
-   align-items: center;
-   justify-content: center;
+   width: 100%;
 }
 .search-form input, button{
-   height: 40%;
    user-select: none;
    border:none;
    border-radius: 5px;
+   outline: none;
+   color: white;
 }
+.search-form input::placeholder{color:rgba(255, 255, 255, 0.678);font-weight: 100;}
 .search-form input{
-   padding-left:5px;
+   margin: 20px;
+   padding:5px 5px 5px 5px;
    width: 70%;
    margin-left: 10px;
-   background-color: white;
+   border-bottom: 1px solid white ;
+   border-radius: 0px;
+   background-color: transparent;
 }
 .search-form button{
-   padding: 0px 10px 0px 10px;
+   padding: 5px 30px 5px 30px;
    margin-left: 10px;
-   background-color: white;
+   background-color: rgba(0, 0, 0, 0.5);
+   cursor: pointer;
 }
 
-/* SEARCHPAGE END */
+/* SEARCH END */
 
-/* PLAYLIST */
+/* ITEM LIST */
 
-   /* ITEM LIST */
-   .item-list{
-      flex: 30%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      overflow: scroll;
-   }
+.item-list{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   overflow: scroll;
+}
+.list-item{
+   display: flex;
+   justify-content: space-between;
+   width: 90%;
+   padding: 10px;
+   margin-bottom: 15px;
+   font-size:calc(12px + .4vw);
+   border: 1px solid rgba(255, 255, 255, 0.3);
+   background-color: rgba(0, 0, 0, 0.5);
+   box-shadow: -5px 5px 10px black;
+   border-radius: 5px;
+   cursor: pointer;
+}
 
-   ::-webkit-scrollbar{
-      background-color: transparent;
-      height: 0;
-      width: 8px;
-   }
+/* ITEM LIST END */
 
-   ::-webkit-scrollbar-thumb{
-      background-color: black;
-      border:1px solid rgba(255, 255, 255, .2);
-      border-radius: 5px;
-   }
+/* DISPLAY  */
 
-   .item-list h1{
-      color: white;
-      margin: 20px;
-      font-size:calc(12px + 1.4vw);
-   }
+.display-frame{
+   width: 90%;
+   min-height: 28vh;
+}
 
-   .list-item{
-      display: flex;
-      justify-content: space-between;
-      width: 90%;
-      padding: 10px;
-      margin-bottom: 15px;
-      color: white;
-      font-size:calc(12px + .4vw);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      background-color: rgba(0, 0, 0, 0.5);
-      box-shadow: -5px 5px 10px black;
-      border-radius: 5px;
-   }
+iframe{
+   width: 100%;
+}
+.display-title{text-align: left;margin: 10px;
+   font-size:calc(12px + .8vw);
+}
+.display-details{
+text-align: left;margin: 10px;}
 
-   /* ITEM DISPLAY */
-   .item-display{
-      display: flex;
-      flex:60%;
-      flex-direction: column;
-      justify-content: center;
-      overflow: scroll;
-      color: white;
-      background-color: rgba(0, 0, 0, 0.5);
-   }
-
-   .item-embed, .item-title, .item-details {
-      padding: 20px;
-      margin: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      background-color: rgba(0, 0, 0, 0.5);
-      font-size:calc(12px + .4vw);
-      box-shadow: -5px 5px 10px black;
-      border-radius: 10px;
-   }
-   
-   iframe{
-      width: 100%;
-      min-height: 30vw;
-   }
-   
-   .item-title{
-      text-align: left;
-   }
-
-   .item-details{
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 100px;
-   }
-
-/* PLAYLIST END*/
+/* DISPLAY END  */
