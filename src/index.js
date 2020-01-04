@@ -47,8 +47,8 @@ function Index() {
     initialState.auth.token = res.Zi.access_token
     initialState.auth.user = res.w3.ig
 
-    localStorage.setItem('token', res.Zi.access_token)
-    localStorage.setItem('user', res.w3.ig)
+    localStorage.setItem('YTP-token', res.Zi.access_token)
+    localStorage.setItem('YTP-user', res.w3.ig)
     window.location.href = '/'
   }
   const googleFailure = (res) => {
@@ -61,7 +61,7 @@ function Index() {
   }
 
   useEffect(() => {
-    let authorize = localStorage.getItem('token')
+    let authorize = localStorage.getItem('YTP-token')
     if (authorize) {
       initialState.auth.isAuthenticated = true
       console.log('Welcome to YT Player')

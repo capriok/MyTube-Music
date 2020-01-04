@@ -29,8 +29,8 @@ export default function App({ googleSuccess, googleFailure, logout }) {
 
    //////////////////////////////////// USEEFFECT
    useEffect(() => {
-      const token = localStorage.getItem('token')
-      const user = localStorage.getItem('user')
+      const token = localStorage.getItem('YTP-token')
+      const user = localStorage.getItem('YTP-user')
       if (token !== null) {
          dispatch({
             type: 'login',
