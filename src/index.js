@@ -1,23 +1,23 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './app';
 import { StateProvider } from './state'
-
+import App from './app';
+import './index.css';
 
 function Index() {
-  const initialState = {
+  let initialState = {
     auth: {
       isAuthenticated: false,
       token: '',
       user: {}
     },
-    result: {
+    display: {
       title: '',
       id: '',
       description: '',
       thumb: '',
-    }
+    },
+    channelId: 'UC7Zyh4_j6BZEZtjnuS-PMOg'
   }
 
   const reducer = (state, action) => {
@@ -30,11 +30,34 @@ function Index() {
       case 'select':
         return {
           ...state,
-          result: action.result
+          display: action.display
+        }
+      case 'url':
+        return {
+          ...state,
+          channelId: action.channelId
         }
       default:
         return state
     }
+  }
+
+  const googleSuccess = (res) => {
+    initialState.auth.isAuthenticated = true
+    initialState.auth.token = res.Zi.access_token
+    initialState.auth.user = res.w3.ig
+
+    localStorage.setItem('token', res.Zi.access_token)
+    localStorage.setItem('user', res.w3.ig)
+    window.location.href = '/'
+  }
+  const googleFailure = (res) => {
+    console.log(res);
+  }
+
+  const logout = () => {
+    window.location.href = '/'
+    localStorage.removeItem('token')
   }
 
   useEffect(() => {
@@ -42,13 +65,15 @@ function Index() {
     if (authorize) {
       initialState.auth.isAuthenticated = true
       console.log('Welcome to YT Player')
-      console.log('Auth Status', initialState.auth.isAuthenticated);
+      console.log('Auth Status ->', initialState.auth.isAuthenticated);
+      console.log('channelFetchId ->', initialState.channelId);
+
     }
-  }, [initialState.auth.isAuthenticated])
+  }, [initialState.auth.isAuthenticated, initialState.channelId])
 
   return (
     <StateProvider initialState={initialState} reducer={reducer}>
-      <App />
+      <App googleSuccess={googleSuccess} googleFailure={googleFailure} logout={logout} />
     </StateProvider>
   )
 }
