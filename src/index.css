@@ -22,12 +22,14 @@ body {
    margin: 0;
    font-family: 'Open Sans', sans-serif;
    background-color: rgba(0, 0, 0, 0.8);
-   margin-top: 50px;
 } 
 
-.App {
-   text-align: center;
+h1{
    color: white;
+   margin: 10px;
+   padding-bottom: 10px;
+   border-bottom: 1px solid white;
+   font-size:calc(12px + 1.4vw);
 }
 
 .login-button{
@@ -36,7 +38,6 @@ body {
    padding: 10px;
    background-color: rgb(255, 255, 255);
 }
-
 .logout-button{
    color: black;
    margin-top: 20px;
@@ -44,7 +45,12 @@ body {
    background-color: rgb(255, 255, 255);
 }
 
+/* APP */
 
+.App {
+   text-align: center;
+   color: white;
+}
 .Main{
    display: flex;
    flex-direction: column;
@@ -53,27 +59,34 @@ body {
    transform: translate(-50%);
    width: 100%;
    max-width: 750px;
-   height: 90%;
+   height: 100%;
 }
+
+/* APP END */
+
+/* SECTIONS */
 
 .section{
-   flex: 1;
    margin: 10px;
    max-height: 50%;
-   overflow: scroll;
    border: 1px solid black;
-   background-color: rgba(0, 0, 0, 0.239);
+   background-color: rgb(40, 40, 40);
 }
-
-.section h1{
-   color: white;
-   margin: 10px;
-   padding-bottom: 10px;
-   border-bottom: 1px solid white;
-   font-size:calc(12px + 1.4vw);
+.nav{
+   min-height: 30px;
+   max-height: 30px;
 }
-
-.one{max-height: 10vh; display: flex;align-items: center;}
-.two{flex:4;}
-.three{flex: 1;}
-.four{flex:5;}
+.search{
+   min-height: 9vh;
+   overflow: scroll;
+}
+.playlist{
+   flex:1;
+   overflow: scroll;
+}
+.player{
+   overflow: hidden;
+   max-height: 5vh; 
+   min-height: 5vh;
+}
+/* SECTIONS END */

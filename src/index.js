@@ -6,6 +6,12 @@ import './index.css';
 
 function Index() {
   let initialState = {
+    components: {
+      results: false,
+      miniPlayer: true,
+      fullPlayer: true,
+      playlist: true,
+    },
     auth: {
       isAuthenticated: false,
       token: '',
@@ -22,6 +28,11 @@ function Index() {
 
   const reducer = (state, action) => {
     switch (action.type) {
+      case 'manage':
+        return {
+          ...state,
+          components: action.components
+        }
       case 'login':
         return {
           ...state,
@@ -69,7 +80,7 @@ function Index() {
       console.log('channelFetchId ->', initialState.channelId);
 
     }
-  }, [initialState.auth.isAuthenticated, initialState.channelId])
+  }, [initialState.auth.isAuthenticated, initialState.channelId,])
 
   return (
     <StateProvider initialState={initialState} reducer={reducer}>

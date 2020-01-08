@@ -7,24 +7,25 @@ import playlisticon from './img/playlist.png'
 import settingsicon from './img/settings.png'
 import Navbar from './components/navbar'
 import SearchForm from './components/search-form'
-import SearchList from './components/search-list'
-import SelectedDisplay from './components/video-display'
+import Player from './components/player'
 import Playlists from './components/playlist-list'
 import './index.css'
-import './components/components.css'
 
 export default function App({ googleSuccess, googleFailure, logout }) {
-   const [{ auth, channelId }, dispatch] = useStateValue()
+   const [{ components, auth, channelId }, dispatch] = useStateValue()
    const [fetchedSearch, setFetchedSearch] = useState([])
    const [fetchedPlaylists, setFetchedPlaylists] = useState([])
-   const [isDisplayed, toDisplay] = useState(false)
-   const [searchItemsOpen, setSearchItemsOpen] = useState(false)
-   const [playlistsOpen, setPlaylistsOpen] = useState(true)
-
    //////////////////////////////////// COMPONENT STATES
    const initialComponentState = () => {
-      setSearchItemsOpen(false)
-      setPlaylistsOpen(true)
+      dispatch({
+         type: 'manage',
+         components: {
+            results: false,
+            miniPlayer: true,
+            fullPlayer: false,
+            playlist: true,
+         }
+      })
    }
 
    //////////////////////////////////// USEEFFECT
@@ -42,7 +43,6 @@ export default function App({ googleSuccess, googleFailure, logout }) {
          })
       }
       const youtubePlaylists = async () => {
-
          await youtube
             .get("/search", {
                params: {
@@ -71,34 +71,29 @@ export default function App({ googleSuccess, googleFailure, logout }) {
                   onFailure={googleFailure}
                   className="login-button"
                   theme="dark"
-               // scope="https://www.googleapis.com/auth/youtube.force-ssl"
                />
                :
                <Router>
                   <Switch>
                      <Route exact path='/' render={() =>
                         <>
-                           <div className="section one">
-                              <SearchForm setSearchItemsOpen={setSearchItemsOpen} setFetchedSearch={setFetchedSearch} />
+                           <div className="section nav"></div>
+                           <div className="section search">
+                              <SearchForm
+                                 setFetchedSearch={setFetchedSearch}
+                                 fetchedSearch={fetchedSearch}
+                              />
                            </div>
-                           {isDisplayed &&
-                              <div className="section four">
-                                 <h1>Currently Playing</h1>
-                                 <SelectedDisplay />
+                           {components.playlist &&
+                              <div className="section playlist">
+                                 <Playlists fetchedPlaylists={fetchedPlaylists} />
                               </div>
                            }
-                           {searchItemsOpen &&
-                              <div className="section two">
-                                 <h1>Results</h1>
-                                 <SearchList items={fetchedSearch} toDisplay={toDisplay} setPlaylistsOpen={setPlaylistsOpen} />
+                           {components.miniPlayer &&
+                              <div className={components.fullPlayer ? "section" : "section player"} style={{ marginTop: "auto" }} >
+                                 <Player />
                               </div>
                            }
-                           {playlistsOpen &&
-                              <div className="section two">
-                                 <Playlists fetchedPlaylists={fetchedPlaylists} toDisplay={toDisplay} />
-                              </div>
-                           }
-
                         </>
                      } />
                      <Route exact path='/settings' render={() =>
