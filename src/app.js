@@ -20,6 +20,7 @@ export default function App({ googleSuccess, googleFailure, logout }) {
       dispatch({
          type: 'manage',
          components: {
+            search: true,
             results: false,
             miniPlayer: true,
             fullPlayer: false,
@@ -27,7 +28,6 @@ export default function App({ googleSuccess, googleFailure, logout }) {
          }
       })
    }
-
    //////////////////////////////////// USEEFFECT
    useEffect(() => {
       const token = localStorage.getItem('YTP-token')
@@ -57,11 +57,14 @@ export default function App({ googleSuccess, googleFailure, logout }) {
             .catch(error => console.log(error))
       }
       youtubePlaylists()
-   }, [dispatch])
+   }, [dispatch, channelId])
 
    return (
       <div className="App">
-         <Navbar playlist={playlisticon} settings={settingsicon} initialComponentState={initialComponentState} />
+         <Navbar playlist={playlisticon}
+            settings={settingsicon}
+            initialComponentState={initialComponentState}
+         />
          <div className="Main">
             {!auth.isAuthenticated ?
                <GoogleLogin
@@ -78,12 +81,12 @@ export default function App({ googleSuccess, googleFailure, logout }) {
                      <Route exact path='/' render={() =>
                         <>
                            <div className="section nav"></div>
-                           <div className="section search">
+                           {components.search && <div className="section search">
                               <SearchForm
-                                 setFetchedSearch={setFetchedSearch}
                                  fetchedSearch={fetchedSearch}
+                                 setFetchedSearch={setFetchedSearch}
                               />
-                           </div>
+                           </div>}
                            {components.playlist &&
                               <div className="section playlist">
                                  <Playlists fetchedPlaylists={fetchedPlaylists} />

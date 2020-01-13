@@ -7,6 +7,7 @@ import './index.css';
 function Index() {
   let initialState = {
     components: {
+      search: true,
       results: false,
       miniPlayer: true,
       fullPlayer: true,
@@ -23,7 +24,13 @@ function Index() {
       description: '',
       thumb: '',
     },
-    channelId: 'UC7Zyh4_j6BZEZtjnuS-PMOg'
+    // playlistObj: 'PLX7NGOIMzbs7DAdHxYCsCKnDPnkskh-HQ',
+    playlistObj: {
+      id: '',
+      snippet: {},
+    },
+    channelId: 'UC7Zyh4_j6BZEZtjnuS-PMOg',
+
   }
 
   const reducer = (state, action) => {
@@ -43,10 +50,15 @@ function Index() {
           ...state,
           display: action.display
         }
-      case 'url':
+      case 'cId':
         return {
           ...state,
           channelId: action.channelId
+        }
+      case 'pId':
+        return {
+          ...state,
+          playlistObj: action.playlistObj
         }
       default:
         return state
@@ -78,7 +90,9 @@ function Index() {
       console.log('Welcome to YT Player')
       console.log('Auth Status ->', initialState.auth.isAuthenticated);
       console.log('channelFetchId ->', initialState.channelId);
-
+    }
+    if (!initialState.display.id) {
+      initialState.components.fullPlayer = false
     }
   }, [initialState.auth.isAuthenticated, initialState.channelId,])
 

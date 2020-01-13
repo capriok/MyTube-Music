@@ -1,30 +1,30 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useStateValue } from '../state'
 import youtube, { params } from "./apis/youtube"
 import SectionHead from './playlist-head'
 import './components.css'
 
 export default function PlaylistList({ fetchedPlaylists }) {
-   const [{ components }, dispatch] = useStateValue()
+   const [{ components, playlistObj }, dispatch] = useStateValue()
    const [playlistItems, setPlaylistItems] = useState([])
    const [displayItems, toDisplayItems] = useState(false)
    const [sectionTitle, setTitle] = useState()
 
-   // const playlistSelect = async (item) => {
-   //    await youtube
-   //       .get('/playlistItems', {
-   //          params: {
-   //             ...params.playlistItems,
-   //             playlistId: item.id.playlistId
-   //          }
-   //       })
-   //       .then(res => setPlaylistItems(res.data.items))
-   //       .catch(error => console.log(error))
-   //    toDisplayItems(true)
-   //    setTitle(item.snippet.title)
-   // }
+   const playlistSelect = async (item) => {
+      await youtube
+         .get('/playlistItems', {
+            params: {
+               ...params.playlistItems,
+               playlistId: item.id.playlistId
+            }
+         })
+         .then(res => setPlaylistItems(res.data.items))
+         .catch(error => console.log(error))
+      toDisplayItems(true)
+      setTitle(item.snippet.title)
+   }
 
-   const handleSelect = (item) => {
+   const itemSelect = (item) => {
       dispatch({
          type: 'select',
          display: {
@@ -44,27 +44,52 @@ export default function PlaylistList({ fetchedPlaylists }) {
          }
       })
    }
+
+   useEffect(() => {
+      if (playlistObj.id) {
+         const setPlaylist = async () => {
+            // const prevId = localStorage.getItem('YT-prevPlaylistId')
+            const id = playlistObj.id
+            await youtube
+               .get('/playlistItems', {
+                  params: {
+                     ...params.playlistItems,
+                     playlistId: id
+                  }
+               })
+               .then(res => setPlaylistItems(res.data.items))
+               .catch(error => console.log(error))
+            toDisplayItems(true)
+            setTitle(playlistObj.snippet.title)
+            console.log('playlistObj', playlistObj);
+         }
+         setPlaylist()
+      }
+   }, [playlistObj])
+
    return (
       <>
          <SectionHead goBack={toDisplayItems} displayItems={displayItems} />
-         <h1 className="section-title">{displayItems ? sectionTitle : 'Playlists'}</h1>
+         <h1 className="playlist-title">{displayItems ? sectionTitle : 'Playlists'}</h1>
          <div className="item-list">
-            {/* <div className="list-item" onClick={handleSelect}>playlist</div>
-            <div className="list-item" onClick={handleSelect}>playlist</div>
-            <div className="list-item" onClick={handleSelect}>playlist</div>
-            <div className="list-item" onClick={handleSelect}>playlist</div>
-            <div className="list-item" onClick={handleSelect}>playlist</div> */}
-            {/* {!displayItems ?
+            {!displayItems ?
                fetchedPlaylists.map((item, index) =>
                   <div className="list-item" key={index} onClick={() => playlistSelect(item)}>
+                     {/* <imsg src={item.snippet.thumbnails.medium} alt="" /> */}
                      <div>{item.snippet.title}</div>
                   </div>)
                :
                playlistItems.map((item, index) =>
-                  <div className="list-item" key={index} onClick={() => handleSelect(item)}>
+                  <div className="list-item" key={index} onClick={() => itemSelect(item)}>
+                     {/* <img src={item.snippet.thumbnails.medium} alt="" /> */}
                      <div>{item.snippet.title}</div>
                   </div>)
-            } */}
+            }
+            <div className="list-item">test</div>
+            <div className="list-item">test</div>
+            <div className="list-item">test</div>
+            <div className="list-item">test</div>
+            <div className="list-item">test</div>
          </div>
       </>
    )

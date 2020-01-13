@@ -14,11 +14,11 @@ export default function SectionHead({ goBack, urlPop, displayItems }) {
       console.log(channelId);
    }
    return (
-      <div className="section-head">
+      <div className="playlist-pos">
          {displayItems
-            ? <div className="section-back" onClick={() => goBack(false)} ><img src={backIcon} alt="" /></div>
+            ? <div className="playlist-event" onClick={() => goBack(false)} ><img src={backIcon} alt="" /></div>
             : <>
-               <div className="section-url"  >
+               <div className="playlist-url"  >
                   <img src={urlIcon} alt="" onClick={() => toDisplayUrlField(!displayUrlField)} />
                   {displayUrlField &&
                      <form onSubmit={handleSubmit}>

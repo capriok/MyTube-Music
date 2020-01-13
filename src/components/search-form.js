@@ -4,11 +4,11 @@ import './components.css'
 import youtube, { params } from "../components/apis/youtube"
 import SearchList from './search-list'
 
-export default function SearchForm({ setFetchedSearch, fetchedSearch }) {
+export default function SearchForm({ fetchedSearch, setFetchedSearch }) {
    const [{ components }, dispatch] = useStateValue()
    const initState = { video: false, playlist: false, channel: false }
    const [boxState, setBoxState] = useState(initState)
-   const [searchValue, setSearchValue] = useState('beico')
+   const [searchValue, setSearchValue] = useState('dark tech channel')
    const [searchOp, setSearchOp] = useState('video')
 
    const handleSearch = async (e) => {
@@ -32,7 +32,9 @@ export default function SearchForm({ setFetchedSearch, fetchedSearch }) {
          type: 'manage',
          components: {
             ...components,
+            search: true,
             results: true,
+            fullPlayer: false,
          }
       })
    }
@@ -54,18 +56,12 @@ export default function SearchForm({ setFetchedSearch, fetchedSearch }) {
             <h1>Search</h1>
             <div className="search-ops">
                <div className="ops-float">
-                  <label>
-                     <input type="checkbox" value="video" onChange={handleOp} checked={boxState.video} />
-                     <span>Video</span>
-                  </label>
-                  <label>
-                     <input type="checkbox" value="playlist" onChange={handleOp} checked={boxState.playlist} />
-                     <span>Playlist</span>
-                  </label>
-                  <label>
-                     <input type="checkbox" value="channel" onChange={handleOp} checked={boxState.channel} />
-                     <span>Channel</span>
-                  </label>
+                  <button className={!boxState.video ? "op-box" : "op-box active"}
+                     value='video' onClick={handleOp}>Video</button>
+                  <button className={!boxState.playlist ? "op-box" : "op-box active"}
+                     value='playlist' onClick={handleOp}>Playlist</button>
+                  <button className={!boxState.channel ? "op-box" : "op-box active"}
+                     value='channel'>Channel</button>
                </div>
             </div>
             <form className="search-form">
@@ -75,11 +71,12 @@ export default function SearchForm({ setFetchedSearch, fetchedSearch }) {
                </div>
             </form>
          </div>
-         {components.results &&
+         {
+            components.results &&
             <div className="search-two">
-               <SearchList items={fetchedSearch} />
+               <SearchList items={fetchedSearch} activeState={boxState} />
             </div>
          }
-      </div>
+      </div >
    )
 }

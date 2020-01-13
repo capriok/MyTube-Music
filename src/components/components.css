@@ -16,46 +16,50 @@ nav .nav-logo {
    height: 50px;
    cursor: pointer;
 }
+.nav-buttons{
+   position: absolute;
+   margin-top: 3px;;
+   right: 0px;
+}
 .nav-buttons img{
-   height: 30px;
+   height: 25px;
    margin: 10px;
 }
-.nav-buttons{display: flex;}
-.nav-button{
+.nav-buttons{
    cursor: pointer;
-   line-height: 17px;
    margin-right: 20px;
 }
 
 /* NAVABR END */
 
-/* SECTION HEAD */
+/* SECTION EVENT */
 
-.section-head {
+.playlist-pos {
    position: absolute;
+   z-index: 10;
    padding:20px;
 }
-.section-back img{
+.playlist-event img{
    position: relative;
    left:0px;
    float: left;
    width: 20px;
    cursor: pointer;
 }
-.section-url img{
+.playlist-url img{
    position: relative;
    left:0px;
    float: left;
    width: 20px;
    cursor: pointer;
 }
-.section-url form{
+.playlist-url form{
    position: relative;
    left:15px;
    float: left;
    float: left;
 }
-.section-url input{
+.playlist-url input{
    width: 190px;
    outline: none;
    border: none;
@@ -63,8 +67,23 @@ nav .nav-logo {
    color: white;
    background: transparent;
 }
+.player-event img{
+   width: 20px;
+   cursor: pointer;
+}
 
-/* SECTION HEAD END */
+/* SECTION EVENT END */
+
+/* MISC  */
+
+.playlist-title{
+   position: sticky;
+   width: 100%;
+   background-color: rgb(40, 40, 40);
+   z-index: 5;
+}
+
+/* MISC END */
 
 /* SEARCH */
 
@@ -95,12 +114,24 @@ nav .nav-logo {
 .search-ops input, label{padding:3px;cursor: pointer;user-select: none;}
 .search-ops span{
    padding-left: 10px;
-   font-size:calc(12px + .4vw);
 }
 .ops-float{
    display: flex;
    flex-direction: column;
-   align-items: flex-start;
+   align-items: center;
+}
+.op-box{
+   position: relative;
+   width: 100%;
+   padding:4px 5px 4px 5px;
+   margin:3px;
+   cursor: pointer;
+   border-radius: 5px;
+   font-size:calc(12px + .4vw);
+   background-color: rgb(34, 34, 34);
+}
+.active{
+   background-color: rgba(0, 0, 0, 0.5);
 }
 .search-form{
    margin:10px;
@@ -162,6 +193,10 @@ nav .nav-logo {
    border-radius: 5px;
    cursor: pointer;
 }
+.list-item div{
+   text-overflow: ellipsis;
+   overflow: hidden;
+}
 
 /* ITEM LIST END */
 
@@ -180,12 +215,20 @@ nav .nav-logo {
 }
 .player-frame{
    display: flex;
-   justify-content: center;
+   flex-direction: column;
    align-items: center;
-   width: 100%;
-   padding: 20px 0px 20px 0px;
+   padding: 0px 0px 20px 0px;
    overflow: hidden;
+}
+.player-header{
+   width: 100%;
    border-bottom: 1px solid white;
+}
+.player-frame h1{
+   white-space: nowrap; 
+   overflow: hidden;
+   text-overflow: ellipsis;
+   overflow: hidden;
 }
 .player-controls img{
    width: 35px;
