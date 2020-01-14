@@ -184,6 +184,7 @@ nav .nav-logo {
 .list-item{
    display: flex;
    justify-content: space-between;
+   align-items: center;
    width: 90%;
    padding: 10px;
    margin-bottom: 15px;
@@ -197,6 +198,10 @@ nav .nav-logo {
    background-color: rgba(0, 0, 0, 0.5);
    
 }
+/* .list-item img{
+   width: calc( 1280px / 15 );
+   height: calc(720px / 15);
+} */
 .list-item div{
    text-overflow: ellipsis;
    white-space: nowrap;

@@ -18,8 +18,8 @@ export default function SearchList({ items, activeState }) {
             display: {
                title: item.snippet.title,
                id: item.id.videoId,
-               description: item.snippet.description,
-               thumb: item.snippet.thumbnails.high
+               channelTitle: item.snippet.channelTitle,
+               publishedAt: item.snippet.publishedAt
             }
          })
          await dispatch({
@@ -60,17 +60,10 @@ export default function SearchList({ items, activeState }) {
             <div className="list-item" key={index}
                onClick={() => handleSelect(item)}
             >
-               {/* <img src={item.snippet.thumbnails.medium} alt="" /> */}
                {decoder(item.snippet.title)}
-
+               {/* <img src={item.snippet.thumbnails.high.url} alt="" /> */}
             </div>
-         )
-         }
-         <div className="list-item" onClick={handleSelect}>test</div>
-         <div className="list-item" onClick={handleSelect}>test</div>
-         <div className="list-item" onClick={handleSelect}>test</div>
-         <div className="list-item" onClick={handleSelect}>test</div>
-         <div className="list-item" onClick={handleSelect}>test</div>
+         )}
       </div >
    )
 }

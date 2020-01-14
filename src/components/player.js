@@ -8,6 +8,7 @@ import './components.css'
 import up from '../img/up.png'
 import down from '../img/down.png'
 import ReactPlayer from 'react-player'
+import { Transition } from 'react-spring/renderprops'
 
 export default function MiniDisplay() {
    const [{ components, display }, dispatch] = useStateValue()
@@ -15,6 +16,8 @@ export default function MiniDisplay() {
    const [startTime] = useState(0)
    const [volume, setVolume] = useState(5)
    const [seeking, setSeeking] = useState(false)
+   const player = components.fullPlayer
+   const published = display.publishedAt
 
    const toggleFull = () => {
       if (display.id) {
@@ -57,6 +60,13 @@ export default function MiniDisplay() {
    }
    return (
       <>
+
+         {/* <Transition
+            items={player}
+            from={{ opacity: 0, }}
+            enter={{ opacity: 1, }}
+            leave={{ opacity: 0, }}>
+            {player => player && (props => <div style={props}> */}
          <div className={components.fullPlayer ? "player-frame" : "player-frame-hide"}>
             <div className="player-header">
                <h2>{display.title}</h2>
@@ -68,7 +78,13 @@ export default function MiniDisplay() {
                volume={volume / 100}
                onProgress={handleProgress}
             />
+
+            <div className="player-desc"><span>{display.channelTitle}{published}</span></div>
+
          </div>
+         {/* </div>)}
+         </Transition> */}
+
          <div className="player-display">
             <div className="player-pos">
                <div className="player-event"

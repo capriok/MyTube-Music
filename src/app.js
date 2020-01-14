@@ -12,7 +12,7 @@ import Playlists from './components/playlist-list'
 import './index.css'
 
 export default function App({ googleSuccess, googleFailure, logout }) {
-   const [{ components, auth, channelId, display }, dispatch] = useStateValue()
+   const [{ components, auth, channelId }, dispatch] = useStateValue()
    const [fetchedSearch, setFetchedSearch] = useState([])
    const [fetchedPlaylists, setFetchedPlaylists] = useState([])
    //////////////////////////////////// COMPONENT STATES

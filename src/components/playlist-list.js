@@ -77,21 +77,14 @@ export default function PlaylistList({ fetchedPlaylists }) {
             {!displayItems ?
                fetchedPlaylists.map((item, index) =>
                   <div className="list-item" key={index} onClick={() => playlistSelect(item)}>
-                     {/* <imsg src={item.snippet.thumbnails.medium} alt="" /> */}
                      <div>{item.snippet.title}</div>
                   </div>)
                :
                playlistItems.map((item, index) =>
                   <div className="list-item" key={index} onClick={() => itemSelect(item)}>
-                     {/* <img src={item.snippet.thumbnails.medium} alt="" /> */}
                      <div>{item.snippet.title}</div>
                   </div>)
             }
-            <div className="list-item">test</div>
-            <div className="list-item">test</div>
-            <div className="list-item">test</div>
-            <div className="list-item">test</div>
-            <div className="list-item">test</div>
          </div>
       </>
    )

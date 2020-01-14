@@ -3,6 +3,7 @@ import { useStateValue } from '../state'
 import './components.css'
 import youtube, { params } from "../components/apis/youtube"
 import SearchList from './search-list'
+import { Transition } from 'react-spring/renderprops'
 
 export default function SearchForm({ fetchedSearch, setFetchedSearch }) {
    const [{ components }, dispatch] = useStateValue()
@@ -10,7 +11,8 @@ export default function SearchForm({ fetchedSearch, setFetchedSearch }) {
    const [boxState, setBoxState] = useState(initState)
    const [searchValue, setSearchValue] = useState('dark tech channel')
    const [searchOp, setSearchOp] = useState('video')
-
+   const [show, set] = useState(false)
+   const results = components.results
    const handleSearch = async (e) => {
       e.preventDefault()
       if (searchValue) {
@@ -49,7 +51,6 @@ export default function SearchForm({ fetchedSearch, setFetchedSearch }) {
       setBoxState({ ...initState, [searchOp]: true })
    }, [])
 
-
    return (
       <div className="search-parent">
          <div className="search-one">
@@ -74,7 +75,17 @@ export default function SearchForm({ fetchedSearch, setFetchedSearch }) {
          {
             components.results &&
             <div className="search-two">
-               <SearchList items={fetchedSearch} activeState={boxState} />
+
+               <Transition
+                  items={results}
+                  from={{ position: 'relative', top: '-10px', opacity: 0 }}
+                  enter={{ position: 'relative', top: '0px', opacity: 1 }}
+                  leave={{ position: 'relative', top: '-20px', opacity: 0 }}>
+                  {results => results && (props => <div style={props}>
+                     <SearchList items={fetchedSearch} activeState={boxState} />
+                  </div>)}
+               </Transition>
+
             </div>
          }
       </div >

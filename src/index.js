@@ -22,8 +22,8 @@ function Index() {
     display: {
       title: '',
       id: '',
-      description: '',
-      thumb: '',
+      channelTitle: '',
+      publishedAt: '',
     },
     playlistObj: {
       id: '',
