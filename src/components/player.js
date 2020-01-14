@@ -12,20 +12,21 @@ import ReactPlayer from 'react-player'
 export default function MiniDisplay() {
    const [{ components, display }, dispatch] = useStateValue()
    const [played, setPlayed] = useState(0)
-   const [playing, setPlaying] = useState(false)
    const [startTime] = useState(0)
-   const [volume, setVolume] = useState(40)
+   const [volume, setVolume] = useState(5)
    const [seeking, setSeeking] = useState(false)
 
    const toggleFull = () => {
-      dispatch({
-         type: 'manage',
-         components: {
-            ...components,
-            fullPlayer: !components.fullPlayer,
-            results: false
-         }
-      })
+      if (display.id) {
+         dispatch({
+            type: 'manage',
+            components: {
+               ...components,
+               fullPlayer: !components.fullPlayer,
+               results: false
+            }
+         })
+      }
    }
 
    const id = display.id
@@ -57,11 +58,13 @@ export default function MiniDisplay() {
    return (
       <>
          <div className={components.fullPlayer ? "player-frame" : "player-frame-hide"}>
-            <h1 className="player-header">{display.title}</h1>
+            <div className="player-header">
+               <h2>{display.title}</h2>
+            </div>
             <ReactPlayer
                ref={playerRef}
                url={vidSrc}
-               playing={playing}
+               playing={components.audioState}
                volume={volume / 100}
                onProgress={handleProgress}
             />
@@ -92,9 +95,9 @@ export default function MiniDisplay() {
                onChange={(e) => setVolume(e.target.value)} />
             <div className="player-controls">
                <img src={prev} alt="" />
-               {playing
-                  ? <img src={pause} alt="" onClick={() => setPlaying(!playing)} />
-                  : <img src={play} alt="" onClick={() => setPlaying(!playing)} />
+               {components.audioState
+                  ? <img src={pause} alt="" onClick={() => dispatch({ type: 'manage', ...components, audioState: !components.audioState })} />
+                  : <img src={play} alt="" onClick={() => dispatch({ type: 'manage', ...components, audioState: !components.audioState })} />
                }
                <img src={next} alt="" />
             </div>

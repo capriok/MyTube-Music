@@ -25,6 +25,8 @@ export default function PlaylistList({ fetchedPlaylists }) {
    }
 
    const itemSelect = (item) => {
+      console.log('selected', item);
+
       dispatch({
          type: 'select',
          display: {

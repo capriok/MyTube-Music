@@ -1,7 +1,7 @@
 {
   "name": "mytubemusic",
   "description": "Youtube Data API => Music Player",
-  "version": "1",
+  "version": "1.0.0",
   "private": true,
   "author": {
     "name": "Kyle Caprio"

@@ -6,17 +6,18 @@ import './index.css';
 
 function Index() {
   let initialState = {
+    auth: {
+      isAuthenticated: false,
+      token: '',
+      user: {}
+    },
     components: {
+      audioState: false,
       search: true,
       results: false,
       miniPlayer: true,
       fullPlayer: true,
       playlist: true,
-    },
-    auth: {
-      isAuthenticated: false,
-      token: '',
-      user: {}
     },
     display: {
       title: '',
@@ -24,7 +25,6 @@ function Index() {
       description: '',
       thumb: '',
     },
-    // playlistObj: 'PLX7NGOIMzbs7DAdHxYCsCKnDPnkskh-HQ',
     playlistObj: {
       id: '',
       snippet: {},

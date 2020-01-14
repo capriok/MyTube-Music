@@ -9,12 +9,10 @@ export default function SearchList({ items, activeState }) {
    const activity = activeState
 
    const handleSelect = async (item) => {
-      console.log(activity);
       const video = activity.video
       const playlist = activity.playlist
-
       if (video) {
-         console.log('video fired');
+         console.log('selected', item);
          await dispatch({
             type: 'select',
             display: {
@@ -36,8 +34,6 @@ export default function SearchList({ items, activeState }) {
             }
          })
       } else if (playlist) {
-         console.log('playlist fired');
-
          await dispatch({
             type: 'pId', playlistObj: {
                id: item.id.playlistId,

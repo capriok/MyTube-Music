@@ -12,14 +12,15 @@ import Playlists from './components/playlist-list'
 import './index.css'
 
 export default function App({ googleSuccess, googleFailure, logout }) {
-   const [{ components, auth, channelId }, dispatch] = useStateValue()
+   const [{ components, auth, channelId, display }, dispatch] = useStateValue()
    const [fetchedSearch, setFetchedSearch] = useState([])
    const [fetchedPlaylists, setFetchedPlaylists] = useState([])
    //////////////////////////////////// COMPONENT STATES
-   const initialComponentState = () => {
-      dispatch({
+   const initialComponentState = async () => {
+      await dispatch({
          type: 'manage',
          components: {
+            audioState: false,
             search: true,
             results: false,
             miniPlayer: true,

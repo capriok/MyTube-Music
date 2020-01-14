@@ -127,7 +127,7 @@ nav .nav-logo {
    margin:3px;
    cursor: pointer;
    border-radius: 5px;
-   font-size:calc(12px + .4vw);
+   font-size:calc(12px + .32vw);
    background-color: rgb(34, 34, 34);
 }
 .active{
@@ -179,6 +179,7 @@ nav .nav-logo {
    flex-direction: column;
    align-items: center;
    overflow: scroll;
+   user-select: none;
 }
 .list-item{
    display: flex;
@@ -186,15 +187,19 @@ nav .nav-logo {
    width: 90%;
    padding: 10px;
    margin-bottom: 15px;
-   font-size:calc(12px + .4vw);
-   border: 1px solid rgba(255, 255, 255, 0.3);
-   background-color: rgba(0, 0, 0, 0.5);
-   box-shadow: -5px 5px 10px black;
    border-radius: 5px;
    cursor: pointer;
+   user-select: none;
+   white-space: nowrap;
+   font-size:calc(12px + .32vw);
+   box-shadow: -5px 5px 10px black;
+   border: 1px solid rgba(255, 255, 255, 0.3);
+   background-color: rgba(0, 0, 0, 0.5);
+   
 }
 .list-item div{
    text-overflow: ellipsis;
+   white-space: nowrap;
    overflow: hidden;
 }
 
@@ -219,16 +224,20 @@ nav .nav-logo {
    align-items: center;
    padding: 0px 0px 20px 0px;
    overflow: hidden;
+   border-bottom: 1px solid white;
 }
 .player-header{
    width: 100%;
+   margin-bottom: 10px;
    border-bottom: 1px solid white;
 }
-.player-frame h1{
+.player-frame h2{
+   padding:10px 40px 15px 40px;
    white-space: nowrap; 
    overflow: hidden;
    text-overflow: ellipsis;
    overflow: hidden;
+   user-select: none;
 }
 .player-controls img{
    width: 35px;
