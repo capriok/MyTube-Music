@@ -3,9 +3,10 @@ import { useStateValue } from '../state'
 import youtube, { params } from "./apis/youtube"
 import SectionHead from './playlist-head'
 import './components.css'
+import Qbutton from './qbutton'
 
 export default function PlaylistList({ fetchedPlaylists }) {
-   const [{ components, playlistObj }, dispatch] = useStateValue()
+   const [{ components, queue, playlistObj }, dispatch] = useStateValue()
    const [playlistItems, setPlaylistItems] = useState([])
    const [displayItems, toDisplayItems] = useState(false)
    const [sectionTitle, setTitle] = useState()
@@ -77,13 +78,17 @@ export default function PlaylistList({ fetchedPlaylists }) {
             {!displayItems ?
                fetchedPlaylists.map((item, index) =>
                   <div className="list-item" key={index} onClick={() => playlistSelect(item)}>
-                     <div>{item.snippet.title}</div>
-                  </div>)
+                     <div className="item-title">{item.snippet.title}</div>
+                  </div>
+
+               )
                :
                playlistItems.map((item, index) =>
-                  <div className="list-item" key={index} onClick={() => itemSelect(item)}>
-                     <div>{item.snippet.title}</div>
-                  </div>)
+                  <div className="list-item" key={index}>
+                     <div className="item-title" onClick={() => itemSelect(item)}>{item.snippet.title}</div>
+                     <Qbutton className="item-button" item={item} />
+                  </div>
+               )
             }
          </div>
       </>

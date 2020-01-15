@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useStateValue } from '../state'
 import play from '../img/play.png'
 import pause from '../img/pause.png'
@@ -9,15 +9,17 @@ import up from '../img/up.png'
 import down from '../img/down.png'
 import ReactPlayer from 'react-player'
 import { Transition } from 'react-spring/renderprops'
+import _ from 'lodash'
 
 export default function MiniDisplay() {
-   const [{ components, display }, dispatch] = useStateValue()
+   const [{ components, queue, display }, dispatch] = useStateValue()
    const [played, setPlayed] = useState(0)
    const [startTime] = useState(0)
    const [volume, setVolume] = useState(5)
    const [seeking, setSeeking] = useState(false)
    const player = components.fullPlayer
    const published = display.publishedAt
+   const playing = components.audioState
 
    const toggleFull = () => {
       if (display.id) {
@@ -58,9 +60,16 @@ export default function MiniDisplay() {
          // setPlayed(played)
       }
    }
+
+   useEffect(() => {
+      const test = _.uniqBy(queue, (e) => e.id)
+      console.log(test);
+
+
+   }, [queue])
+
    return (
       <>
-
          {/* <Transition
             items={player}
             from={{ opacity: 0, }}
@@ -74,17 +83,14 @@ export default function MiniDisplay() {
             <ReactPlayer
                ref={playerRef}
                url={vidSrc}
-               playing={components.audioState}
+               playing={playing}
                volume={volume / 100}
-               onProgress={handleProgress}
+            // onProgress={handleProgress}
             />
-
             <div className="player-desc"><span>{display.channelTitle}{published}</span></div>
-
          </div>
          {/* </div>)}
          </Transition> */}
-
          <div className="player-display">
             <div className="player-pos">
                <div className="player-event"
@@ -112,8 +118,10 @@ export default function MiniDisplay() {
             <div className="player-controls">
                <img src={prev} alt="" />
                {components.audioState
-                  ? <img src={pause} alt="" onClick={() => dispatch({ type: 'manage', ...components, audioState: !components.audioState })} />
-                  : <img src={play} alt="" onClick={() => dispatch({ type: 'manage', ...components, audioState: !components.audioState })} />
+                  ? <img src={pause} alt="" onClick={() => dispatch(
+                     { type: 'manage', components: { ...components, audioState: !components.audioState } })} />
+                  : <img src={play} alt="" onClick={() => dispatch(
+                     { type: 'manage', components: { ...components, audioState: !components.audioState } })} />
                }
                <img src={next} alt="" />
             </div>

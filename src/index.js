@@ -25,6 +25,7 @@ function Index() {
       channelTitle: '',
       publishedAt: '',
     },
+    queue: [],
     playlistObj: {
       id: '',
       snippet: {},
@@ -49,6 +50,11 @@ function Index() {
         return {
           ...state,
           display: action.display
+        }
+      case 'addtoq':
+        return {
+          ...state,
+          queue: action.queue
         }
       case 'cId':
         return {

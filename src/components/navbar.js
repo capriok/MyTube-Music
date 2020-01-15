@@ -17,6 +17,6 @@ export default function Navbar({ initialComponentState }) {
             <img className="nav-button" src={search} alt=""
                onClick={() => dispatch({ type: 'manage', components: { ...components, search: !components.search } })} />
          </div>
-      </nav >
+      </nav>
    )
 }

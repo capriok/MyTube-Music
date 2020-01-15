@@ -186,7 +186,6 @@ nav .nav-logo {
    justify-content: space-between;
    align-items: center;
    width: 90%;
-   padding: 10px;
    margin-bottom: 15px;
    border-radius: 5px;
    cursor: pointer;
@@ -196,22 +195,48 @@ nav .nav-logo {
    box-shadow: -5px 5px 10px black;
    border: 1px solid rgba(255, 255, 255, 0.3);
    background-color: rgba(0, 0, 0, 0.5);
-   
 }
-/* .list-item img{
-   width: calc( 1280px / 15 );
-   height: calc(720px / 15);
-} */
 .list-item div{
    text-overflow: ellipsis;
    white-space: nowrap;
    overflow: hidden;
 }
+.item-title{
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   width: 87%;
+   padding: 10px;
+   border-radius: 5px;
+   cursor: pointer;
+   user-select: none;
+   white-space: nowrap;
+   font-size:calc(12px + .32vw);
+}
 
 /* ITEM LIST END */
 
-/* DISPLAY  */
+/* QUEUE  */
 
+.item-button{
+   color: black;
+   margin-right: 7px;
+   padding: 5px 17px 5px 17px;
+   z-index: 10;
+   cursor: pointer;
+}
+
+
+.q-button{
+   color: black;
+   padding: 5px 17px 5px 17px;
+   z-index: 10;
+   cursor: pointer;
+}
+
+/* QUEUE END */
+
+/* DISPLAY  */
 
 .player-display{
    display: flex;
@@ -269,7 +294,5 @@ nav .nav-logo {
 }
 .seek{width: 35%;}
 .volume{width: 17%;}
-
-
 
 /* DISPLAY END  */

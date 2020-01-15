@@ -2,6 +2,7 @@ import React from 'react'
 import { useStateValue } from '../state'
 import decoder from "./decoder"
 import './components.css'
+import Qbutton from './qbutton'
 
 export default function SearchList({ items, activeState }) {
    const [components, dispatch] = useStateValue()
@@ -57,10 +58,9 @@ export default function SearchList({ items, activeState }) {
    return (
       <div className="item-list">
          {items.map((item, index) =>
-            <div className="list-item" key={index}
-               onClick={() => handleSelect(item)}
-            >
-               {decoder(item.snippet.title)}
+            <div className="list-item" key={index}>
+               <div className="item-title" onClick={() => handleSelect(item)}>{decoder(item.snippet.title)}</div>
+               <Qbutton />
                {/* <img src={item.snippet.thumbnails.high.url} alt="" /> */}
             </div>
          )}
