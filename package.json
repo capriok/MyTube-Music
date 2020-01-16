@@ -37,7 +37,7 @@
   "main": "public/electron.js",
   "scripts": {
     "start": "rescripts start",
-    "react": "react-scripts start",
+    "browser": "react-scripts start",
     "build": "rescripts build",
     "test": "rescripts test",
     "eject": "react-scripts eject",

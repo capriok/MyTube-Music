@@ -60,7 +60,7 @@ export default function SearchList({ items, activeState }) {
          {items.map((item, index) =>
             <div className="list-item" key={index}>
                <div className="item-title" onClick={() => handleSelect(item)}>{decoder(item.snippet.title)}</div>
-               <Qbutton />
+               <Qbutton item={item} />
                {/* <img src={item.snippet.thumbnails.high.url} alt="" /> */}
             </div>
          )}

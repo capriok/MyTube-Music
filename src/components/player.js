@@ -64,8 +64,6 @@ export default function MiniDisplay() {
    useEffect(() => {
       const test = _.uniqBy(queue, (e) => e.id)
       console.log(test);
-
-
    }, [queue])
 
    return (
