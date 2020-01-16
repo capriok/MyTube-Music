@@ -3,6 +3,7 @@ import { useStateValue } from '../state'
 import decoder from "./decoder"
 import './components.css'
 import Qbutton from './qbutton'
+import { _, has } from 'lodash'
 
 export default function SearchList({ items, activeState }) {
    const [components, dispatch] = useStateValue()
@@ -53,6 +54,16 @@ export default function SearchList({ items, activeState }) {
             }
          })
       }
+      //lodash return all but item.kind === "youtube#video"
+      // _.head
+      // _.tail
+      // "youtube#video"
+      // "youtube#playlist"
+      has(item, item.id.kind === "youtube#playlist")
+      ///////////////continue here
+
+      console.log(item);
+
    }
 
    return (
