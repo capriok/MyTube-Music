@@ -9,9 +9,9 @@ export default function SearchForm({ fetchedSearch, setFetchedSearch }) {
    const [{ components }, dispatch] = useStateValue()
    const initState = { video: false, playlist: false, channel: false }
    const [boxState, setBoxState] = useState(initState)
+   const [isActive, setActive] = useState(false)
    const [searchValue, setSearchValue] = useState('dark tech channel')
    const [searchOp, setSearchOp] = useState('video')
-   const [show, set] = useState(false)
    const results = components.results
    const handleSearch = async (e) => {
       e.preventDefault()
@@ -39,6 +39,7 @@ export default function SearchForm({ fetchedSearch, setFetchedSearch }) {
             fullPlayer: false,
          }
       })
+      boxState.video ? setActive(true) : setActive(false)
    }
 
    const handleOp = (e) => {
@@ -72,20 +73,17 @@ export default function SearchForm({ fetchedSearch, setFetchedSearch }) {
                </div>
             </form>
          </div>
-         {
-            components.results &&
+         {components.results &&
             <div className="search-two">
-
                <Transition
                   items={results}
                   from={{ position: 'relative', top: '-10px', opacity: 0 }}
                   enter={{ position: 'relative', top: '0px', opacity: 1 }}
                   leave={{ position: 'relative', top: '-20px', opacity: 0 }}>
                   {results => results && (props => <div style={props}>
-                     <SearchList items={fetchedSearch} activeState={boxState} />
+                     <SearchList items={fetchedSearch} activeState={boxState} isActive={isActive} />
                   </div>)}
                </Transition>
-
             </div>
          }
       </div >

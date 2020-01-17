@@ -220,12 +220,12 @@ nav .nav-logo {
 
 .item-button{
    color: black;
-   margin-right: 7px;
-   padding: 5px 17px 5px 17px;
+   width:25px;
+   margin-right:10px;
+   padding: 2px;
    z-index: 10;
    cursor: pointer;
 }
-
 
 .q-button{
    color: black;

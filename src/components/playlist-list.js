@@ -27,7 +27,6 @@ export default function PlaylistList({ fetchedPlaylists }) {
 
    const itemSelect = (item) => {
       console.log('selected', item);
-
       dispatch({
          type: 'select',
          display: {
@@ -41,6 +40,7 @@ export default function PlaylistList({ fetchedPlaylists }) {
          type: 'manage',
          components: {
             ...components,
+            audioState: true,
             results: false,
             fullPlayer: true,
             playlist: true,

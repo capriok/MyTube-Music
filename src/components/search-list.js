@@ -5,9 +5,8 @@ import './components.css'
 import Qbutton from './qbutton'
 import { _, has } from 'lodash'
 
-export default function SearchList({ items, activeState }) {
+export default function SearchList({ items, activeState, isActive }) {
    const [components, dispatch] = useStateValue()
-
    const activity = activeState
 
    const handleSelect = async (item) => {
@@ -28,6 +27,7 @@ export default function SearchList({ items, activeState }) {
             type: 'manage',
             components: {
                ...components,
+               audioState: true,
                search: true,
                results: false,
                miniPlayer: true,
@@ -54,16 +54,6 @@ export default function SearchList({ items, activeState }) {
             }
          })
       }
-      //lodash return all but item.kind === "youtube#video"
-      // _.head
-      // _.tail
-      // "youtube#video"
-      // "youtube#playlist"
-      has(item, item.id.kind === "youtube#playlist")
-      ///////////////continue here
-
-      console.log(item);
-
    }
 
    return (
@@ -71,7 +61,7 @@ export default function SearchList({ items, activeState }) {
          {items.map((item, index) =>
             <div className="list-item" key={index}>
                <div className="item-title" onClick={() => handleSelect(item)}>{decoder(item.snippet.title)}</div>
-               <Qbutton item={item} />
+               {isActive && <Qbutton item={item} />}
                {/* <img src={item.snippet.thumbnails.high.url} alt="" /> */}
             </div>
          )}

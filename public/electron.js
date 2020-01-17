@@ -9,19 +9,20 @@ let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 700,
+    // width: 700,
+    width: 1300,
     minWidth: 500,
     maxWidth: 1300,
     height: 1400,
     minHeight: 1200,
-    maxHeight: 1600,
+    maxHeight: 1600
   });
   mainWindow.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`);
-  // if (isDev) {
-  //   // Open the DevTools.
-  //   //BrowserWindow.addDevToolsExtension('<location to your react chrome extension>');
-  //   mainWindow.webContents.openDevTools();
-  // }
+  if (isDev) {
+    // Open the DevTools.
+    // BrowserWindow.addDevToolsExtension('<location to your react chrome extension>');
+    mainWindow.webContents.openDevTools();
+  }
   mainWindow.on('closed', () => mainWindow = null);
 }
 

@@ -12,7 +12,7 @@ function Index() {
       user: {}
     },
     components: {
-      audioState: false,
+      audioState: true,
       search: true,
       results: false,
       miniPlayer: true,

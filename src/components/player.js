@@ -9,7 +9,7 @@ import up from '../img/up.png'
 import down from '../img/down.png'
 import ReactPlayer from 'react-player'
 import { Transition } from 'react-spring/renderprops'
-import _ from 'lodash'
+import _, { tail } from 'lodash'
 
 export default function MiniDisplay() {
    const [{ components, queue, display }, dispatch] = useStateValue()
@@ -35,9 +35,7 @@ export default function MiniDisplay() {
    }
 
    const id = display.id
-   const vidSrc = `https://www.youtube.com/embed/${id}?autoplay=1&start=${startTime}`
-   // const title = display.title
-   // const stats = null
+   let vidSrc = `https://www.youtube.com/embed/${id}?autoplay=1&start=${startTime}`
 
    const playerRef = useRef(null)
 
@@ -52,19 +50,49 @@ export default function MiniDisplay() {
    const handleMouseUp = e => {
       setSeeking(false)
       playerRef.current.seekTo(parseFloat(e.target.value))
-
    }
 
-   const handleProgress = () => {
+   const handleProgress = (state) => {
+      //returns callback data as state
       if (!seeking) {
-         // setPlayed(played)
+         setPlayed(state.played)
+      }
+   }
+
+   const handleEnd = async () => {
+      if (queue.length > 0) {
+         const nextTrack = queue[0]
+         console.log('nextTrack', nextTrack);
+         await dispatch({
+            type: 'select',
+            display: {
+               title: nextTrack.snippet.title,
+               id: nextTrack.id.videoId || nextTrack.snippet.resourceId.videoId,
+               channelTitle: nextTrack.snippet.channelTitle,
+               publishedAt: nextTrack.snippet.publishedAt
+            }
+         })
+         const newQueue = tail(queue)
+         console.log('newQueue', newQueue);
+         await dispatch({
+            type: 'addtoq',
+            queue: newQueue
+         })
       }
    }
 
    useEffect(() => {
-      const test = _.uniqBy(queue, (e) => e.id)
-      console.log(test);
+      if (queue.length > 0) {
+         console.log(queue);
+      }
    }, [queue])
+
+   useEffect(() => {
+      // console.log(display.id);
+      let vidSrc = `https://www.youtube.com/embed/${display.id}?autoplay=1&start=${startTime}`
+      // console.log(vidSrc);
+   }, [queue, display])
+
 
    return (
       <>
@@ -83,7 +111,8 @@ export default function MiniDisplay() {
                url={vidSrc}
                playing={playing}
                volume={volume / 100}
-            // onProgress={handleProgress}
+               onProgress={handleProgress}
+               onEnded={handleEnd}
             />
             <div className="player-desc"><span>{display.channelTitle}{published}</span></div>
          </div>
@@ -121,7 +150,7 @@ export default function MiniDisplay() {
                   : <img src={play} alt="" onClick={() => dispatch(
                      { type: 'manage', components: { ...components, audioState: !components.audioState } })} />
                }
-               <img src={next} alt="" />
+               <img src={next} onClick={handleEnd} alt="" />
             </div>
          </div>
       </>
