@@ -3,7 +3,7 @@ import { useStateValue } from '../state'
 // import addtoq from '../img/addtoq.png'
 import { remove } from 'lodash'
 import addtoq from '../img/addtoq.png'
-import addtoq2 from '../img/addtoq2.png'
+import addedtoq from '../img/addedtoq.png'
 
 export default function Qbutton({ item }) {
    const [{ queue }, dispatch] = useStateValue()
@@ -19,7 +19,7 @@ export default function Qbutton({ item }) {
    }
    return (
       <>
-         <img src={addtoq2} className="item-button" alt="" onClick={() => handleAdd(item)} />
+         <img src={addtoq} className="item-button" alt="" onClick={() => handleAdd(item)} />
       </>
    )
 }
