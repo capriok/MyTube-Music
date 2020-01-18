@@ -1,12 +1,15 @@
 import React from 'react'
 import { useStateValue } from '../state'
 import decoder from "./decoder"
-import './components.css'
+import addtoq from '../img/addtoq.png'
+import addedtoq from '../img/addedtoq.png'
 import Qbutton from './qbutton'
 import { _, has } from 'lodash'
+import './components.css'
+
 
 export default function SearchList({ items, activeState, isActive }) {
-   const [components, dispatch] = useStateValue()
+   const [{ components, queue }, dispatch] = useStateValue()
    const activity = activeState
 
    const handleSelect = async (item) => {
@@ -61,7 +64,8 @@ export default function SearchList({ items, activeState, isActive }) {
          {items.map((item, index) =>
             <div className="list-item" key={index}>
                <div className="item-title" onClick={() => handleSelect(item)}>{decoder(item.snippet.title)}</div>
-               {isActive && <Qbutton item={item} />}
+               {isActive && <Qbutton item={item}
+                  icon={queue.some(i => i.id === item.id) ? addtoq : addedtoq} />}
             </div>
          )}
       </div >

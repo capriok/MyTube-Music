@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { useStateValue } from '../state'
 import youtube, { params } from "./apis/youtube"
 import SectionHead from './playlist-head'
-import './components.css'
+import addtoq from '../img/addtoq.png'
+import addedtoq from '../img/addedtoq.png'
 import Qbutton from './qbutton'
+import './components.css'
 
 export default function PlaylistList({ fetchedPlaylists }) {
    const [{ components, queue, playlistObj }, dispatch] = useStateValue()
@@ -80,13 +82,13 @@ export default function PlaylistList({ fetchedPlaylists }) {
                   <div className="list-item" key={index} onClick={() => playlistSelect(item)}>
                      <div className="item-title">{item.snippet.title}</div>
                   </div>
-
                )
                :
                playlistItems.map((item, index) =>
                   <div className="list-item" key={index}>
                      <div className="item-title" onClick={() => itemSelect(item)}>{item.snippet.title}</div>
-                     <Qbutton className="item-button" item={item} />
+                     <Qbutton className="item-button" item={item}
+                        icon={queue.some(i => i.id === item.id) ? addtoq : addedtoq} />
                   </div>
                )
             }
