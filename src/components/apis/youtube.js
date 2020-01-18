@@ -9,12 +9,12 @@ const KEY = 'AIzaSyANq1oGYM_kIzVqJV4y8RQYNvU47O0X9gM';
 export const params = {
    video: {
       part: "snippet",
-      maxResults: 1,
+      maxResults: 2,
       key: KEY
    },
    playlist: {
       part: "snippet",
-      maxResults: 1,
+      maxResults: 2,
       type: 'playlist',
       key: KEY
    },

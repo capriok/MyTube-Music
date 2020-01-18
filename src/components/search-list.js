@@ -62,7 +62,6 @@ export default function SearchList({ items, activeState, isActive }) {
             <div className="list-item" key={index}>
                <div className="item-title" onClick={() => handleSelect(item)}>{decoder(item.snippet.title)}</div>
                {isActive && <Qbutton item={item} />}
-               {/* <img src={item.snippet.thumbnails.high.url} alt="" /> */}
             </div>
          )}
       </div >
