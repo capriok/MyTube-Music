@@ -12,11 +12,12 @@ function Index() {
       user: {}
     },
     components: {
-      audioState: true,
+      queue: false,
+      audioState: false,
       search: true,
       results: false,
       miniPlayer: true,
-      fullPlayer: true,
+      fullPlayer: false,
       playlist: true,
     },
     display: {

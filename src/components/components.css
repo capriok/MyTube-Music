@@ -218,6 +218,24 @@ nav .nav-logo {
 
 /* QUEUE  */
 
+.queue{
+   display: flex;
+   align-items: center;
+   flex-wrap: nowrap;
+   overflow: hidden;
+   flex-wrap: wrap;
+}
+.queue li {
+   user-select: none;
+   list-style: none;
+}
+.queue-item img{
+   width: 60px;
+}
+.queue-item{
+   width: 100%;
+   margin: 2px;
+}
 .item-button{
    color: black;
    width:23px;
@@ -226,7 +244,6 @@ nav .nav-logo {
    z-index: 10;
    cursor: copy;
 }
-
 .q-button{
    color: black;
    padding: 5px 17px 5px 17px;

@@ -20,7 +20,7 @@ export const params = {
    },
    playlistItems: {
       part: "snippet",
-      maxResults: 2,
+      maxResults: 10,
       key: KEY
    }
 }

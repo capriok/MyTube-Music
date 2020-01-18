@@ -88,7 +88,7 @@ export default function PlaylistList({ fetchedPlaylists }) {
                   <div className="list-item" key={index}>
                      <div className="item-title" onClick={() => itemSelect(item)}>{item.snippet.title}</div>
                      <Qbutton className="item-button" item={item}
-                        icon={queue.some(i => i.id === item.id) ? addtoq : addedtoq} />
+                        icon={queue.some(i => i.id === item.id) ? addedtoq : addtoq} />
                   </div>
                )
             }

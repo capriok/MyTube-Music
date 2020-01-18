@@ -3,15 +3,22 @@ import { useStateValue } from '../state'
 import { remove } from 'lodash'
 
 export default function Qbutton({ item, icon }) {
-   const [{ queue }, dispatch] = useStateValue()
+   const [{ components, queue }, dispatch] = useStateValue()
 
-   const handleAdd = (item) => {
-      dispatch({
+   const handleAdd = async (item) => {
+      await dispatch({
          type: 'addtoq',
          queue: [
             ...remove(queue, (e) => e.id !== item.id),
             item
          ]
+      })
+      await dispatch({
+         type: 'manage',
+         components: {
+            ...components,
+            queue: true
+         }
       })
    }
 

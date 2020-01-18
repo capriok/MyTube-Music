@@ -10,9 +10,10 @@ import SearchForm from './components/search-form'
 import Player from './components/player'
 import Playlists from './components/playlist-list'
 import './index.css'
+import Queue from './components/queue'
 
 export default function App({ googleSuccess, googleFailure, logout }) {
-   const [{ components, auth, channelId }, dispatch] = useStateValue()
+   const [{ components, queue, auth, channelId }, dispatch] = useStateValue()
    const [fetchedSearch, setFetchedSearch] = useState([])
    const [fetchedPlaylists, setFetchedPlaylists] = useState([])
    //////////////////////////////////// COMPONENT STATES
@@ -20,6 +21,7 @@ export default function App({ googleSuccess, googleFailure, logout }) {
       await dispatch({
          type: 'manage',
          components: {
+            queue: false,
             audioState: false,
             search: true,
             results: false,
@@ -60,6 +62,15 @@ export default function App({ googleSuccess, googleFailure, logout }) {
       youtubePlaylists()
    }, [dispatch, channelId])
 
+   useEffect(() => {
+      if (queue.length < 1) {
+         dispatch({
+            type: 'manage',
+            components: { ...components, queue: false }
+         })
+      }
+   }, [queue])
+
    return (
       <div className="App">
          <Navbar playlist={playlisticon}
@@ -82,6 +93,8 @@ export default function App({ googleSuccess, googleFailure, logout }) {
                      <Route exact path='/' render={() =>
                         <>
                            <div className="section nav"></div>
+
+
                            {components.search && <div className="section search">
                               <SearchForm
                                  fetchedSearch={fetchedSearch}
@@ -91,13 +104,14 @@ export default function App({ googleSuccess, googleFailure, logout }) {
                            {components.playlist &&
                               <div className="section playlist">
                                  <Playlists fetchedPlaylists={fetchedPlaylists} />
-                              </div>
-                           }
+                              </div>}
                            {components.miniPlayer &&
-                              <div className={components.fullPlayer ? "section" : "section player"} style={{ marginTop: "auto" }} >
+                              <div className={components.fullPlayer ? "section" : "section player"} style={{ marginTop: 'auto' }} >
                                  <Player />
-                              </div>
-                           }
+                              </div>}
+                           {components.queue && <div className="section queue">
+                              <Queue />
+                           </div>}
                         </>
                      } />
                      <Route exact path='/settings' render={() =>

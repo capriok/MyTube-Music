@@ -15,7 +15,7 @@ export default function MiniDisplay() {
    const [{ components, queue, display }, dispatch] = useStateValue()
    const [played, setPlayed] = useState(0)
    const [startTime] = useState(0)
-   const [volume, setVolume] = useState(5)
+   const [volume, setVolume] = useState(0)
    const [seeking, setSeeking] = useState(false)
    const player = components.fullPlayer
    const published = display.publishedAt
@@ -39,12 +39,46 @@ export default function MiniDisplay() {
 
    const playerRef = useRef(null)
 
+   const handlePlay = async () => {
+      if (display.id) {
+         await dispatch({
+            type: 'manage', components: { ...components, audioState: !components.audioState }
+         })
+      }
+      if (queue.length > 0 && !display.id) {
+         await dispatch({
+            type: 'select', display: {
+               title: queue[0].snippet.title,
+               id: queue[0].id.videoId || queue[0].snippet.resourceId.videoId,
+               channelTitle: queue[0].snippet.channelTitle,
+               publishedAt: queue[0].snippet.publishedAt
+            }
+         })
+         await dispatch({
+            type: 'manage',
+            components: {
+               ...components,
+               audioState: true,
+               fullPlayer: true,
+            }
+         })
+         const newQueue = tail(queue)
+         console.log('newQueue', newQueue);
+         await dispatch({
+            type: 'addtoq',
+            queue: newQueue
+         })
+      }
+   }
+
    const handleSeekMouseDown = e => {
       setSeeking(true)
    }
 
    const handleSeekChange = e => {
-      setPlayed(parseFloat(e.target.value))
+      if (display.id) {
+         setPlayed(parseFloat(e.target.value))
+      }
    }
 
    const handleMouseUp = e => {
@@ -147,8 +181,7 @@ export default function MiniDisplay() {
                {components.audioState
                   ? <img src={pause} alt="" onClick={() => dispatch(
                      { type: 'manage', components: { ...components, audioState: !components.audioState } })} />
-                  : <img src={play} alt="" onClick={() => dispatch(
-                     { type: 'manage', components: { ...components, audioState: !components.audioState } })} />
+                  : <img src={play} alt="" onClick={handlePlay} />
                }
                <img src={next} onClick={handleEnd} alt="" />
             </div>
