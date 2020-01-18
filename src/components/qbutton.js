@@ -22,7 +22,7 @@ export default function Qbutton({ item }) {
 
    // id.videoId || snippet.resourceId.videoId
 
-   useEffect((item) => {
+   useEffect(() => {
       if (queue.length > 0) {
          console.log('item', item);
 
