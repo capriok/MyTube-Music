@@ -76,8 +76,9 @@ export default function PlaylistList({ fetchedPlaylists }) {
       <>
 
          <h1 className="playlist-title">
+            <SectionHead goBack={toDisplayItems} displayItems={displayItems} />
             {displayItems ? sectionTitle : 'Playlists'}
-            <SectionHead goBack={toDisplayItems} displayItems={displayItems} /></h1>
+         </h1>
          <div className="item-list">
             {!displayItems ?
                fetchedPlaylists.map((item, index) =>

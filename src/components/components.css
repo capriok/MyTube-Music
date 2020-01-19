@@ -168,7 +168,7 @@ nav .nav-logo {
 
 .playlist-pos {
    position: absolute;
-   z-index: 10;
+   z-index: 5;
 }
 .playlist-event img{
    position: relative;
@@ -212,6 +212,9 @@ nav .nav-logo {
 
 .playlist-title{
    position: sticky;
+   padding-top: 10px;
+   top: 0px;
+   background-color: red;
    width: 100%;
    background-color: rgb(40, 40, 40);
    z-index: 5;
