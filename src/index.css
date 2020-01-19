@@ -8,6 +8,8 @@
 
 ::-webkit-scrollbar{
    background-color: transparent;
+   position: relative;
+   top:100px;
    height: 0;
    width: 8px;
 }
@@ -79,16 +81,14 @@ h1{
 }
 .queue{
    padding: 2px 0px 0px 2px;
-   min-height: 3.5vh;
-   overflow: scroll;
+   /* max-height: 5vh; 
+   min-height: 5vh;   */
 }
 .search{
-   padding-bottom: 20px;
    min-height: 15vh;
    overflow: scroll;
 }
 .playlist{
-   padding-bottom: 20px;
    overflow: scroll;
 }
 .player{
@@ -98,3 +98,40 @@ h1{
 }
 
 /* SECTIONS END */
+
+.draggable-main {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  user-select: none;
+  font-family: 'Raleway', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f0f0f0;
+}
+
+.content {
+  position: relative;
+  width: 320px;
+  height: 240px;
+}
+
+.content > div {
+  position: absolute;
+  width: 320px;
+  height: 90px;
+  overflow: visible;
+  pointer-events: auto;
+  transform-origin: 50% 50% 0px;
+  border-radius: 5px;
+  color: white;
+  line-height: 90px;
+  padding-left: 32px;
+  font-size: 14.5px;
+  background: rgb(42, 0, 0);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}

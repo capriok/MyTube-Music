@@ -74,27 +74,48 @@ export default function PlaylistList({ fetchedPlaylists }) {
 
    return (
       <>
-
-         <h1 className="playlist-title">
-            <SectionHead goBack={toDisplayItems} displayItems={displayItems} />
-            {displayItems ? sectionTitle : 'Playlists'}
-         </h1>
-         <div className="item-list">
-            {!displayItems ?
-               fetchedPlaylists.map((item, index) =>
-                  <div className="list-item" key={index} onClick={() => playlistSelect(item)}>
-                     <div className="item-title">{item.snippet.title}</div>
-                  </div>
-               )
-               :
-               playlistItems.map((item, index) =>
-                  <div className="list-item" key={index}>
-                     <div className="item-title" onClick={() => itemSelect(item)}>{item.snippet.title}</div>
-                     <Qbutton className="item-button" item={item}
-                        icon={queue.some(i => i.id === item.id) ? addedtoq : addtoq} />
-                  </div>
-               )
-            }
+         <div className="playlit-parent">
+            <div className="playlist-one">
+               <h1>
+                  <SectionHead goBack={toDisplayItems} displayItems={displayItems} />
+                  {displayItems ? sectionTitle : 'Playlists'}
+               </h1>
+            </div>
+            <div className="playlist-two">
+               <div className="item-list">
+                  {!displayItems ?
+                     fetchedPlaylists.map((item, index) =>
+                        <div className="list-item" key={index} onClick={() => playlistSelect(item)}>
+                           <div className="item-title">{item.snippet.title}</div>
+                        </div>
+                     )
+                     :
+                     playlistItems.map((item, index) =>
+                        <div className="list-item" key={index}>
+                           <div className="item-title" onClick={() => itemSelect(item)}>{item.snippet.title}</div>
+                           <Qbutton className="item-button" item={item}
+                              icon={queue.some(i => i.id === item.id) ? addedtoq : addtoq} />
+                        </div>
+                     )
+                  }
+                  <div className="list-item"><span className="item-title">null</span></div>
+                  <div className="list-item"><span className="item-title">null</span></div>
+                  <div className="list-item"><span className="item-title">null</span></div>
+                  <div className="list-item"><span className="item-title">null</span></div>
+                  <div className="list-item"><span className="item-title">null</span></div>
+                  <div className="list-item"><span className="item-title">null</span></div>
+                  <div className="list-item"><span className="item-title">null</span></div>
+                  <div className="list-item"><span className="item-title">null</span></div>
+                  <div className="list-item"><span className="item-title">null</span></div>
+                  <div className="list-item"><span className="item-title">null</span></div>
+                  <div className="list-item"><span className="item-title">null</span></div>
+                  <div className="list-item"><span className="item-title">null</span></div>
+                  <div className="list-item"><span className="item-title">null</span></div>
+                  <div className="list-item"><span className="item-title">null</span></div>
+                  <div className="list-item"><span className="item-title">null</span></div>
+                  <div className="list-item"><span className="item-title">null</span></div>
+               </div>
+            </div>
          </div>
       </>
    )

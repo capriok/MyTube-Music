@@ -153,14 +153,12 @@ export default function MiniDisplay() {
          {/* </div>)}
          </Transition> */}
          <div className="player-display">
-            <div className="player-pos">
-               <div className="player-event"
-                  onClick={toggleFull} >
-                  {components.fullPlayer
-                     ? <img src={down} alt="" />
-                     : <img src={up} alt="" />
-                  }
-               </div>
+            <div className="player-event"
+               onClick={toggleFull} >
+               {components.fullPlayer
+                  ? <img src={down} alt="" />
+                  : <img src={up} alt="" />
+               }
             </div>
             <div className="player-title">
             </div>

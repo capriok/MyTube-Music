@@ -93,8 +93,6 @@ export default function App({ googleSuccess, googleFailure, logout }) {
                      <Route exact path='/' render={() =>
                         <>
                            <div className="section nav"></div>
-
-
                            {components.search && <div className="section search">
                               <SearchForm
                                  fetchedSearch={fetchedSearch}

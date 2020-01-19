@@ -68,6 +68,24 @@ export default function SearchList({ items, activeState, isActive }) {
                   icon={queue.some(i => i.id === item.id) ? addedtoq : addtoq} />}
             </div>
          )}
-      </div >
+         <div className="list-item" ><span className="item-title">null</span></div>
+         <div className="list-item" ><span className="item-title">null</span></div>
+         <div className="list-item" ><span className="item-title">null</span></div>
+         <div className="list-item" ><span className="item-title">null</span></div>
+         <div className="list-item" ><span className="item-title">null</span></div>
+         <div className="list-item" ><span className="item-title">null</span></div>
+         <div className="list-item" ><span className="item-title">null</span></div>
+         <div className="list-item" ><span className="item-title">null</span></div>
+         <div className="list-item" ><span className="item-title">null</span></div>
+         <div className="list-item" ><span className="item-title">null</span></div>
+         <div className="list-item" ><span className="item-title">null</span></div>
+         <div className="list-item" ><span className="item-title">null</span></div>
+         <div className="list-item" ><span className="item-title">null</span></div>
+         <div className="list-item" ><span className="item-title">null</span></div>
+         <div className="list-item" ><span className="item-title">null</span></div>
+         <div className="list-item" ><span className="item-title">null</span></div>
+         <div className="list-item" ><span className="item-title">null</span></div>
+         <div className="list-item" ><span className="item-title">null</span></div>
+      </div>
    )
 }
