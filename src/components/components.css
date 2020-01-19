@@ -32,58 +32,49 @@ nav .nav-logo {
 
 /* NAVABR END */
 
-/* SECTION EVENT */
+/* ITEM LIST */
 
-.playlist-pos {
-   position: absolute;
-   z-index: 10;
-   padding:20px;
+.item-list{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   overflow: scroll;
+   user-select: none;
 }
-.playlist-event img{
-   position: relative;
-   left:0px;
-   float: left;
-   width: 20px;
+.list-item{
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   width: 90%;
+   margin-bottom: 15px;
+   border-radius: 5px;
    cursor: pointer;
+   user-select: none;
+   white-space: nowrap;
+   font-size:calc(12px + .32vw);
+   box-shadow: -5px 5px 10px black;
+   border: 1px solid rgba(255, 255, 255, 0.3);
+   background-color: rgba(0, 0, 0, 0.5);
 }
-.playlist-url img{
-   position: relative;
-   left:0px;
-   float: left;
-   width: 20px;
-   cursor: pointer;
+.list-item div{
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   overflow: hidden;
 }
-.playlist-url form{
-   position: relative;
-   left:15px;
-   float: left;
-   float: left;
-}
-.playlist-url input{
-   width: 190px;
-   outline: none;
-   border: none;
-   border-bottom: 1px solid white;
-   color: white;
-   background: transparent;
-}
-.player-event img{
-   width: 20px;
-   cursor: pointer;
-}
-
-/* SECTION EVENT END */
-
-/* MISC  */
-
-.playlist-title{
-   position: sticky;
+.item-title{
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
    width: 100%;
-   background-color: rgb(40, 40, 40);
-   z-index: 5;
+   padding: 10px;
+   border-radius: 5px;
+   cursor: pointer;
+   user-select: none;
+   white-space: nowrap;
+   font-size:calc(12px + .32vw);
 }
 
-/* MISC END */
+/* ITEM LIST END */
 
 /* SEARCH */
 
@@ -98,6 +89,7 @@ nav .nav-logo {
    top: 0px;
    display: flex;
    flex-wrap: wrap;
+   z-index: 20;
    background-color: rgb(40, 40, 40);
 }
 .search-one h1{
@@ -172,86 +164,58 @@ nav .nav-logo {
 
 /* SEARCH END */
 
-/* ITEM LIST */
+/* SECTION EVENT */
 
-.item-list{
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   overflow: scroll;
-   user-select: none;
-}
-.list-item{
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
-   width: 90%;
-   margin-bottom: 15px;
-   border-radius: 5px;
-   cursor: pointer;
-   user-select: none;
-   white-space: nowrap;
-   font-size:calc(12px + .32vw);
-   box-shadow: -5px 5px 10px black;
-   border: 1px solid rgba(255, 255, 255, 0.3);
-   background-color: rgba(0, 0, 0, 0.5);
-}
-.list-item div{
-   text-overflow: ellipsis;
-   white-space: nowrap;
-   overflow: hidden;
-}
-.item-title{
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
-   width: 100%;
-   padding: 10px;
-   border-radius: 5px;
-   cursor: pointer;
-   user-select: none;
-   white-space: nowrap;
-   font-size:calc(12px + .32vw);
-}
-
-/* ITEM LIST END */
-
-/* QUEUE  */
-
-.queue{
-   display: flex;
-   align-items: center;
-   flex-wrap: nowrap;
-   overflow: hidden;
-   flex-wrap: wrap;
-}
-.queue li {
-   user-select: none;
-   list-style: none;
-}
-.queue-item img{
-   width: 60px;
-}
-.queue-item{
-   width: 100%;
-   margin: 2px;
-}
-.item-button{
-   color: black;
-   width:23px;
-   margin-right:4px;
-   padding: 5px;
+.playlist-pos {
+   position: absolute;
    z-index: 10;
-   cursor: copy;
+   padding:20px;
 }
-.q-button{
-   color: black;
-   padding: 5px 17px 5px 17px;
-   z-index: 10;
+.playlist-event img{
+   position: relative;
+   left:0px;
+   float: left;
+   width: 20px;
+   cursor: pointer;
+}
+.playlist-url img{
+   position: relative;
+   left:0px;
+   float: left;
+   width: 20px;
+   cursor: pointer;
+}
+.playlist-url form{
+   position: relative;
+   left:15px;
+   float: left;
+   float: left;
+}
+.playlist-url input{
+   width: 190px;
+   outline: none;
+   border: none;
+   border-bottom: 1px solid white;
+   color: white;
+   background: transparent;
+}
+.player-event img{
+   width: 20px;
    cursor: pointer;
 }
 
-/* QUEUE END */
+/* SECTION EVENT END */
+
+/* MISC  */
+
+.playlist-title{
+   position: sticky;
+   width: 100%;
+   background-color: rgb(40, 40, 40);
+   z-index: 5;
+}
+
+/* MISC END */
 
 /* DISPLAY  */
 
@@ -313,3 +277,40 @@ nav .nav-logo {
 .volume{width: 17%;}
 
 /* DISPLAY END  */
+
+/* QUEUE  */
+
+.queue{
+   display: flex;
+   align-items: center;
+   flex-wrap: nowrap;
+   overflow: hidden;
+   flex-wrap: wrap;
+}
+.queue li {
+   user-select: none;
+   list-style: none;
+}
+.queue-item img{
+   width: 60px;
+}
+.queue-item{
+   width: 100%;
+   margin: 2px;
+}
+.item-button{
+   color: black;
+   width:23px;
+   margin-right:4px;
+   padding: 5px;
+   z-index: 10;
+   cursor: copy;
+}
+.q-button{
+   color: black;
+   padding: 5px 17px 5px 17px;
+   z-index: 10;
+   cursor: pointer;
+}
+
+/* QUEUE END */

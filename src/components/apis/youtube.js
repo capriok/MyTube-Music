@@ -9,7 +9,7 @@ const KEY = 'AIzaSyANq1oGYM_kIzVqJV4y8RQYNvU47O0X9gM';
 export const params = {
    video: {
       part: "snippet",
-      maxResults: 2,
+      maxResults: 10,
       key: KEY
    },
    playlist: {
