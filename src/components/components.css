@@ -169,18 +169,19 @@ nav .nav-logo {
 .playlist-pos {
    position: absolute;
    z-index: 10;
-   padding:20px;
 }
 .playlist-event img{
    position: relative;
-   left:0px;
+   left:10px;
+   bottom: 17px;
    float: left;
    width: 20px;
    cursor: pointer;
 }
 .playlist-url img{
    position: relative;
-   left:0px;
+   left:10px;
+   bottom: 17px;
    float: left;
    width: 20px;
    cursor: pointer;
@@ -188,6 +189,7 @@ nav .nav-logo {
 .playlist-url form{
    position: relative;
    left:15px;
+   bottom: 17px;
    float: left;
    float: left;
 }
