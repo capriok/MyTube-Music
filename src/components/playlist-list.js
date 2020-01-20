@@ -8,7 +8,7 @@ import Qbutton from './qbutton'
 import './components.css'
 
 export default function PlaylistList({ fetchedPlaylists, fetchError }) {
-   const [{ components, queue, playlistObj }, dispatch] = useStateValue()
+   const [{ components, display, queue, playlistObj }, dispatch] = useStateValue()
    const [playlistItems, setPlaylistItems] = useState([])
    const [sectionTitle, setTitle] = useState()
 
@@ -26,9 +26,9 @@ export default function PlaylistList({ fetchedPlaylists, fetchError }) {
       setTitle(item.snippet.title)
    }
 
-   const itemSelect = (item) => {
+   const itemSelect = async (item) => {
       console.log('selected', item);
-      dispatch({
+      await dispatch({
          type: 'select',
          display: {
             title: item.snippet.title,
@@ -37,7 +37,7 @@ export default function PlaylistList({ fetchedPlaylists, fetchError }) {
             thumb: item.snippet.thumbnails.high
          }
       })
-      dispatch({
+      await dispatch({
          type: 'manage',
          components: {
             ...components,
@@ -48,6 +48,7 @@ export default function PlaylistList({ fetchedPlaylists, fetchError }) {
          }
       })
    }
+
 
    useEffect(() => {
       if (playlistObj.id) {
@@ -77,7 +78,7 @@ export default function PlaylistList({ fetchedPlaylists, fetchError }) {
             <div className="playlist-one">
                <h1>
                   <SectionHead />
-                  {components.playlistItems ? sectionTitle : 'Playlists'}
+                  {components.playlistItems ? sectionTitle : display.channelTitle}
                </h1>
             </div>
             <div className="playlist-two">
@@ -97,25 +98,9 @@ export default function PlaylistList({ fetchedPlaylists, fetchError }) {
                         </div>
                      )
                   }
-                  {fetchError &&
+                  {!components.playlistItems && fetchError &&
                      <div className="list-item"><span className="item-title error">No playlists found</span></div>
                   }
-                  <div className="list-item"><span className="item-title">null</span></div>
-                  <div className="list-item"><span className="item-title">null</span></div>
-                  <div className="list-item"><span className="item-title">null</span></div>
-                  <div className="list-item"><span className="item-title">null</span></div>
-                  <div className="list-item"><span className="item-title">null</span></div>
-                  <div className="list-item"><span className="item-title">null</span></div>
-                  <div className="list-item"><span className="item-title">null</span></div>
-                  <div className="list-item"><span className="item-title">null</span></div>
-                  <div className="list-item"><span className="item-title">null</span></div>
-                  <div className="list-item"><span className="item-title">null</span></div>
-                  <div className="list-item"><span className="item-title">null</span></div>
-                  <div className="list-item"><span className="item-title">null</span></div>
-                  <div className="list-item"><span className="item-title">null</span></div>
-                  <div className="list-item"><span className="item-title">null</span></div>
-                  <div className="list-item"><span className="item-title">null</span></div>
-                  <div className="list-item"><span className="item-title">null</span></div>
                </div>
             </div>
          </div>

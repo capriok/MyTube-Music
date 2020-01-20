@@ -19,13 +19,12 @@ function Index() {
       miniPlayer: true,
       fullPlayer: false,
       playlist: true,
-      playlistItems: true,
+      playlistItems: false,
     },
     display: {
       title: '',
       id: '',
       channelTitle: '',
-      publishedAt: '',
     },
     queue: [],
     playlistObj: {

@@ -13,7 +13,7 @@ import Queue from './components/queue'
 import './index.css'
 
 export default function App({ googleSuccess, googleFailure, logout }) {
-   const [{ components, queue, auth, channelId }, dispatch] = useStateValue()
+   const [{ components, queue, auth, channelId, display }, dispatch] = useStateValue()
    const [fetchedSearch, setFetchedSearch] = useState([])
    const [fetchedPlaylists, setFetchedPlaylists] = useState([])
    const [fetchError, throwFetchError] = useState(false)
@@ -47,7 +47,6 @@ export default function App({ googleSuccess, googleFailure, logout }) {
          })
       }
       const youtubePlaylists = async () => {
-         throwFetchError(false)
          await youtube
             .get("/search", {
                params: {
@@ -57,16 +56,20 @@ export default function App({ googleSuccess, googleFailure, logout }) {
             })
             .then(res => {
                console.log('playlists', res.data.items)
+               throwFetchError(false)
                setFetchedPlaylists(res.data.items)
-               console.log(res.data.items);
                dispatch({ type: 'manage', components: { ...components, playlistItems: false } })
                if (res.data.items.length === 0) {
                   throwFetchError(true)
+               }
+               else {
+                  dispatch({ type: 'select', display: { ...display, channelTitle: res.data.items[0].snippet.channelTitle } })
                }
             })
             .catch(error => console.log(error))
       }
       youtubePlaylists()
+
 
    }, [dispatch, channelId])
 

@@ -238,6 +238,9 @@ nav .nav-logo {
    overflow: hidden;
    border-bottom: 1px solid white;
 }
+.player-frame iframe{
+   padding:10px 0px 10px 0px;
+}
 .player-header{
    width: 100%;
    margin-bottom: 10px;

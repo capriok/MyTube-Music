@@ -48,10 +48,10 @@ export default function MiniDisplay() {
       if (queue.length > 0 && !display.id) {
          await dispatch({
             type: 'select', display: {
+               ...display,
                title: queue[0].snippet.title,
                id: queue[0].id.videoId || queue[0].snippet.resourceId.videoId,
                channelTitle: queue[0].snippet.channelTitle,
-               publishedAt: queue[0].snippet.publishedAt
             }
          })
          await dispatch({
@@ -100,10 +100,9 @@ export default function MiniDisplay() {
          await dispatch({
             type: 'select',
             display: {
+               ...display,
                title: nextTrack.snippet.title,
                id: nextTrack.id.videoId || nextTrack.snippet.resourceId.videoId,
-               channelTitle: nextTrack.snippet.channelTitle,
-               publishedAt: nextTrack.snippet.publishedAt
             }
          })
          const newQueue = tail(queue)
@@ -148,7 +147,6 @@ export default function MiniDisplay() {
                onProgress={handleProgress}
                onEnded={handleEnd}
             />
-            <div className="player-desc"><span>{display.channelTitle}{published}</span></div>
          </div>
          {/* </div>)}
          </Transition> */}

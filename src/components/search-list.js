@@ -9,7 +9,7 @@ import './components.css'
 
 
 export default function SearchList({ items, activeState, isActive }) {
-   const [{ components, queue }, dispatch] = useStateValue()
+   const [{ components, display, queue }, dispatch] = useStateValue()
    const activity = activeState
 
    const handleSelect = async (item) => {
@@ -32,10 +32,8 @@ export default function SearchList({ items, activeState, isActive }) {
             components: {
                ...components,
                audioState: true,
-               // search: true,
-               // results: false,
-               // miniPlayer: true,
-               // fullPlayer: true,
+               results: false,
+               fullPlayer: true,
                playlist: true
             }
          })
@@ -50,26 +48,21 @@ export default function SearchList({ items, activeState, isActive }) {
             type: 'manage',
             components: {
                ...components,
-               // search: true,
-               // results: true,
-               // miniPlayer: true,
-               // fullPlayer: false,
+               results: true,
+               fullPlayer: false,
                playlist: true
             }
          })
       }
       else if (channel) {
-         await dispatch({
-            type: 'cId', channelId: item.snippet.channelId
-         })
+         await dispatch({ type: 'cId', channelId: item.snippet.channelId })
+         await dispatch({ type: 'select', display: { ...display, channelTitle: item.snippet.channelTitle } })
          await dispatch({
             type: 'manage',
             components: {
                ...components,
-               // search: true,
-               // results: true,
-               // miniPlayer: true,
-               // fullPlayer: false,
+               results: true,
+               fullPlayer: false,
                playlist: true
             }
          })
@@ -85,24 +78,6 @@ export default function SearchList({ items, activeState, isActive }) {
                   icon={queue.some(i => i.id === item.id) ? addedtoq : addtoq} />}
             </div>
          )}
-         <div className="list-item" ><span className="item-title">null</span></div>
-         <div className="list-item" ><span className="item-title">null</span></div>
-         <div className="list-item" ><span className="item-title">null</span></div>
-         <div className="list-item" ><span className="item-title">null</span></div>
-         <div className="list-item" ><span className="item-title">null</span></div>
-         <div className="list-item" ><span className="item-title">null</span></div>
-         <div className="list-item" ><span className="item-title">null</span></div>
-         <div className="list-item" ><span className="item-title">null</span></div>
-         <div className="list-item" ><span className="item-title">null</span></div>
-         <div className="list-item" ><span className="item-title">null</span></div>
-         <div className="list-item" ><span className="item-title">null</span></div>
-         <div className="list-item" ><span className="item-title">null</span></div>
-         <div className="list-item" ><span className="item-title">null</span></div>
-         <div className="list-item" ><span className="item-title">null</span></div>
-         <div className="list-item" ><span className="item-title">null</span></div>
-         <div className="list-item" ><span className="item-title">null</span></div>
-         <div className="list-item" ><span className="item-title">null</span></div>
-         <div className="list-item" ><span className="item-title">null</span></div>
       </div>
    )
 }
