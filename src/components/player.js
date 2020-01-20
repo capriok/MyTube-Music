@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useStateValue } from '../state'
+import ReactPlayer from 'react-player'
+import { Transition } from 'react-spring/renderprops'
+import _, { tail } from 'lodash'
 import play from '../img/play.png'
 import pause from '../img/pause.png'
 import next from '../img/next.png'
 import prev from '../img/prev.png'
-import './components.css'
 import up from '../img/up.png'
 import down from '../img/down.png'
-import ReactPlayer from 'react-player'
-import { Transition } from 'react-spring/renderprops'
-import _, { tail } from 'lodash'
+import './components.css'
 
 export default function MiniDisplay() {
    const [{ components, queue, display }, dispatch] = useStateValue()

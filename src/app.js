@@ -9,8 +9,8 @@ import Navbar from './components/navbar'
 import SearchForm from './components/search-form'
 import Player from './components/player'
 import Playlists from './components/playlist-list'
-import './index.css'
 import Queue from './components/queue'
+import './index.css'
 
 export default function App({ googleSuccess, googleFailure, logout }) {
    const [{ components, queue, auth, channelId }, dispatch] = useStateValue()

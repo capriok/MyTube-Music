@@ -5,7 +5,7 @@ import search from '../img/search.png'
 import './components.css'
 
 export default function Navbar({ initialComponentState }) {
-   const [{ components, channelId, playlistObj }, dispatch] = useStateValue()
+   const [{ components }, dispatch] = useStateValue()
 
 
    return (
