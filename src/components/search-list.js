@@ -15,6 +15,7 @@ export default function SearchList({ items, activeState, isActive }) {
    const handleSelect = async (item) => {
       const video = activity.video
       const playlist = activity.playlist
+      const channel = activity.channel
       if (video) {
          console.log('selected', item);
          await dispatch({
@@ -44,6 +45,23 @@ export default function SearchList({ items, activeState, isActive }) {
                id: item.id.playlistId,
                snippet: item.snippet
             }
+         })
+         await dispatch({
+            type: 'manage',
+            components: {
+               ...components,
+               search: true,
+               results: true,
+               miniPlayer: true,
+               fullPlayer: false,
+               playlist: true
+            }
+         })
+      }
+      else if (channel) {
+         console.log(item);
+         await dispatch({
+            type: 'cId', channelId: item.snippet.channelId
          })
          await dispatch({
             type: 'manage',

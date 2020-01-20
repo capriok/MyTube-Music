@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { StateProvider } from './state'
 import App from './app';
 import './index.css';
-import DraggableList from './components/queue-WIP'
 
 function Index() {
   let initialState = {
@@ -106,10 +105,10 @@ function Index() {
 
   return (
     <StateProvider initialState={initialState} reducer={reducer}>
-      {/* <App googleSuccess={googleSuccess} googleFailure={googleFailure} logout={logout} /> */}
+      <App googleSuccess={googleSuccess} googleFailure={googleFailure} logout={logout} />
     </StateProvider>
   )
 }
 
-ReactDOM.render(<DraggableList items={[1, 2, 3, 4, 5, 6, 7, 8]} />
+ReactDOM.render(<Index />
   , document.getElementById('root'));

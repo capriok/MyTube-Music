@@ -63,7 +63,7 @@ export default function SearchForm({ fetchedSearch, setFetchedSearch }) {
                   <button className={!boxState.playlist ? "op-box" : "op-box active"}
                      value='playlist' onClick={handleOp}>Playlist</button>
                   <button className={!boxState.channel ? "op-box" : "op-box active"}
-                     value='channel'>Channel</button>
+                     value='channel' onClick={handleOp}>Channel</button>
                </div>
             </div>
             <form className="search-form">
