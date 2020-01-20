@@ -1,5 +1,5 @@
 {
-  "name": "mytubemusic",
+  "name": "yt-player",
   "description": "Youtube Data API => Music Player",
   "version": "1.0.0",
   "private": true,
@@ -7,8 +7,8 @@
     "name": "Kyle Caprio"
   },
   "build": {
-    "appId": "com.my-website.my-app",
-    "productName": "Mytube Music",
+    "appId": "na",
+    "productName": "YT Player",
     "copyright": "Copyright © 2020 Kyle Caprio",
     "mac": {
       "category": "public.app-category.utilities"
