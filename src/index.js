@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { StateProvider } from './state'
 import App from './app';
 import './index.css';
+import AppTest from './component-test';
 
 function Index() {
   let initialState = {
@@ -105,10 +106,12 @@ function Index() {
 
   return (
     <StateProvider initialState={initialState} reducer={reducer}>
+      <AppTest />
       <App googleSuccess={googleSuccess} googleFailure={googleFailure} logout={logout} />
     </StateProvider>
   )
 }
 
-ReactDOM.render(<Index />
-  , document.getElementById('root'));
+ReactDOM.render(<Index />, document.getElementById('root'));
+
+// ReactDOM.render(<Index />, document.getElementById('root'));
