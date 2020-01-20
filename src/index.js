@@ -19,6 +19,7 @@ function Index() {
       miniPlayer: true,
       fullPlayer: false,
       playlist: true,
+      playlistItems: true,
     },
     display: {
       title: '',

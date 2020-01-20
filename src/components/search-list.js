@@ -32,10 +32,10 @@ export default function SearchList({ items, activeState, isActive }) {
             components: {
                ...components,
                audioState: true,
-               search: true,
-               results: false,
-               miniPlayer: true,
-               fullPlayer: true,
+               // search: true,
+               // results: false,
+               // miniPlayer: true,
+               // fullPlayer: true,
                playlist: true
             }
          })
@@ -50,16 +50,15 @@ export default function SearchList({ items, activeState, isActive }) {
             type: 'manage',
             components: {
                ...components,
-               search: true,
-               results: true,
-               miniPlayer: true,
-               fullPlayer: false,
+               // search: true,
+               // results: true,
+               // miniPlayer: true,
+               // fullPlayer: false,
                playlist: true
             }
          })
       }
       else if (channel) {
-         console.log(item);
          await dispatch({
             type: 'cId', channelId: item.snippet.channelId
          })
@@ -67,10 +66,10 @@ export default function SearchList({ items, activeState, isActive }) {
             type: 'manage',
             components: {
                ...components,
-               search: true,
-               results: true,
-               miniPlayer: true,
-               fullPlayer: false,
+               // search: true,
+               // results: true,
+               // miniPlayer: true,
+               // fullPlayer: false,
                playlist: true
             }
          })

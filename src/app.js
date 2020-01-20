@@ -16,6 +16,7 @@ export default function App({ googleSuccess, googleFailure, logout }) {
    const [{ components, queue, auth, channelId }, dispatch] = useStateValue()
    const [fetchedSearch, setFetchedSearch] = useState([])
    const [fetchedPlaylists, setFetchedPlaylists] = useState([])
+   const [fetchError, throwFetchError] = useState(false)
    //////////////////////////////////// COMPONENT STATES
    const initialComponentState = async () => {
       await dispatch({
@@ -46,6 +47,7 @@ export default function App({ googleSuccess, googleFailure, logout }) {
          })
       }
       const youtubePlaylists = async () => {
+         throwFetchError(false)
          await youtube
             .get("/search", {
                params: {
@@ -56,10 +58,16 @@ export default function App({ googleSuccess, googleFailure, logout }) {
             .then(res => {
                console.log('playlists', res.data.items)
                setFetchedPlaylists(res.data.items)
+               console.log(res.data.items);
+               dispatch({ type: 'manage', components: { ...components, playlistItems: false } })
+               if (res.data.items.length === 0) {
+                  throwFetchError(true)
+               }
             })
             .catch(error => console.log(error))
       }
       youtubePlaylists()
+
    }, [dispatch, channelId])
 
    useEffect(() => {
@@ -101,7 +109,7 @@ export default function App({ googleSuccess, googleFailure, logout }) {
                            </div>}
                            {components.playlist &&
                               <div className="section playlist">
-                                 <Playlists fetchedPlaylists={fetchedPlaylists} />
+                                 <Playlists fetchedPlaylists={fetchedPlaylists} fetchError={fetchError} />
                               </div>}
                            {components.miniPlayer &&
                               <div className={components.fullPlayer ? "section" : "section player"} style={{ marginTop: 'auto' }} >

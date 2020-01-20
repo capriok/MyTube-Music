@@ -40,7 +40,6 @@ nav .nav-logo {
    align-items: center;
    overflow: scroll;
    user-select: none;
-   margin-top: 10px;
 }
 .list-item{
    display: flex;
@@ -74,6 +73,9 @@ nav .nav-logo {
    white-space: nowrap;
    font-size:calc(12px + .32vw);
 }
+.error{
+   justify-content: center;
+}
 
 /* ITEM LIST END */
 
@@ -89,7 +91,8 @@ nav .nav-logo {
    display: flex;
    flex-wrap: wrap;
    position: sticky;
-   top: 0px;
+   top: 0;
+   margin-bottom: 10px;
    z-index: 20;
    background-color: rgb(40, 40, 40);
 }
@@ -159,7 +162,6 @@ nav .nav-logo {
 
 /* PLAYLIST */
 
-
 .playlist-parent{
    display: flex;
    flex-wrap: wrap;
@@ -177,6 +179,7 @@ nav .nav-logo {
 .playlist-one h1{
    width: 100%;
 }
+.playlist-two{margin-bottom: 10px;}
 .playlist-pos{
    position: absolute;
    top:15px;

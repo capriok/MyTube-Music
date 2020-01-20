@@ -7,10 +7,9 @@ import addedtoq from '../img/addedtoq.png'
 import Qbutton from './qbutton'
 import './components.css'
 
-export default function PlaylistList({ fetchedPlaylists }) {
+export default function PlaylistList({ fetchedPlaylists, fetchError }) {
    const [{ components, queue, playlistObj }, dispatch] = useStateValue()
    const [playlistItems, setPlaylistItems] = useState([])
-   const [displayItems, toDisplayItems] = useState(false)
    const [sectionTitle, setTitle] = useState()
 
    const playlistSelect = async (item) => {
@@ -23,7 +22,7 @@ export default function PlaylistList({ fetchedPlaylists }) {
          })
          .then(res => setPlaylistItems(res.data.items))
          .catch(error => console.log(error))
-      toDisplayItems(true)
+      dispatch({ type: 'manage', components: { ...components, playlistItems: true } })
       setTitle(item.snippet.title)
    }
 
@@ -64,7 +63,7 @@ export default function PlaylistList({ fetchedPlaylists }) {
                })
                .then(res => setPlaylistItems(res.data.items))
                .catch(error => console.log(error))
-            toDisplayItems(true)
+            dispatch({ type: 'manage', components: { ...components, playlistItems: true } })
             setTitle(playlistObj.snippet.title)
             console.log('playlistObj', playlistObj);
          }
@@ -77,13 +76,13 @@ export default function PlaylistList({ fetchedPlaylists }) {
          <div className="playlit-parent">
             <div className="playlist-one">
                <h1>
-                  <SectionHead goBack={toDisplayItems} displayItems={displayItems} />
-                  {displayItems ? sectionTitle : 'Playlists'}
+                  <SectionHead />
+                  {components.playlistItems ? sectionTitle : 'Playlists'}
                </h1>
             </div>
             <div className="playlist-two">
                <div className="item-list">
-                  {!displayItems ?
+                  {!components.playlistItems ?
                      fetchedPlaylists.map((item, index) =>
                         <div className="list-item" key={index} onClick={() => playlistSelect(item)}>
                            <div className="item-title">{item.snippet.title}</div>
@@ -97,6 +96,9 @@ export default function PlaylistList({ fetchedPlaylists }) {
                               icon={queue.some(i => i.id === item.id) ? addedtoq : addtoq} />
                         </div>
                      )
+                  }
+                  {fetchError &&
+                     <div className="list-item"><span className="item-title error">No playlists found</span></div>
                   }
                   <div className="list-item"><span className="item-title">null</span></div>
                   <div className="list-item"><span className="item-title">null</span></div>
