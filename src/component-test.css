@@ -1,0 +1,35 @@
+.AppTest {
+  font-family: sans-serif;
+  font-size: 1.5rem;
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(0, 0, 0, .7);
+  z-index: 100;
+}
+
+.AppTest main {
+  background-color: #383838;
+  color: #fff;
+  padding: 10px;
+}
+
+.AppTest ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.AppTest ul li {
+  background-color: #383838;
+  padding: 10px ;
+  position: relative;
+}
+
+.AppTest li .drag {
+  cursor: move;
+}
