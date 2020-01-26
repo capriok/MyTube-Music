@@ -1,14 +1,12 @@
 import React from 'react'
-import './component-test.css'
+import '../component-test.css'
 
 export default class AppTest extends React.Component {
   constructor(props) {
     super(props)
-    this.items = props.queue
     this.state = {
-      items: this.items
+      items: [1, 2, 3, 4]
     }
-    console.log(this.items)
   }
 
   onDragStart = (e, index) => {
