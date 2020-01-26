@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom'
 import { StateProvider } from './state'
 import App from './app'
 import './index.css'
-import AppTest from './component-test'
 
 function Index() {
   let initialState = {
@@ -13,7 +12,7 @@ function Index() {
       user: {}
     },
     components: {
-      queue: true,
+      queue: false,
       audioState: false,
       search: true,
       results: false,
@@ -109,7 +108,6 @@ function Index() {
 
   return (
     <StateProvider initialState={initialState} reducer={reducer}>
-      {/* <AppTest queue={initialState.queue} /> */}
       <App
         googleSuccess={googleSuccess}
         googleFailure={googleFailure}

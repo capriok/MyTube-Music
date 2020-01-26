@@ -13,6 +13,7 @@ import './components.css'
 
 export default function MiniDisplay() {
   const [{ components, queue, display }, dispatch] = useStateValue()
+  const [qLen, setQlen] = useState(0)
   const [played, setPlayed] = useState(0)
   const [startTime] = useState(0)
   const [volume, setVolume] = useState(0)
@@ -65,7 +66,6 @@ export default function MiniDisplay() {
         }
       })
       const newQueue = tail(queue)
-      console.log('newQueue', newQueue)
       await dispatch({
         type: 'addtoq',
         queue: newQueue
@@ -117,8 +117,9 @@ export default function MiniDisplay() {
   }
 
   useEffect(() => {
-    if (queue.length > 0) {
-      console.log(queue)
+    setQlen(queue.length)
+    if (queue.length !== qLen) {
+      console.log('newQueue', queue)
     }
   }, [queue])
 

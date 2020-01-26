@@ -10,8 +10,6 @@ import SearchForm from './components/search-form'
 import Player from './components/player'
 import Playlists from './components/playlist-list'
 import Queue from './components/queue'
-import QueueTest from './components/queue-test'
-import QueueTestHook from './component-test-hook'
 import './index.css'
 
 export default function App({ googleSuccess, googleFailure, logout }) {
@@ -146,9 +144,7 @@ export default function App({ googleSuccess, googleFailure, logout }) {
                     )}
                     {components.queue && (
                       <div className='section queue'>
-                        {/* <Queue /> */}
-                        {/* <QueueTest /> */}
-                        <QueueTestHook />
+                        <Queue />
                       </div>
                     )}
                   </>

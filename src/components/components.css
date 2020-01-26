@@ -122,7 +122,7 @@ nav .nav-logo {
 .active {
   background-color: rgba(0, 0, 0, 0.5);
 }
-n .search-form {
+.search-form {
   display: flex;
   flex: 3;
   align-items: center;
@@ -309,6 +309,14 @@ button {
 .queue-item {
   width: 100%;
   margin: 2px;
+  cursor: grab;
+}
+.queue-item:disabled {
+  cursor: not-allowed;
+  pointer-events: all !important;
+}
+.queue-item:active {
+  cursor: grabbing;
 }
 .item-button {
   color: black;
