@@ -311,13 +311,6 @@ button {
   margin: 2px;
   cursor: grab;
 }
-.queue-item:disabled {
-  cursor: not-allowed;
-  pointer-events: all !important;
-}
-.queue-item:active {
-  cursor: grabbing;
-}
 .item-button {
   color: black;
   width: 23px;
