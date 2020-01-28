@@ -132,12 +132,8 @@ export default function MiniDisplay() {
   return (
     <>
       <div
-        className={
-          components.fullPlayer ? 'player-frame' : 'player-frame-hide'
-        }>
-        <div className='player-header'>
-          <h2>{display.title}</h2>
-        </div>
+        className={components.fullPlayer ? 'player-frame' : 'player-frame-hide'}>
+        <div className='player-header'><h2>{display.title}</h2></div>
         <ReactPlayer
           ref={playerRef}
           url={vidSrc}
@@ -149,11 +145,10 @@ export default function MiniDisplay() {
       </div>
       <div className='player-display'>
         <div className='player-event' onClick={toggleFull}>
-          {components.fullPlayer ? (
-            <img src={down} alt='' />
-          ) : (
-            <img src={up} alt='' />
-          )}
+          {components.fullPlayer
+            ? <img src={down} alt='' />
+            : <img src={up} alt='' />
+          }
         </div>
         <div className='player-title'></div>
         <input
@@ -176,22 +171,15 @@ export default function MiniDisplay() {
         <div className='player-controls'>
           <img src={prev} alt='' />
           {components.audioState ? (
-            <img
-              src={pause}
-              alt=''
-              onClick={() =>
-                dispatch({
-                  type: 'manage',
-                  components: {
-                    ...components,
-                    audioState: !components.audioState
-                  }
-                })
-              }
+            <img src={pause} alt='' onClick={() =>
+              dispatch({
+                type: 'manage', components: { ...components, audioState: !components.audioState }
+              })
+            }
             />
           ) : (
-            <img src={play} alt='' onClick={handlePlay} />
-          )}
+              <img src={play} alt='' onClick={handlePlay} />
+            )}
           <img src={next} onClick={handleEnd} alt='' />
         </div>
       </div>

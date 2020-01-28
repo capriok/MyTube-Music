@@ -11,7 +11,7 @@ export default function Navbar({ initialComponentState }) {
    return (
       <nav>
          <div onClick={initialComponentState}>
-            <img className="nav-logo" src={logo} alt=""></img>
+            <img className="nav-logo" src={logo} alt=""/>
          </div>
          <div className="nav-buttons">
             <img className="nav-button" src={search} alt=""

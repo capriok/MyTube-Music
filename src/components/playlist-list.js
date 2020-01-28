@@ -83,14 +83,13 @@ export default function PlaylistList({ fetchedPlaylists, fetchError }) {
             </div>
             <div className="playlist-two">
                <div className="item-list">
-                  {!components.playlistItems ?
-                     fetchedPlaylists.map((item, index) =>
+                  {!components.playlistItems
+                     ? fetchedPlaylists.map((item, index) =>
                         <div className="list-item" key={index} onClick={() => playlistSelect(item)}>
                            <div className="item-title">{item.snippet.title}</div>
                         </div>
                      )
-                     :
-                     playlistItems.map((item, index) =>
+                     : playlistItems.map((item, index) =>
                         <div className="list-item" key={index}>
                            <div className="item-title" onClick={() => itemSelect(item)}>{item.snippet.title}</div>
                            <Qbutton className="item-button" item={item}

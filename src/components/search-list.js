@@ -74,8 +74,9 @@ export default function SearchList({ items, activeState, isActive }) {
          {items.map((item, index) =>
             <div className="list-item" key={index}>
                <div className="item-title" onClick={() => handleSelect(item)}>{decoder(item.snippet.title)}</div>
-               {isActive && <Qbutton item={item}
-                  icon={queue.some(i => i.id === item.id) ? addedtoq : addtoq} />}
+               {isActive &&
+                  <Qbutton item={item} icon={queue.some(i => i.id === item.id) ? addedtoq : addtoq} />
+               }
             </div>
          )}
       </div>

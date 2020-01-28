@@ -16,12 +16,10 @@ export default function SectionHead({ goBack }) {
    return (
       <div className="playlist-pos">
          {components.playlistItems
-            ? <div className="playlist-event"
-               onClick={() => dispatch({
-                  type: 'manage',
-                  components: { ...components, playlistItems: false }
-               })
-               } ><img src={backIcon} alt="" /></div>
+            ? <div className="playlist-event" onClick={() => dispatch({
+               type: 'manage', components: { ...components, playlistItems: false }
+            })}>
+               <img src={backIcon} alt="" /></div>
             : <>
                <div className="playlist-url"  >
                   <img src={urlIcon} alt="" onClick={() => toDisplayUrlField(!displayUrlField)} />

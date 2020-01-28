@@ -21,12 +21,7 @@ export default function Qbutton({ item, icon }) {
 
   return (
     <>
-      <img
-        src={icon}
-        className='item-button'
-        alt=''
-        onClick={() => handleAdd(item)}
-      />
+      <img src={icon} className='item-button' alt='' onClick={() => handleAdd(item)}/>
     </>
   )
 }

@@ -60,8 +60,7 @@ export default function SearchForm({ fetchedSearch, setFetchedSearch }) {
           <div className='ops-float'>
             <button
               className={!boxState.video ? 'op-box' : 'op-box active'}
-              value='video'
-              onClick={handleOp}>
+              value='video' onClick={handleOp}>
               Video
             </button>
             <button
@@ -80,11 +79,7 @@ export default function SearchForm({ fetchedSearch, setFetchedSearch }) {
         </div>
         <form className='search-form'>
           <div className='input-form'>
-            <input
-              type='text'
-              onChange={e => setSearchValue(e.target.value)}
-              placeholder='Search'
-            />
+            <input type='text' onChange={e => setSearchValue(e.target.value)} placeholder='Search' />
             <button onClick={handleSearch}>GO</button>
           </div>
         </form>
@@ -96,18 +91,15 @@ export default function SearchForm({ fetchedSearch, setFetchedSearch }) {
             from={{ position: 'relative', top: '-10px', opacity: 0 }}
             enter={{ position: 'relative', top: '0px', opacity: 1 }}
             leave={{ position: 'relative', top: '-20px', opacity: 0 }}>
-            {results =>
-              results &&
-              (props => (
-                <div style={props}>
-                  <SearchList
-                    items={fetchedSearch}
-                    activeState={boxState}
-                    isActive={isActive}
-                  />
-                </div>
-              ))
-            }
+            {results => results && (props => (
+              <div style={props}>
+                <SearchList
+                  items={fetchedSearch}
+                  activeState={boxState}
+                  isActive={isActive}
+                />
+              </div>
+            ))}
           </Transition>
         </div>
       )}
