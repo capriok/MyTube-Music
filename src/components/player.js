@@ -131,12 +131,6 @@ export default function MiniDisplay() {
 
   return (
     <>
-      {/* <Transition
-            items={player}
-            from={{ opacity: 0, }}
-            enter={{ opacity: 1, }}
-            leave={{ opacity: 0, }}>
-            {player => player && (props => <div style={props}> */}
       <div
         className={
           components.fullPlayer ? 'player-frame' : 'player-frame-hide'
@@ -153,8 +147,6 @@ export default function MiniDisplay() {
           onEnded={handleEnd}
         />
       </div>
-      {/* </div>)}
-         </Transition> */}
       <div className='player-display'>
         <div className='player-event' onClick={toggleFull}>
           {components.fullPlayer ? (
