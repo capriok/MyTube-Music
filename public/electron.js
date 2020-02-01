@@ -12,7 +12,7 @@ function createWindow() {
     // width: 700,
     width: 1300,
     minWidth: 500,
-    maxWidth: 1300,
+    // maxWidth: 1300,
     height: 1400,
     minHeight: 1200,
     maxHeight: 1600

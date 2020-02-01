@@ -1,15 +1,18 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import { StateProvider } from './state'
 import App from './app'
 import './index.css'
 
 function Index() {
+  const userObj = JSON.parse(localStorage.getItem('MT-user'))
+  console.log(userObj);
+
   let initialState = {
     auth: {
       isAuthenticated: false,
       token: '',
-      user: {}
+      user: userObj
     },
     components: {
       queue: false,
@@ -72,12 +75,12 @@ function Index() {
   }
 
   const googleSuccess = res => {
+    localStorage.setItem('MT-res', JSON.stringify(res))
     initialState.auth.isAuthenticated = true
     initialState.auth.token = res.Zi.access_token
     initialState.auth.user = res.w3.ig
-
-    localStorage.setItem('YTP-token', res.Zi.access_token)
-    localStorage.setItem('YTP-user', res.w3.ig)
+    localStorage.setItem('MT-token', res.Zi.access_token)
+    localStorage.setItem('MT-user', JSON.stringify(res.profileObj))
     window.location.href = '/'
   }
   const googleFailure = res => {
@@ -90,15 +93,19 @@ function Index() {
   }
 
   useEffect(() => {
-    console.log(initialState.queue)
+    if (initialState.queue.length > 0) {
+      console.log(initialState.queue)
+    }
   }, [initialState.queue])
 
   useEffect(() => {
-    let authorize = localStorage.getItem('YTP-token')
+    let authorize = localStorage.getItem('MT-token')
+    let authedUser = localStorage.getItem('MT-user')
     if (authorize) {
       initialState.auth.isAuthenticated = true
       console.log('Welcome to YT Player')
       console.log('Auth Status ->', initialState.auth.isAuthenticated)
+      console.log('Authed User ->', initialState.auth.user.name)
       console.log('channelFetchId ->', initialState.channelId)
     }
     if (!initialState.display.id) {

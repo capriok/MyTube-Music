@@ -1,17 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useStateValue } from '.././state'
 import logo from '../img/logo.png'
 import search from '../img/search.png'
 import './components.css'
 
 export default function Navbar({ initialComponentState }) {
-   const [{ components }, dispatch] = useStateValue()
-
+   const [{ components, auth }, dispatch] = useStateValue()
+   const [profilePic] = useState(auth.user.imageUrl)
 
    return (
       <nav>
+         <img className="nav-profile" src={profilePic} alt="" />
          <div onClick={initialComponentState}>
-            <img className="nav-logo" src={logo} alt=""/>
+            <img className="nav-logo" src={logo} alt="" />
          </div>
          <div className="nav-buttons">
             <img className="nav-button" src={search} alt=""

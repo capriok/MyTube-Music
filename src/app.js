@@ -13,10 +13,7 @@ import Queue from './components/queue'
 import './index.css'
 
 export default function App({ googleSuccess, googleFailure, logout }) {
-  const [
-    { components, queue, auth, channelId, display },
-    dispatch
-  ] = useStateValue()
+  const [{ components, queue, auth, channelId, display }, dispatch] = useStateValue()
   const [fetchedSearch, setFetchedSearch] = useState([])
   const [fetchedPlaylists, setFetchedPlaylists] = useState([])
   const [fetchError, throwFetchError] = useState(false)
@@ -37,8 +34,8 @@ export default function App({ googleSuccess, googleFailure, logout }) {
   }
   //////////////////////////////////// USEEFFECT
   useEffect(() => {
-    const token = localStorage.getItem('YTP-token')
-    const user = localStorage.getItem('YTP-user')
+    const token = localStorage.getItem('MT-token')
+    const user = localStorage.getItem('MT-user')
     if (token !== null) {
       dispatch({
         type: 'login',
@@ -54,11 +51,12 @@ export default function App({ googleSuccess, googleFailure, logout }) {
         .get('/search', {
           params: {
             ...params.playlist,
-            channelId: channelId
+            channelId: channelId,
+            maxResults: 0
           }
         })
         .then(res => {
-          console.log('playlists', res.data.items)
+          if (res.items.length === undefined) { console.log('playlists', res.data.items) }
           throwFetchError(false)
           setFetchedPlaylists(res.data.items)
           dispatch({
@@ -109,59 +107,59 @@ export default function App({ googleSuccess, googleFailure, logout }) {
             theme='dark'
           />
         ) : (
-          <Router>
-            <Switch>
-              <Route
-                exact
-                path='/'
-                render={() => (
-                  <>
-                    <div className='section nav'></div>
-                    {components.search && (
-                      <div className='section search'>
-                        <SearchForm
-                          fetchedSearch={fetchedSearch}
-                          setFetchedSearch={setFetchedSearch}
-                        />
-                      </div>
-                    )}
-                    {components.playlist && (
-                      <div className='section playlist'>
-                        <Playlists
-                          fetchedPlaylists={fetchedPlaylists}
-                          fetchError={fetchError}
-                        />
-                      </div>
-                    )}
-                    {components.miniPlayer && (
-                      <div
-                        className={
-                          components.fullPlayer ? 'section' : 'section player'
-                        }
-                        style={{ marginTop: 'auto' }}>
-                        <Player />
-                      </div>
-                    )}
-                    {components.queue && (
-                      <div className='section queue'>
-                        <Queue />
-                      </div>
-                    )}
-                  </>
-                )}
-              />
-              <Route
-                exact
-                path='/settings'
-                render={() => (
-                  <button onClick={logout} className='logout-button'>
-                    LOGOUT
+            <Router>
+              <Switch>
+                <Route
+                  exact
+                  path='/'
+                  render={() => (
+                    <>
+                      <div className='section nav'></div>
+                      {components.search && (
+                        <div className='section search'>
+                          <SearchForm
+                            fetchedSearch={fetchedSearch}
+                            setFetchedSearch={setFetchedSearch}
+                          />
+                        </div>
+                      )}
+                      {components.playlist && (
+                        <div className='section playlist'>
+                          <Playlists
+                            fetchedPlaylists={fetchedPlaylists}
+                            fetchError={fetchError}
+                          />
+                        </div>
+                      )}
+                      {components.miniPlayer && (
+                        <div
+                          className={
+                            components.fullPlayer ? 'section' : 'section player'
+                          }
+                          style={{ marginTop: 'auto' }}>
+                          <Player />
+                        </div>
+                      )}
+                      {components.queue && (
+                        <div className='section queue'>
+                          <Queue />
+                        </div>
+                      )}
+                    </>
+                  )}
+                />
+                <Route
+                  exact
+                  path='/settings'
+                  render={() => (
+                    <button onClick={logout} className='logout-button'>
+                      LOGOUT
                   </button>
-                )}
-              />
-            </Switch>
-          </Router>
-        )}
+                  )}
+                />
+              </Switch>
+            </Router>
+          )}
       </div>
     </div>
   )

@@ -10,9 +10,16 @@ nav {
   user-select: none;
   background-color: rgba(0, 0, 0, 1);
   z-index: 100;
-  box-shadow: -0px 1px 10px black;
+  /* box-shadow: -0px 1px 10px black; */
 }
-nav .nav-logo {
+.nav-profile{
+  border-radius: 50%;
+  position: absolute;
+  left:0;
+  margin: 10px;
+  width: 30px;
+}
+.nav-logo {
   height: 50px;
   cursor: pointer;
 }
@@ -21,7 +28,7 @@ nav .nav-logo {
   margin-top: 3px;
   right: 0px;
 }
-.nav-buttons img {
+.nav-buttons img{
   height: 25px;
   margin: 10px;
 }
