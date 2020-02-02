@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useStateValue } from '../state'
 import ReactPlayer from 'react-player'
-import { Transition } from 'react-spring/renderprops'
-import _, { tail } from 'lodash'
+import { tail } from 'lodash'
 import play from '../img/play.png'
 import pause from '../img/pause.png'
 import next from '../img/next.png'
@@ -18,8 +17,8 @@ export default function MiniDisplay() {
   const [startTime] = useState(0)
   const [volume, setVolume] = useState(0)
   const [seeking, setSeeking] = useState(false)
-  const player = components.fullPlayer
-  const published = display.publishedAt
+  // const player = components.fullPlayer
+  // const published = display.publishedAt
   const playing = components.audioState
 
   const toggleFull = () => {
@@ -96,44 +95,35 @@ export default function MiniDisplay() {
   }
 
   const handleEnd = async () => {
-    if (queue.length > 0) {
-      const nextTrack = queue[0]
-      console.log('nextTrack', nextTrack)
-      await dispatch({
-        type: 'select',
-        display: {
-          ...display,
-          title: nextTrack.snippet.title,
-          id: nextTrack.id.videoId || nextTrack.snippet.resourceId.videoId
-        }
-      })
-      const newQueue = tail(queue)
-      console.log('newQueue', newQueue)
-      await dispatch({
-        type: 'addtoq',
-        queue: newQueue
-      })
-    }
+    const nextTrack = queue[0]
+    console.log('nextTrack', nextTrack)
+    await dispatch({
+      type: 'select',
+      display: {
+        ...display,
+        title: nextTrack.snippet.title,
+        id: nextTrack.id.videoId || nextTrack.snippet.resourceId.videoId
+      }
+    })
+    const newQueue = tail(queue)
+    console.log('newQueue', newQueue)
+    await dispatch({
+      type: 'addtoq',
+      queue: newQueue
+    })
   }
 
-  useEffect(() => {
-    setQlen(queue.length)
-    if (queue.length !== qLen) {
-      console.log('newQueue', queue)
-    }
-  }, [queue])
-
-  useEffect(() => {
-    // console.log(display.id);
-    let vidSrc = `https://www.youtube.com/embed/${display.id}?autoplay=1&start=${startTime}`
-    // console.log(vidSrc);
-  }, [queue, display])
+  // useEffect(() => {
+  //   setQlen(queue.length)
+  //   if (queue.length !== qLen) {
+  //     console.log('newQueue', queue)
+  //   }
+  // }, [queue])
 
   return (
     <>
-      <div
-        className={components.fullPlayer ? 'player-frame' : 'player-frame-hide'}>
-        <div className='player-header'><h2>{display.title}</h2></div>
+      {components.fullPlayer && <div className='player-header'><h2>{display.title}</h2></div>}
+      <div className={components.fullPlayer ? 'player-frame' : 'player-frame-hide'}>
         <ReactPlayer
           ref={playerRef}
           url={vidSrc}

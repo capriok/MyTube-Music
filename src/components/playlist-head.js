@@ -3,8 +3,8 @@ import { useStateValue } from '../state'
 import backIcon from '../img/back.png'
 import urlIcon from '../img/url.png'
 
-export default function SectionHead({ goBack }) {
-   const [{ components, channelId }, dispatch] = useStateValue()
+export default function SectionHead({ updateTitle }) {
+   const [{ components, auth, channelId }, dispatch] = useStateValue()
    const [displayUrlField, toDisplayUrlField] = useState(false)
    const [value, setValue] = useState()
 
@@ -16,9 +16,12 @@ export default function SectionHead({ goBack }) {
    return (
       <div className="playlist-pos">
          {components.playlistItems
-            ? <div className="playlist-event" onClick={() => dispatch({
-               type: 'manage', components: { ...components, playlistItems: false }
-            })}>
+            ? <div className="playlist-event" onClick={() => {
+               dispatch({
+                  type: 'manage', components: { ...components, playlistItems: false }
+               })
+               updateTitle(JSON.parse(auth.user).name)
+            }}>
                <img src={backIcon} alt="" /></div>
             : <>
                <div className="playlist-url"  >

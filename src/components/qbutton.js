@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useStateValue } from '../state'
 import { remove } from 'lodash'
 
@@ -21,7 +21,7 @@ export default function Qbutton({ item, icon }) {
 
   return (
     <>
-      <img src={icon} className='item-button' alt='' onClick={() => handleAdd(item)}/>
+      <img src={icon} className='item-button' alt='' onClick={() => handleAdd(item)} />
     </>
   )
 }

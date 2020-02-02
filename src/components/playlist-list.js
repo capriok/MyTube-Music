@@ -8,9 +8,9 @@ import Qbutton from './qbutton'
 import './components.css'
 
 export default function PlaylistList({ fetchedPlaylists, fetchError }) {
-   const [{ components, display, queue, playlistObj, auth }, dispatch] = useStateValue()
+   const [{ components, queue, playlistObj, auth }, dispatch] = useStateValue()
    const [playlistItems, setPlaylistItems] = useState([])
-   const [sectionTitle, setTitle] = useState(auth.user.name)
+   const [sectionTitle, setTitle] = useState(JSON.parse(auth.user).name)
 
    const playlistSelect = async (item) => {
       await youtube
@@ -72,20 +72,13 @@ export default function PlaylistList({ fetchedPlaylists, fetchError }) {
       }
    }, [playlistObj])
 
-   useEffect(() => {
-      console.log(auth.user);
-
-      return () => {
-
-      };
-   }, [])
    return (
       <>
          <div className="playlit-parent">
             <div className="playlist-one">
                <h1>
-                  <SectionHead />
-                  {components.playlistItems ? sectionTitle : display.channelTitle}
+                  <SectionHead updateTitle={setTitle} />
+                  {sectionTitle}
                </h1>
             </div>
             <div className="playlist-two">

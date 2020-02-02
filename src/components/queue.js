@@ -27,14 +27,17 @@ export default function AppTest() {
     dispatch({ type: 'addtoq', queue: newItems })
   }
 
-  const onDragEnd = e => {
+  const onDragEnd = () => {
     isDragging(false)
-    console.log('newQueue', queue)
   }
 
   useEffect(() => {
     setItems(queue)
   }, [queue])
+
+  useEffect(() => {
+    !dragging && console.log('newQueue', queue)
+  }, [dragging])
 
   useEffect(() => {
     onDragOver()
@@ -49,7 +52,7 @@ export default function AppTest() {
           className='queue-li'
           onDragStart={e => onDragStart(e, idx)}
           onDragOver={() => onDragOver(idx)}
-          onDragEnd={e => onDragEnd(e)}>
+          onDragEnd={() => onDragEnd()}>
           <div
             draggable={true}
             className='queue-item'

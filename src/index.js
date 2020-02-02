@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import { StateProvider } from './state'
-import App from './app'
+import App from './app-test'
 import './index.css'
 
 function Index() {
@@ -18,7 +18,7 @@ function Index() {
       queue: false,
       audioState: false,
       search: true,
-      results: false,
+      results: true,
       miniPlayer: true,
       fullPlayer: false,
       playlist: true,
@@ -34,7 +34,7 @@ function Index() {
       id: '',
       snippet: {}
     },
-    channelId: 'UC7Zyh4_j6BZEZtjnuS-PMOg'
+    channelId: ''
   }
 
   const reducer = (state, action) => {
@@ -99,19 +99,24 @@ function Index() {
   }, [initialState.queue])
 
   useEffect(() => {
+    if (!initialState.display.id) {
+      initialState.components.fullPlayer = false
+    }
+  }, [initialState.display.id, initialState.components.fullPlayer])
+
+  useEffect(() => {
     let authorize = localStorage.getItem('MT-token')
-    let authedUser = localStorage.getItem('MT-user')
     if (authorize) {
       initialState.auth.isAuthenticated = true
       console.log('Welcome to YT Player')
       console.log('Auth Status ->', initialState.auth.isAuthenticated)
       console.log('Authed User ->', initialState.auth.user.name)
       console.log('channelFetchId ->', initialState.channelId)
+      console.log('----------TODOS----------');
+      console.log('fix onEnd playing nextTrack when queue is dragged');
     }
-    if (!initialState.display.id) {
-      initialState.components.fullPlayer = false
-    }
-  }, [initialState.auth.isAuthenticated, initialState.channelId])
+
+  }, [initialState.auth.isAuthenticated, initialState.channelId, initialState.auth.user.name])
 
   return (
     <StateProvider initialState={initialState} reducer={reducer}>
