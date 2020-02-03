@@ -12,11 +12,31 @@ import Playlists from './components/playlist-list'
 import Queue from './components/queue'
 import './index.css'
 
-export default function App({ googleSuccess, googleFailure, logout }) {
+export default function App(googleSuccess, googleFailure, logout) {
   const [{ components, queue, user, auth, channelId, display }, dispatch] = useStateValue()
   const [fetchedSearch, setFetchedSearch] = useState([])
   const [fetchedPlaylists, setFetchedPlaylists] = useState([])
   const [fetchError, throwFetchError] = useState(false)
+
+  // const googleSuccess = res => {
+  //   dispatch({
+  //     type: 'login',
+  //     auth: {
+  //       isAuthenticated: true,
+  //       token: res.tokenObj.access_token
+  //     }
+  //   })
+  //   localStorage.setItem('MT-token', res.tokenObj.access_token)
+  //   localStorage.setItem('MT-user', JSON.stringify(res.profileObj))
+  // }
+  // const googleFailure = res => {
+  //   console.log(res)
+  // }
+
+  // const logout = () => {
+  //   localStorage.removeItem('token')
+  //   window.location.href = '/'
+  // }
 
   const initialComponentState = async () => {
     await dispatch({
@@ -56,7 +76,7 @@ export default function App({ googleSuccess, googleFailure, logout }) {
           }
         })
         .then(res => {
-          if (res.items === undefined) { console.log('playlists', res.data.items) }
+          if (res.items === undefined && auth.isAuthenticated) { console.log('playlists', res.data.items) }
           throwFetchError(false)
           setFetchedPlaylists(res.data.items)
           dispatch({
@@ -78,7 +98,7 @@ export default function App({ googleSuccess, googleFailure, logout }) {
         .catch(error => console.log(error))
     }
     youtubePlaylists()
-  }, [dispatch, channelId])
+  }, [channelId])
 
   useEffect(() => {
     if (queue.length < 1) {
