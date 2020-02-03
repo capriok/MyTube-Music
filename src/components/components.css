@@ -36,6 +36,16 @@ nav {
   cursor: pointer;
   margin-right: 20px;
 }
+.logout-bin{
+  position: absolute;
+  left:0;
+  top: 50px;
+  background-color: black;
+}
+.logout-icon img{
+  width: 30px;
+  padding: 5px;
+}
 
 /* NAVABR END */
 

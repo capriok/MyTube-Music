@@ -13,11 +13,11 @@ import Queue from './components/queue'
 import './index.css'
 
 export default function App({ googleSuccess, googleFailure, logout }) {
-  const [{ components, queue, auth, channelId, display }, dispatch] = useStateValue()
+  const [{ components, queue, user, auth, channelId, display }, dispatch] = useStateValue()
   const [fetchedSearch, setFetchedSearch] = useState([])
   const [fetchedPlaylists, setFetchedPlaylists] = useState([])
   const [fetchError, throwFetchError] = useState(false)
-  //////////////////////////////////// COMPONENT STATES
+
   const initialComponentState = async () => {
     await dispatch({
       type: 'manage',
@@ -32,7 +32,7 @@ export default function App({ googleSuccess, googleFailure, logout }) {
       }
     })
   }
-  //////////////////////////////////// USEEFFECT
+
   useEffect(() => {
     const token = localStorage.getItem('MT-token')
     const user = localStorage.getItem('MT-user')
@@ -46,17 +46,17 @@ export default function App({ googleSuccess, googleFailure, logout }) {
         }
       })
     }
+
     const youtubePlaylists = async () => {
       await youtube
         .get('/search', {
           params: {
             ...params.playlist,
-            channelId: channelId,
-            maxResults: 0
+            channelId: channelId
           }
         })
         .then(res => {
-          if (res.items.length === undefined) { console.log('playlists', res.data.items) }
+          if (res.items === undefined) { console.log('playlists', res.data.items) }
           throwFetchError(false)
           setFetchedPlaylists(res.data.items)
           dispatch({
@@ -89,6 +89,21 @@ export default function App({ googleSuccess, googleFailure, logout }) {
     }
   }, [queue])
 
+  useEffect(() => {
+    const authed = localStorage.getItem('MT-user')
+    if (authed) {
+      dispatch({
+        type: 'auth',
+        user: {
+          email: JSON.parse(authed).email,
+          avatar: JSON.parse(authed).imageUrl,
+          firstName: JSON.parse(authed).familyName,
+          lastName: JSON.parse(authed).GivenName,
+          fullName: JSON.parse(authed).name,
+        }
+      })
+    }
+  }, [user])
   return (
     <div className='App'>
       <Navbar

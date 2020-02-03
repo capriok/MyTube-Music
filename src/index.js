@@ -1,18 +1,21 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import { StateProvider } from './state'
-import App from './app-test'
+import App from './app'
 import './index.css'
 
 function Index() {
-  const userObj = JSON.parse(localStorage.getItem('MT-user'))
-  console.log(userObj);
-
   let initialState = {
     auth: {
       isAuthenticated: false,
       token: '',
-      user: userObj
+    },
+    user: {
+      email: '',
+      avatar: '',
+      firstName: '',
+      lastName: '',
+      fullName: '',
     },
     components: {
       queue: false,
@@ -34,9 +37,8 @@ function Index() {
       id: '',
       snippet: {}
     },
-    channelId: ''
+    channelId: 'UC7Zyh4_j6BZEZtjnuS-PMOg'
   }
-
   const reducer = (state, action) => {
     switch (action.type) {
       case 'manage':
@@ -47,7 +49,16 @@ function Index() {
       case 'login':
         return {
           ...state,
-          auth: action.auth
+          auth: action.auth,
+        }
+      case 'auth':
+        return {
+          ...state,
+          user: action.user,
+        }
+      case 'logout':
+        return {
+          ...initialState.auth
         }
       case 'select':
         return {
@@ -74,12 +85,11 @@ function Index() {
     }
   }
 
+
   const googleSuccess = res => {
-    localStorage.setItem('MT-res', JSON.stringify(res))
     initialState.auth.isAuthenticated = true
-    initialState.auth.token = res.Zi.access_token
-    initialState.auth.user = res.w3.ig
-    localStorage.setItem('MT-token', res.Zi.access_token)
+    initialState.auth.token = res.tokenObj.access_token
+    localStorage.setItem('MT-token', res.tokenObj.access_token)
     localStorage.setItem('MT-user', JSON.stringify(res.profileObj))
     window.location.href = '/'
   }
@@ -88,8 +98,8 @@ function Index() {
   }
 
   const logout = () => {
-    window.location.href = '/'
     localStorage.removeItem('token')
+    window.location.href = '/'
   }
 
   useEffect(() => {
@@ -110,13 +120,15 @@ function Index() {
       initialState.auth.isAuthenticated = true
       console.log('Welcome to YT Player')
       console.log('Auth Status ->', initialState.auth.isAuthenticated)
-      console.log('Authed User ->', initialState.auth.user.name)
+      console.log('Authed User ->', JSON.parse(localStorage.getItem('MT-user')).name)
       console.log('channelFetchId ->', initialState.channelId)
       console.log('----------TODOS----------');
       console.log('fix onEnd playing nextTrack when queue is dragged');
+      console.log('fine tune auth logic, if localstorage set auth context ');
+      console.log('move all logging logic to app so  renders at the top can trigger auth and setting');
     }
 
-  }, [initialState.auth.isAuthenticated, initialState.channelId, initialState.auth.user.name])
+  }, [initialState.auth.isAuthenticated, initialState.channelId, initialState.user.name])
 
   return (
     <StateProvider initialState={initialState} reducer={reducer}>
