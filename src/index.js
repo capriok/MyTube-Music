@@ -87,13 +87,11 @@ function Index() {
 
 
   const googleSuccess = res => {
-    localStorage.setItem('MT-res', JSON.stringify(res))
     initialState.auth.isAuthenticated = true
     initialState.auth.token = res.tokenObj.access_token
     localStorage.setItem('MT-token', res.tokenObj.access_token)
     localStorage.setItem('MT-user', JSON.stringify(res.profileObj))
     window.location.href = '/'
-    // console.log(res)
   }
   const googleFailure = res => {
     console.log(res)
