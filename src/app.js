@@ -12,31 +12,11 @@ import Playlists from './components/playlist-list'
 import Queue from './components/queue'
 import './index.css'
 
-export default function App(googleSuccess, googleFailure, logout) {
+export default function App({ googleSuccess, googleFailure, logout }) {
   const [{ components, queue, user, auth, channelId, display }, dispatch] = useStateValue()
   const [fetchedSearch, setFetchedSearch] = useState([])
   const [fetchedPlaylists, setFetchedPlaylists] = useState([])
   const [fetchError, throwFetchError] = useState(false)
-
-  // const googleSuccess = res => {
-  //   dispatch({
-  //     type: 'login',
-  //     auth: {
-  //       isAuthenticated: true,
-  //       token: res.tokenObj.access_token
-  //     }
-  //   })
-  //   localStorage.setItem('MT-token', res.tokenObj.access_token)
-  //   localStorage.setItem('MT-user', JSON.stringify(res.profileObj))
-  // }
-  // const googleFailure = res => {
-  //   console.log(res)
-  // }
-
-  // const logout = () => {
-  //   localStorage.removeItem('token')
-  //   window.location.href = '/'
-  // }
 
   const initialComponentState = async () => {
     await dispatch({

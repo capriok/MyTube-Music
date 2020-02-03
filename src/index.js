@@ -126,8 +126,6 @@ function Index() {
       console.log('channelFetchId ->', initialState.channelId)
       console.log('----------TODOS----------');
       console.log('fix onEnd playing nextTrack when queue is dragged');
-      console.log('fine tune auth logic, if localstorage set auth context ');
-      console.log('move all logging logic to app so  renders at the top can trigger auth and setting');
     }
 
   }, [initialState.auth.isAuthenticated, initialState.channelId, initialState.user.name])
