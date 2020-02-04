@@ -37,9 +37,10 @@ nav {
   margin-right: 20px;
 }
 .logout-bin{
+  position: absolute; 
   background-color: black;
 }
-.logout-icon img{
+.logout-icon{
   width: 30px;
   padding: 5px;
 }
