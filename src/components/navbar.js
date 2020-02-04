@@ -14,6 +14,7 @@ export default function Navbar({ initialComponentState }) {
       localStorage.removeItem('MT-token')
       localStorage.removeItem('MT-user')
       dispatch({ type: 'logout' })
+      window.location.href = '/'
    }
 
    const transitions = useTransition(bin, null, {

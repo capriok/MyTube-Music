@@ -39,7 +39,7 @@ nav {
 }
 .logout-bin{
   position: absolute; 
-  lefT:5px;
+  padding:5px;
   background-color: black;
   transition: all 1s;
 }
