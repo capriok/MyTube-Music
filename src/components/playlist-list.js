@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useStateValue } from '../state'
+import { useTransition, animated } from 'react-spring'
 import youtube, { params } from "./apis/youtube"
 import SectionHead from './playlist-head'
 import addtoq from '../img/addtoq.png'
@@ -11,6 +12,7 @@ export default function PlaylistList({ fetchedPlaylists, fetchError }) {
    const [{ components, queue, playlistObj, auth }, dispatch] = useStateValue()
    const [playlistItems, setPlaylistItems] = useState([])
    const [sectionTitle, setTitle] = useState(JSON.parse(auth.user).name)
+   const [ready, setReady] = useState(false)
 
    const playlistSelect = async (item) => {
       await youtube
@@ -71,6 +73,18 @@ export default function PlaylistList({ fetchedPlaylists, fetchError }) {
          setPlaylist()
       }
    }, [playlistObj])
+
+   useEffect(() => {
+      return () => {
+         setReady(true)
+      };
+   }, [])
+
+   const transitions = useTransition(ready, null, {
+      from: { position: 'relative', marginTop: -100, opacity: 0 },
+      enter: { marginTop: 0, opacity: 1 },
+      config: { duration: 200, opacity: 0 }
+   })
 
    return (
       <>

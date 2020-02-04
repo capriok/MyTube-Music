@@ -1,16 +1,14 @@
 import React, { useState } from 'react'
 import { useStateValue } from '.././state'
+import { useTransition, animated } from 'react-spring'
 import logo from '../img/logo.png'
 import search from '../img/search.png'
 import logout from "../img/logout.png";
 import './components.css'
 
-import { useTransition, animated } from 'react-spring'
-
-
 export default function Navbar({ initialComponentState }) {
    const [{ components, user }, dispatch] = useStateValue()
-   const [bin, openBin] = useState()
+   const [bin, openBin] = useState(false)
 
    function handleLogout() {
       localStorage.removeItem('MT-token')
@@ -19,23 +17,26 @@ export default function Navbar({ initialComponentState }) {
    }
 
    const transitions = useTransition(bin, null, {
-      from: { transform: 'translate3d(0,0px,0)' },
-      enter: { transform: 'translate3d(0,50px,0)' },
-      leave: { transform: 'translate3d(0, 0px,0)' },
-      config: { duration: 1000 }
+      from: { position: 'absolute', opacity: 0, top: 0 },
+      enter: { opacity: 1, top: 50 },
+      leave: { opacity: 0, top: 0 },
    })
+
 
    return (
       <>
-         {bin &&
-            transitions.map(({ item, props, key }) =>
-               <animated.div className="logout-bin" key={key} style={props} >
-                  <img className="logout-icon" src={logout} alt="" onClick={handleLogout} />
+         {
+            transitions.map(({ item, key, props }) =>
+               item && <animated.div key={key} style={props}>
+                  <div className="logout-bin">
+                     <div className="logout-icon">
+                        <img src={logout} alt="" onClick={handleLogout} />
+                     </div>
+                  </div>
                </animated.div>
             )
          }
          <nav>
-
             <img className="nav-profile" alt=""
                src={user.avatar}
                onClick={() => openBin(!bin)}
@@ -48,7 +49,7 @@ export default function Navbar({ initialComponentState }) {
                <img className="nav-button" src={search} alt=""
                   onClick={() => dispatch({ type: 'manage', components: { ...components, search: !components.search } })} />
             </div>
-         </nav >
+         </nav>
       </>
    )
 }

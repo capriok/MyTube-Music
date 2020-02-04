@@ -18,6 +18,7 @@ nav {
   left:0;
   margin: 10px;
   width: 30px;
+  cursor: pointer;
 }
 .nav-logo {
   height: 50px;
@@ -38,9 +39,11 @@ nav {
 }
 .logout-bin{
   position: absolute; 
+  lefT:5px;
   background-color: black;
+  transition: all 1s;
 }
-.logout-icon{
+.logout-icon img{
   width: 30px;
   padding: 5px;
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useStateValue } from '../state'
-import { Transition } from 'react-spring/renderprops'
+import { useTransition, animated } from 'react-spring'
 import youtube, { params } from '../components/apis/youtube'
 import SearchList from './search-list'
 import './components.css'
@@ -52,6 +52,12 @@ export default function SearchForm({ fetchedSearch, setFetchedSearch }) {
     setBoxState({ ...initState, [searchOp]: true })
   }, [])
 
+  const transitions = useTransition(results, null, {
+    from: { position: 'relative', marginTop: -100, opacity: 0 },
+    enter: { marginTop: 0, opacity: 1 },
+    config: { duration: 200, opacity: 0 }
+  })
+
   return (
     <div className='search-parent'>
       <div className='search-one'>
@@ -86,21 +92,17 @@ export default function SearchForm({ fetchedSearch, setFetchedSearch }) {
       </div>
       {components.results && (
         <div className='search-two'>
-          <Transition
-            items={results}
-            from={{ position: 'relative', top: '-10px', opacity: 0 }}
-            enter={{ position: 'relative', top: '0px', opacity: 1 }}
-            leave={{ position: 'relative', top: '-20px', opacity: 0 }}>
-            {results => results && (props => (
-              <div style={props}>
+          {
+            transitions.map(({ item, key, props }) =>
+              item && <animated.div key={key} style={props}>
                 <SearchList
                   items={fetchedSearch}
                   activeState={boxState}
                   isActive={isActive}
                 />
-              </div>
-            ))}
-          </Transition>
+              </animated.div>
+            )
+          }
         </div>
       )}
     </div>

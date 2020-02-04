@@ -21,7 +21,7 @@ function Index() {
       queue: false,
       audioState: false,
       search: true,
-      results: true,
+      results: false,
       miniPlayer: true,
       fullPlayer: false,
       playlist: true,
