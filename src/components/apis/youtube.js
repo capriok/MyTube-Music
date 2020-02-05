@@ -1,5 +1,5 @@
 import axios from 'axios'
-const KEY = 'AIzaSyANq1oGYM_kIzVqJV4y8RQYNvU47O0X9gM'
+const KEY = 'AIzaSyDOTNyAxNX1X3BjLdMKxFJk8KZc_XModCk'
 
 // MAIN KEY // AIzaSyBs_y-gyjJ9ACgPoXFiaLvdn1p04BMk-vk //
 // ALT KEY // AIzaSyANq1oGYM_kIzVqJV4y8RQYNvU47O0X9gM //

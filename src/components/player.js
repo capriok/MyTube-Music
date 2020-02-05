@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useStateValue } from '../state'
+import { Transition } from 'react-spring/renderprops'
 import ReactPlayer from 'react-player'
 import { tail } from 'lodash'
 import play from '../img/play.png'
@@ -28,7 +29,6 @@ export default function MiniDisplay() {
         components: {
           ...components,
           fullPlayer: !components.fullPlayer,
-          results: false
         }
       })
     }
@@ -124,14 +124,28 @@ export default function MiniDisplay() {
     <>
       {components.fullPlayer && <div className='player-header'><h2>{display.title}</h2></div>}
       <div className={components.fullPlayer ? 'player-frame' : 'player-frame-hide'}>
-        <ReactPlayer
-          ref={playerRef}
-          url={vidSrc}
-          playing={playing}
-          volume={volume / 100}
-          onProgress={handleProgress}
-          onEnded={handleEnd}
-        />
+        <Transition
+          items={components.fullPlayer}
+          from={{ position: 'relative', height: 0, opacity: 0 }}
+          enter={{ position: 'relative', height: 'auto', opacity: 1 }}
+          leave={{ position: 'relative', height: 0, opacity: 0 }}
+          config={{ duration: 200 }}>
+          {full =>
+            full &&
+            (props => (
+              <div style={props}>
+                <ReactPlayer
+                  ref={playerRef}
+                  url={vidSrc}
+                  playing={playing}
+                  volume={volume / 100}
+                  onProgress={handleProgress}
+                  onEnded={handleEnd}
+                />
+              </div>
+            ))
+          }
+        </Transition>
       </div>
       <div className='player-display'>
         <div className='player-event' onClick={toggleFull}>

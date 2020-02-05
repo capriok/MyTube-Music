@@ -244,6 +244,7 @@ button {
   justify-content: space-around;
   height: 5vh;
   width: 100%;
+  background-color: rgb(40, 40, 40);
 }
 .player-event img {
   width: 20px;

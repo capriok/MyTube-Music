@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { useStateValue } from '../state'
-import { useTransition, animated } from 'react-spring'
 import youtube, { params } from "./apis/youtube"
 import SectionHead from './playlist-head'
 import addtoq from '../img/addtoq.png'
@@ -79,12 +78,6 @@ export default function PlaylistList({ fetchedPlaylists, fetchError }) {
          setReady(true)
       };
    }, [])
-
-   const transitions = useTransition(ready, null, {
-      from: { position: 'relative', marginTop: -100, opacity: 0 },
-      enter: { marginTop: 0, opacity: 1 },
-      config: { duration: 200, opacity: 0 }
-   })
 
    return (
       <>
