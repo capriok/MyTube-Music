@@ -37,8 +37,9 @@ function Index() {
       id: '',
       snippet: {}
     },
-    channelId: 'UC7Zyh4_j6BZEZtjnuS-PMOg'
+    channelId: localStorage.getItem('MT-channelid') || ''
   }
+  // UC7Zyh4_j6BZEZtjnuS-PMOg
   const reducer = (state, action) => {
     switch (action.type) {
       case 'manage':
@@ -85,7 +86,6 @@ function Index() {
     }
   }
 
-
   const googleSuccess = res => {
     initialState.auth.isAuthenticated = true
     initialState.auth.token = res.tokenObj.access_token
@@ -115,15 +115,21 @@ function Index() {
   }, [initialState.display.id, initialState.components.fullPlayer])
 
   useEffect(() => {
-    let authorize = localStorage.getItem('MT-token')
+    let authorize = JSON.stringify(localStorage.getItem('MT-token'))
     if (authorize) {
       initialState.auth.isAuthenticated = true
       console.log('Welcome to YT Player')
       console.log('Auth Status ->', initialState.auth.isAuthenticated)
-      console.log('Authed User ->', JSON.parse(localStorage.getItem('MT-user')).name)
+      console.log('Logged in as ->', JSON.parse(localStorage.getItem('MT-user')).name)
       console.log('channelFetchId ->', initialState.channelId)
       console.log('----------TODOS----------');
       console.log('fix onEnd playing nextTrack when queue is dragged');
+      console.log('set playlist title to channel title');
+      console.log('when playlist item selected from search, then goBack fires a fetch to items channelId');
+      console.log('-----------END-----------');
+      console.log('in useEffect listening for auth.isAuth.. if no channel id to fetch, have user search for their channel in position(modified) search component');
+
+
     }
 
   }, [initialState.auth.isAuthenticated, initialState.channelId, initialState.user.name])

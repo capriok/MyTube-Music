@@ -30,7 +30,6 @@ export default function SearchList({ items, activeState, isActive }) {
             components: {
                ...components,
                audioState: true,
-               results: false,
                fullPlayer: true,
                playlist: true
             }
@@ -47,7 +46,6 @@ export default function SearchList({ items, activeState, isActive }) {
             components: {
                ...components,
                results: true,
-               fullPlayer: false,
                playlist: true
             }
          })
@@ -60,7 +58,6 @@ export default function SearchList({ items, activeState, isActive }) {
             components: {
                ...components,
                results: true,
-               fullPlayer: false,
                playlist: true
             }
          })

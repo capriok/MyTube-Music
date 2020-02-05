@@ -104,6 +104,7 @@ export default function App({ googleSuccess, googleFailure, logout }) {
       })
     }
   }, [user])
+
   return (
     <div className='App'>
       <Navbar
@@ -113,14 +114,16 @@ export default function App({ googleSuccess, googleFailure, logout }) {
       />
       <div className='Main'>
         {!auth.isAuthenticated ? (
-          <GoogleLogin
-            clientId='455189255968-imf2slc5b11vjdbuq010k14rr9ccb76u.apps.googleusercontent.com'
-            buttonText='LOGIN WITH GOOGLE'
-            onSuccess={googleSuccess}
-            onFailure={googleFailure}
-            className='login-button'
-            theme='dark'
-          />
+          <div className="log-box">
+            <GoogleLogin
+              clientId='455189255968-imf2slc5b11vjdbuq010k14rr9ccb76u.apps.googleusercontent.com'
+              buttonText='LOGIN WITH GOOGLE'
+              onSuccess={googleSuccess}
+              onFailure={googleFailure}
+              className='login-button'
+              theme='dark'
+            />
+          </div>
         ) : (
             <Router>
               <Switch>

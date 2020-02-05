@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useStateValue } from '../state'
 import backIcon from '../img/back.png'
 import urlIcon from '../img/url.png'
@@ -6,13 +6,20 @@ import urlIcon from '../img/url.png'
 export default function SectionHead({ updateTitle }) {
    const [{ components, auth, channelId }, dispatch] = useStateValue()
    const [displayUrlField, toDisplayUrlField] = useState(false)
-   const [value, setValue] = useState()
+   const [value, setValue] = useState('aah')
 
    const handleSubmit = (e) => {
-      e.preventDefault()
-      dispatch({ type: 'url', channelId: value })
-      console.log(channelId);
+      try {
+         e.preventDefault()
+         dispatch({ type: 'cId', channelId: value })
+         localStorage.setItem('MT-channelid', value)
+      } catch (error) {
+         console.log(error);
+      }
    }
+   useEffect(() => {
+      console.log(channelId);
+   }, [channelId])
    return (
       <div className="playlist-pos">
          {components.playlistItems
@@ -28,7 +35,7 @@ export default function SectionHead({ updateTitle }) {
                   <img src={urlIcon} alt="" onClick={() => toDisplayUrlField(!displayUrlField)} />
                   {displayUrlField &&
                      <form onSubmit={handleSubmit}>
-                        <input type="text" value={value}
+                        <input type="text"
                            placeholder="Default channel ID"
                            onChange={e => setValue(e.target.value)}
                            autoFocus={true} />

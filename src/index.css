@@ -35,19 +35,6 @@ h1{
    user-select: none;
 }
 
-.login-button{
-   position: relative;
-   top:40%;
-   padding: 10px;
-   background-color: rgb(255, 255, 255);
-}
-.logout-button{
-   color: black;
-   margin-top: 20px;
-   padding: 5px 10px 5px 10px;
-   background-color: rgb(255, 255, 255);
-}
-
 /* APP */
 
 .App {
@@ -64,6 +51,17 @@ h1{
    min-width: 400px;
    max-width: 750px;
    height: 100%;
+}
+.log-box{
+   position: absolute;
+   top: 40%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 100%;
+}
+.login-button{
+   background-color: rgb(255, 255, 255);
 }
 
 /* APP END */

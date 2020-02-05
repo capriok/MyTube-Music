@@ -19,6 +19,7 @@ nav {
   margin: 10px;
   width: 30px;
   cursor: pointer;
+  z-index: 110;
 }
 .nav-logo {
   height: 50px;
@@ -40,12 +41,13 @@ nav {
 .logout-bin{
   position: absolute; 
   padding:5px;
-  background-color: black;
   transition: all 1s;
+  z-index: 101;
 }
 .logout-icon img{
   width: 30px;
   padding: 5px;
+  cursor: pointer;
 }
 
 /* NAVABR END */
@@ -301,7 +303,8 @@ button {
   border: 1px solid white;
   cursor: pointer;
 }
-.seek {
+.seek::-webkit-slider-thumb {width:4px; background-color: black;}
+  .seek {
   width: 35%;
 }
 .volume {

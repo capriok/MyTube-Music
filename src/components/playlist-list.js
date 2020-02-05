@@ -43,7 +43,6 @@ export default function PlaylistList({ fetchedPlaylists, fetchError }) {
          components: {
             ...components,
             audioState: true,
-            results: false,
             fullPlayer: true,
             playlist: true,
          }
