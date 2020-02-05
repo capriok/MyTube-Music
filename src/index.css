@@ -80,14 +80,7 @@ h1{
    max-height: 0px;
    margin-bottom: 50px;
 }
-.queue{
-   padding: 2px 0px 0px 2px;
-   min-height: 4vh;  
-   /* max-height: 5vh; 
-   min-height: 5vh; */
-}
 .search{
-   min-height: 15vh;
    overflow: scroll;
 }
 .playlist{
@@ -98,5 +91,8 @@ h1{
    min-height: 5vh;
    overflow: hidden;
 }
-
+.queue{
+   padding: 2px 0px 0px 2px;
+   min-height: 4vh;  
+}
 /* SECTIONS END */

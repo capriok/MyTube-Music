@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useStateValue } from '../state'
-import { useTransition, animated } from 'react-spring'
+// import { useTransition, animated } from 'react-spring'
+import { Transition } from 'react-spring/renderprops'
 import youtube, { params } from '../components/apis/youtube'
 import SearchList from './search-list'
 import './components.css'
@@ -10,9 +11,8 @@ export default function SearchForm({ fetchedSearch, setFetchedSearch }) {
   const initState = { video: false, playlist: false, channel: false }
   const [boxState, setBoxState] = useState(initState)
   const [isActive, setActive] = useState(false)
-  const [searchValue, setSearchValue] = useState('dark tech channel')
+  const [searchValue, setSearchValue] = useState('Dark Tech Channel')
   const [searchOp, setSearchOp] = useState('video')
-  const results = components.results
   const handleSearch = async e => {
     e.preventDefault()
     if (searchValue) {
@@ -27,18 +27,13 @@ export default function SearchForm({ fetchedSearch, setFetchedSearch }) {
         .then(res => {
           console.log('search', res)
           setFetchedSearch(res.data.items)
+          dispatch({
+            type: 'manage',
+            components: { ...components, results: true }
+          })
         })
         .catch(error => console.log(error))
-    } else return
-    dispatch({
-      type: 'manage',
-      components: {
-        ...components,
-        search: true,
-        results: true,
-        fullPlayer: false
-      }
-    })
+    }
     boxState.video ? setActive(true) : setActive(false)
   }
 
@@ -52,12 +47,12 @@ export default function SearchForm({ fetchedSearch, setFetchedSearch }) {
     setBoxState({ ...initState, [searchOp]: true })
   }, [])
 
-  const transitions = useTransition(results, null, {
-    from: { position: 'relative', marginTop: -100, opacity: 0 },
-    enter: { marginTop: 0, opacity: 1 },
-    config: { duration: 200, opacity: 0 }
-  })
-
+  // const transitions = useTransition(components.results, null, {
+  //   from: { position: 'relative', marginTop: -100, opacity: 0 },
+  //   enter: { marginTop: 0, opacity: 1 },
+  //   config: { duration: 200, opacity: 0 }
+  // })
+  const results = components.results
   return (
     <div className='search-parent'>
       <div className='search-one'>
@@ -92,7 +87,7 @@ export default function SearchForm({ fetchedSearch, setFetchedSearch }) {
       </div>
       {components.results && (
         <div className='search-two'>
-          {
+          {/* {
             transitions.map(({ item, key, props }) =>
               item && <animated.div key={key} style={props}>
                 <SearchList
@@ -102,7 +97,26 @@ export default function SearchForm({ fetchedSearch, setFetchedSearch }) {
                 />
               </animated.div>
             )
-          }
+          } */}
+          <Transition
+            items={results}
+            from={{ position: 'relative', marginTop: -100, opacity: 0 }}
+            enter={{ position: 'relative', marginTop: 0, opacity: 1 }}
+            leave={{ position: 'relative', marginTop: -500, opacity: 0 }}
+            config={{ duration: 200 }}>
+            {results =>
+              results &&
+              (props => (
+                <div style={props}>
+                  <SearchList
+                    items={fetchedSearch}
+                    activeState={boxState}
+                    isActive={isActive}
+                  />
+                </div>
+              ))
+            }
+          </Transition>
         </div>
       )}
     </div>

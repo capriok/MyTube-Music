@@ -88,7 +88,7 @@ export default function PlaylistList({ fetchedPlaylists, fetchError }) {
 
    return (
       <>
-         <div className="playlit-parent">
+         <div className="playlist-parent">
             <div className="playlist-one">
                <h1>
                   <SectionHead updateTitle={setTitle} />

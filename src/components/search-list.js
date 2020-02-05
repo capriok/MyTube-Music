@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useStateValue } from '../state'
 import decoder from "./decoder"
 import addtoq from '../img/addtoq.png'
@@ -23,7 +23,6 @@ export default function SearchList({ items, activeState, isActive }) {
                title: item.snippet.title,
                id: item.id.videoId,
                channelTitle: item.snippet.channelTitle,
-               publishedAt: item.snippet.publishedAt
             }
          })
          await dispatch({
