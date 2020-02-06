@@ -66,9 +66,9 @@ export default function SearchList({ items, activeState, isActive }) {
    return (
       <div className="item-list">
          {items.map((item, index) =>
-            <div className="list-item" key={index} onClick={() => handleSelect(item)}>
-               <img className='list-item-thumb' src={item.snippet.thumbnails.high.url} alt="" />
-               <div className="item-title">{decoder(item.snippet.title)}</div>
+            <div className="list-item" key={index}>
+               <img className='list-item-thumb' onClick={() => handleSelect(item)} src={item.snippet.thumbnails.high.url} alt="" />
+               <div className="item-title" onClick={() => handleSelect(item)}>{decoder(item.snippet.title)}</div>
                {isActive &&
                   <Qbutton item={item} icon={queue.some(i => i.id === item.id) ? addedtoq : addtoq} />
                }
