@@ -13,11 +13,10 @@ import Queue from './components/queue'
 import './index.css'
 
 export default function App({ googleSuccess, googleFailure, logout }) {
-  const [{ init, components, queue, user, auth, channelId, display }, dispatch] = useStateValue()
+  const [{ init, components, queue, vidObj, playlistObj, channelObj, user, auth }, dispatch] = useStateValue()
   const [fetchedSearch, setFetchedSearch] = useState([])
   const [fetchedPlaylists, setFetchedPlaylists] = useState([])
   const [fetchError, throwFetchError] = useState(false)
-  const [sectionTitle, setTitle] = useState()
 
   const initialComponentState = async () => {
     await dispatch({
@@ -48,17 +47,17 @@ export default function App({ googleSuccess, googleFailure, logout }) {
       })
     }
 
-    const youtubePlaylists = async () => {
+    const fetchPlaylistsFromChannelId = async () => {
       await youtube
         .get('/search', {
           params: {
+            type: 'playlist',
             ...params.playlist,
-            channelId: channelId
+            channelId: channelObj.channelId
           }
         })
         .then(res => {
           if (res.items === undefined && auth.isAuthenticated) { console.log('playlists', res.data.items) }
-          setTitle(res.data.items[0].snippet.channelTitle)
           throwFetchError(false)
           setFetchedPlaylists(res.data.items)
           dispatch({
@@ -69,18 +68,19 @@ export default function App({ googleSuccess, googleFailure, logout }) {
             throwFetchError(true)
           } else {
             dispatch({
-              type: 'select',
-              display: {
-                ...display,
-                channelTitle: res.data.items[0].snippet.channelTitle
+              type: 'playlistObj',
+              playlistObj: {
+                playlistId: res.data.items[0].id.playlistId,
+                channletId: res.data.items[0].snippet.channelId,
+                snippet: res.data.items[0].snippet
               }
             })
           }
         })
         .catch(error => console.log(error))
     }
-    youtubePlaylists()
-  }, [channelId])
+    fetchPlaylistsFromChannelId()
+  }, [channelObj.channelId])
 
   useEffect(() => {
     if (queue.length < 1) {
@@ -100,7 +100,7 @@ export default function App({ googleSuccess, googleFailure, logout }) {
           email: JSON.parse(authed).email,
           avatar: JSON.parse(authed).imageUrl,
           firstName: JSON.parse(authed).familyName,
-          lastName: JSON.parse(authed).GivenName,
+          lastName: JSON.parse(authed).givenName,
           fullName: JSON.parse(authed).name,
         }
       })
@@ -108,8 +108,7 @@ export default function App({ googleSuccess, googleFailure, logout }) {
   }, [user])
 
   useEffect(() => {
-    console.log(channelId);
-    if (channelId === '') {
+    if (channelObj.channelId === '') {
       dispatch({
         type: 'manage',
         components: {
@@ -120,6 +119,7 @@ export default function App({ googleSuccess, googleFailure, logout }) {
       })
     }
   }, [])
+
   return (
     <div className='App'>
       <Navbar
@@ -157,7 +157,6 @@ export default function App({ googleSuccess, googleFailure, logout }) {
                           <SearchForm
                             fetchedSearch={fetchedSearch}
                             setFetchedSearch={setFetchedSearch}
-                            setTitle={setTitle}
                           />
                         </div>
                       )}
@@ -166,8 +165,6 @@ export default function App({ googleSuccess, googleFailure, logout }) {
                           <Playlists
                             fetchedPlaylists={fetchedPlaylists}
                             fetchError={fetchError}
-                            sectionTitle={sectionTitle}
-                            setTitle={setTitle}
                           />
                         </div>
                       )}

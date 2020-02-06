@@ -9,11 +9,10 @@ import './components.css'
 import Axios from 'axios'
 
 export default function PlaylistList({ fetchedPlaylists, fetchError, sectionTitle, setTitle }) {
-   const [{ components, queue, playlistObj, user }, dispatch] = useStateValue()
+   const [{ components, queue, vidObj, playlistObj, channelObj }, dispatch] = useStateValue()
    const [playlistItems, setPlaylistItems] = useState([])
-   // const [sectionTitle, setTitle] = useState(user.name)
 
-   const playlistSelect = async (item) => {
+   const fetchPlaylistItemsByPlaylistId = async (item) => {
       await youtube
          .get('/playlistItems', {
             params: {
@@ -24,18 +23,17 @@ export default function PlaylistList({ fetchedPlaylists, fetchError, sectionTitl
          .then(res => setPlaylistItems(res.data.items))
          .catch(error => console.log(error))
       dispatch({ type: 'manage', components: { ...components, playlistItems: true } })
-      setTitle(item.snippet.title)
+      console.log(playlistItems);
    }
 
    const itemSelect = async (item) => {
       console.log('selected', item);
       await dispatch({
-         type: 'select',
-         display: {
-            title: item.snippet.title,
-            id: item.snippet.resourceId.videoId,
-            description: item.snippet.description,
-            thumb: item.snippet.thumbnails.high
+         type: 'vidObj',
+         vidObj: {
+            videoId: item.snippet.resourceId.videoId,
+            channelId: item.snippet.channelId,
+            snippet: item.snippet
          }
       })
       await dispatch({
@@ -51,9 +49,9 @@ export default function PlaylistList({ fetchedPlaylists, fetchError, sectionTitl
 
 
    useEffect(() => {
-      if (playlistObj.id) {
+      if (playlistObj.playlistId) {
          const setPlaylist = async () => {
-            const id = playlistObj.id
+            const id = playlistObj.playlistId
             await youtube
                .get('/playlistItems', {
                   params: {
@@ -63,9 +61,6 @@ export default function PlaylistList({ fetchedPlaylists, fetchError, sectionTitl
                })
                .then(res => setPlaylistItems(res.data.items))
                .catch(error => console.log(error))
-            dispatch({ type: 'manage', components: { ...components, playlistItems: true } })
-            setTitle(playlistObj.snippet.title)
-            console.log('playlistObj', playlistObj);
          }
          setPlaylist()
       }
@@ -76,15 +71,18 @@ export default function PlaylistList({ fetchedPlaylists, fetchError, sectionTitl
          <div className="playlist-parent">
             <div className="playlist-one">
                <h1>
-                  <SectionHead updateTitle={setTitle} />
-                  {sectionTitle}
+                  <SectionHead />
+                  {components.playlistItems
+                     ? playlistObj.snippet.title
+                     : playlistObj.snippet.channelTitle
+                  }
                </h1>
             </div>
             <div className="playlist-two">
                <div className="item-list">
                   {!components.playlistItems
                      ? fetchedPlaylists.map((item, index) =>
-                        <div className="list-item" key={index} onClick={() => playlistSelect(item)}>
+                        <div className="list-item" key={index} onClick={() => fetchPlaylistItemsByPlaylistId(item)}>
                            {/* <img src={item.snippet.thumbnails.high.url} alt="" /> */}
                            <div className="item-title">{item.snippet.title}</div>
                         </div>

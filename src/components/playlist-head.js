@@ -4,7 +4,7 @@ import backIcon from '../img/back.png'
 import urlIcon from '../img/url.png'
 
 export default function SectionHead({ updateTitle }) {
-   const [{ components, auth, channelId }, dispatch] = useStateValue()
+   const [{ components, channelObj }, dispatch] = useStateValue()
    const [displayUrlField, toDisplayUrlField] = useState(false)
    const [value, setValue] = useState('aah')
 
@@ -25,7 +25,6 @@ export default function SectionHead({ updateTitle }) {
                dispatch({
                   type: 'manage', components: { ...components, playlistItems: false }
                })
-               updateTitle(JSON.parse(auth.user).name)
             }}>
                <img src={backIcon} alt="" /></div>
             : <>

@@ -8,7 +8,7 @@ import './components.css'
 
 
 export default function SearchList({ items, activeState, isActive, setTitle }) {
-   const [{ init, components, display, queue }, dispatch] = useStateValue()
+   const [{ init, components, vidObj, display, queue }, dispatch] = useStateValue()
    const activity = activeState
 
    const handleSelect = async (item) => {
@@ -18,56 +18,37 @@ export default function SearchList({ items, activeState, isActive, setTitle }) {
       if (video) {
          console.log('selected', item);
          await dispatch({
-            type: 'select',
-            display: {
-               title: item.snippet.title,
-               id: item.id.videoId,
-               channelTitle: item.snippet.channelTitle,
-            }
+            type: 'vidObj',
+            vidObj: { videoId: item.id.videoId, channelTitle: item.snippet.channelTitle, snippet: item.snippet }
          })
+         console.log(vidObj);
          await dispatch({
             type: 'manage',
-            components: {
-               ...components,
-               audioState: true,
-               fullPlayer: true,
-               playlist: true
-            }
+            components: { ...components, audioState: true, fullPlayer: true, playlist: true }
          })
       } else if (playlist) {
-         await dispatch({
-            type: 'pId', playlistObj: {
-               id: item.id.playlistId,
-               snippet: item.snippet
-            }
+         dispatch({
+            type: 'playlistObj',
+            playlistObj: { playlistId: item.id.playlistId, channelId: item.snippet.channelId, snippet: item.snippet }
          })
          await dispatch({
             type: 'manage',
-            components: {
-               ...components,
-               results: true,
-               playlist: true
-            }
+            components: { ...components, results: true, playlist: true }
          })
       }
       else if (channel) {
          if (init) {
             localStorage.setItem('MT-channelid', item.snippet.channelId)
             window.location.href = '/'
-            console.log(item.snippet.channelTitle);
-            setTitle(item.snippet.channelTitle)
-
          } else {
-            setTitle(item.snippet.channelTitle)
-            await dispatch({ type: 'cId', channelId: item.snippet.channelId })
+            await dispatch({
+               type: 'channelObj',
+               channelObj: { channelId: item.id.channelId, snippet: item.snippet }
+            })
             await dispatch({ type: 'select', display: { ...display, channelTitle: item.snippet.channelTitle } })
             await dispatch({
                type: 'manage',
-               components: {
-                  ...components,
-                  results: true,
-                  playlist: true
-               }
+               components: { ...components, results: true, playlistItems: false }
             })
          }
       }

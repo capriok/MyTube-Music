@@ -12,7 +12,7 @@ import down from '../img/down.png'
 import './components.css'
 
 export default function MiniDisplay() {
-  const [{ components, queue, display }, dispatch] = useStateValue()
+  const [{ components, queue, vidObj }, dispatch] = useStateValue()
   const [qLen, setQlen] = useState(0)
   const [played, setPlayed] = useState(0)
   const [startTime] = useState(0)
@@ -23,7 +23,7 @@ export default function MiniDisplay() {
   const playing = components.audioState
 
   const toggleFull = () => {
-    if (display.id) {
+    if (vidObj.videoId) {
       dispatch({
         type: 'manage',
         components: {
@@ -34,26 +34,26 @@ export default function MiniDisplay() {
     }
   }
 
-  const id = display.id
+  const id = vidObj.videoId
   let vidSrc = `https://www.youtube.com/embed/${id}?autoplay=1&start=${startTime}`
 
   const playerRef = useRef(null)
 
   const handlePlay = async () => {
-    if (display.id) {
+    if (vidObj.videoId) {
       await dispatch({
         type: 'manage',
         components: { ...components, audioState: !components.audioState }
       })
     }
-    if (queue.length > 0 && !display.id) {
+    if (queue.length > 0 && !vidObj.videoId) {
       await dispatch({
-        type: 'select',
-        display: {
-          ...display,
-          title: queue[0].snippet.title,
-          id: queue[0].id.videoId || queue[0].snippet.resourceId.videoId,
-          channelTitle: queue[0].snippet.channelTitle
+        type: 'vidObj',
+        vidObj: {
+          ...vidObj,
+          videoId: queue[0].id.videoId || queue[0].snippet.resourceId.videoId,
+          channelId: queue[0].snippet.channelTitle,
+          snippet: { title: queue[0].snippet.title }
         }
       })
       await dispatch({
@@ -77,7 +77,7 @@ export default function MiniDisplay() {
   }
 
   const handleSeekChange = e => {
-    if (display.id) {
+    if (vidObj.videoId) {
       setPlayed(parseFloat(e.target.value))
     }
   }
@@ -99,10 +99,12 @@ export default function MiniDisplay() {
     console.log('nextTrack', nextTrack)
     await dispatch({
       type: 'select',
-      display: {
-        ...display,
-        title: nextTrack.snippet.title,
-        id: nextTrack.id.videoId || nextTrack.snippet.resourceId.videoId
+      type: 'vidObj',
+      vidObj: {
+        ...vidObj,
+        videoId: nextTrack.id.videoId || nextTrack.snippet.resourceId.videoId,
+        channelId: queue[0].snippet.channelTitle,
+        snippet: { title: nextTrack.snippet.title }
       }
     })
     const newQueue = tail(queue)
@@ -122,7 +124,7 @@ export default function MiniDisplay() {
 
   return (
     <>
-      {components.fullPlayer && <div className='player-header'><h2>{display.title}</h2></div>}
+      {components.fullPlayer && <div className='player-header'><h2>{vidObj.snippet.title}</h2></div>}
       <div className={components.fullPlayer ? 'player-frame' : 'player-frame-hide'}>
         <Transition
           items={components.fullPlayer}
@@ -154,7 +156,7 @@ export default function MiniDisplay() {
             : <img src={up} alt='' />
           }
         </div>
-        <div className='player-title'></div>
+        {/* <div className='player-title'></div> */}
         <input
           className='range-slider seek'
           type='range'

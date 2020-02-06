@@ -28,17 +28,21 @@ function Index() {
       playlist: true,
       playlistItems: false
     },
-    display: {
-      title: '',
-      id: '',
-      channelTitle: ''
-    },
-    queue: [],
-    playlistObj: {
-      id: '',
+    vidObj: {
+      videoId: '',
+      channelId: '',
       snippet: {}
     },
-    channelId: localStorage.getItem('MT-channelid') || ''
+    playlistObj: {
+      playlistId: '',
+      channelId: '',
+      snippet: {}
+    },
+    channelObj: {
+      channelId: localStorage.getItem('MT-channelid') || '',
+      snippet: {}
+    },
+    queue: [],
   }
   // UC7Zyh4_j6BZEZtjnuS-PMOg
   const reducer = (state, action) => {
@@ -66,6 +70,21 @@ function Index() {
       case 'logout':
         return {
           ...initialState.auth
+        }
+      case 'vidObj':
+        return {
+          ...state,
+          vidObj: action.vidObj
+        }
+      case 'playlistObj':
+        return {
+          ...state,
+          playlistObj: action.playlistObj
+        }
+      case 'channelObj':
+        return {
+          ...state,
+          channelObj: action.channelObj
         }
       case 'select':
         return {
@@ -115,10 +134,10 @@ function Index() {
   }, [initialState.queue])
 
   useEffect(() => {
-    if (!initialState.display.id) {
+    if (!initialState.vidObj.videoId) {
       initialState.components.fullPlayer = false
     }
-  }, [initialState.display.id, initialState.components.fullPlayer])
+  }, [initialState.vidObj.videoId, initialState.components.fullPlayer])
 
   useEffect(() => {
     let authorize = localStorage.getItem('MT-token')
@@ -127,11 +146,12 @@ function Index() {
       console.log('Welcome to YT Player')
       console.log('Auth Status ->', initialState.auth.isAuthenticated)
       console.log('Logged in as ->', JSON.parse(localStorage.getItem('MT-user')).name)
-      console.log('channelFetchId ->', initialState.channelId)
+      console.log('channelFetchId ->', initialState.channelObj.channelId)
       console.log('----------GOALS----------');
       console.log('----------TODOS----------');
       console.log('fix onEnd playing nextTrack when queue is dragged');
       console.log('move playlistTitle to context and repalce useState in app, dipatch from search-list, playlist-list, playlist-head');
+      console.log('on playlist select playlistitem title to selected item.title ');
 
       console.log('-----------END-----------');
     }

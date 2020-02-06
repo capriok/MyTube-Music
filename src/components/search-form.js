@@ -7,12 +7,13 @@ import SearchList from './search-list'
 import './components.css'
 
 export default function SearchForm({ fetchedSearch, setFetchedSearch, setTitle }) {
-  const [{ init, components, channelId }, dispatch] = useStateValue()
+  const [{ init, components, channelObj }, dispatch] = useStateValue()
   const initState = { video: false, playlist: false, channel: false }
   const [boxState, setBoxState] = useState(initState)
   const [isActive, setActive] = useState(false)
   const [searchValue, setSearchValue] = useState('Dark Tech Channel')
   const [searchOp, setSearchOp] = useState('video')
+
   const handleSearch = async e => {
     e.preventDefault()
     if (searchValue) {
@@ -48,7 +49,7 @@ export default function SearchForm({ fetchedSearch, setFetchedSearch, setTitle }
   }
 
   useEffect(() => {
-    if (channelId) {
+    if (channelObj.channelId) {
       dispatch({ type: 'init', init: false })
     } else {
       dispatch({ type: 'init', init: true })
