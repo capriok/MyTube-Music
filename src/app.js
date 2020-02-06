@@ -70,8 +70,9 @@ export default function App({ googleSuccess, googleFailure, logout }) {
             dispatch({
               type: 'playlistObj',
               playlistObj: {
+                ...playlistObj,
                 playlistId: res.data.items[0].id.playlistId,
-                channletId: res.data.items[0].snippet.channelId,
+                channelId: res.data.items[0].snippet.channelId,
                 snippet: res.data.items[0].snippet
               }
             })

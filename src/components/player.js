@@ -18,8 +18,6 @@ export default function MiniDisplay() {
   const [startTime] = useState(0)
   const [volume, setVolume] = useState(0)
   const [seeking, setSeeking] = useState(false)
-  // const player = components.fullPlayer
-  // const published = display.publishedAt
   const playing = components.audioState
 
   const toggleFull = () => {

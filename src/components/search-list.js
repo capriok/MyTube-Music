@@ -7,8 +7,8 @@ import Qbutton from './qbutton'
 import './components.css'
 
 
-export default function SearchList({ items, activeState, isActive, setTitle }) {
-   const [{ init, components, vidObj, display, queue }, dispatch] = useStateValue()
+export default function SearchList({ items, activeState, isActive }) {
+   const [{ init, components, vidObj, playlistObj, display, queue }, dispatch] = useStateValue()
    const activity = activeState
 
    const handleSelect = async (item) => {
@@ -24,16 +24,23 @@ export default function SearchList({ items, activeState, isActive, setTitle }) {
          console.log(vidObj);
          await dispatch({
             type: 'manage',
-            components: { ...components, audioState: true, fullPlayer: true, playlist: true }
+            components: { ...components, audioState: true, fullPlayer: true }
          })
       } else if (playlist) {
+         console.log('ITEM', item);
          dispatch({
             type: 'playlistObj',
-            playlistObj: { playlistId: item.id.playlistId, channelId: item.snippet.channelId, snippet: item.snippet }
+            playlistObj: {
+               ...playlistObj,
+               playlistId: item.id.playlistId,
+               channelId: item.snippet.channelId,
+               playlistTitle: item.snippet.title,
+               snippet: item.snippet
+            }
          })
          await dispatch({
             type: 'manage',
-            components: { ...components, results: true, playlist: true }
+            components: { ...components, playlistItems: true }
          })
       }
       else if (channel) {
@@ -41,14 +48,16 @@ export default function SearchList({ items, activeState, isActive, setTitle }) {
             localStorage.setItem('MT-channelid', item.snippet.channelId)
             window.location.href = '/'
          } else {
+            localStorage.setItem('MT-channelid', item.snippet.channelId)
             await dispatch({
-               type: 'channelObj',
-               channelObj: { channelId: item.id.channelId, snippet: item.snippet }
+               type: 'channelObj', channelObj: { channelId: item.id.channelId, snippet: item.snippet }
             })
-            await dispatch({ type: 'select', display: { ...display, channelTitle: item.snippet.channelTitle } })
+            await dispatch({
+               type: 'select', display: { ...display, channelTitle: item.snippet.channelTitle }
+            })
             await dispatch({
                type: 'manage',
-               components: { ...components, results: true, playlistItems: false }
+               components: { ...components, playlistItems: false }
             })
          }
       }

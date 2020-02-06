@@ -11,7 +11,7 @@ export default function SearchForm({ fetchedSearch, setFetchedSearch, setTitle }
   const initState = { video: false, playlist: false, channel: false }
   const [boxState, setBoxState] = useState(initState)
   const [isActive, setActive] = useState(false)
-  const [searchValue, setSearchValue] = useState('Dark Tech Channel')
+  const [searchValue, setSearchValue] = useState('Kyle Caprio')
   const [searchOp, setSearchOp] = useState('video')
 
   const handleSearch = async e => {

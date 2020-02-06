@@ -36,7 +36,9 @@ function Index() {
     playlistObj: {
       playlistId: '',
       channelId: '',
-      snippet: {}
+      snippet: {},
+      playlistTitle: '',
+      playlistItems: {}
     },
     channelObj: {
       channelId: localStorage.getItem('MT-channelid') || '',
@@ -134,12 +136,6 @@ function Index() {
   }, [initialState.queue])
 
   useEffect(() => {
-    if (!initialState.vidObj.videoId) {
-      initialState.components.fullPlayer = false
-    }
-  }, [initialState.vidObj.videoId, initialState.components.fullPlayer])
-
-  useEffect(() => {
     let authorize = localStorage.getItem('MT-token')
     if (authorize) {
       initialState.auth.isAuthenticated = true
@@ -147,11 +143,10 @@ function Index() {
       console.log('Auth Status ->', initialState.auth.isAuthenticated)
       console.log('Logged in as ->', JSON.parse(localStorage.getItem('MT-user')).name)
       console.log('channelFetchId ->', initialState.channelObj.channelId)
-      console.log('----------GOALS----------');
       console.log('----------TODOS----------');
       console.log('fix onEnd playing nextTrack when queue is dragged');
       console.log('move playlistTitle to context and repalce useState in app, dipatch from search-list, playlist-list, playlist-head');
-      console.log('on playlist select playlistitem title to selected item.title ');
+      console.log('only set activity onSubmit of search from');
 
       console.log('-----------END-----------');
     }

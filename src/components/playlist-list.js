@@ -9,8 +9,7 @@ import './components.css'
 import Axios from 'axios'
 
 export default function PlaylistList({ fetchedPlaylists, fetchError, sectionTitle, setTitle }) {
-   const [{ components, queue, vidObj, playlistObj, channelObj }, dispatch] = useStateValue()
-   const [playlistItems, setPlaylistItems] = useState([])
+   const [{ components, queue, playlistObj }, dispatch] = useStateValue()
 
    const fetchPlaylistItemsByPlaylistId = async (item) => {
       await youtube
@@ -20,10 +19,18 @@ export default function PlaylistList({ fetchedPlaylists, fetchError, sectionTitl
                playlistId: item.id.playlistId
             }
          })
-         .then(res => setPlaylistItems(res.data.items))
+         .then(res => {
+            dispatch({
+               type: 'playlistObj',
+               playlistObj: {
+                  ...playlistObj,
+                  playlistTitle: item.snippet.title,
+                  playlistItems: res.data.items
+               }
+            })
+         })
          .catch(error => console.log(error))
       dispatch({ type: 'manage', components: { ...components, playlistItems: true } })
-      console.log(playlistItems);
    }
 
    const itemSelect = async (item) => {
@@ -42,11 +49,9 @@ export default function PlaylistList({ fetchedPlaylists, fetchError, sectionTitl
             ...components,
             audioState: true,
             fullPlayer: true,
-            playlist: true,
          }
       })
    }
-
 
    useEffect(() => {
       if (playlistObj.playlistId) {
@@ -59,12 +64,20 @@ export default function PlaylistList({ fetchedPlaylists, fetchError, sectionTitl
                      playlistId: id
                   }
                })
-               .then(res => setPlaylistItems(res.data.items))
+               .then(res => {
+                  dispatch({
+                     type: 'playlistObj',
+                     playlistObj: {
+                        ...playlistObj,
+                        playlistItems: res.data.items
+                     }
+                  })
+               })
                .catch(error => console.log(error))
          }
          setPlaylist()
       }
-   }, [playlistObj])
+   }, [playlistObj.playlistId])
 
    return (
       <>
@@ -72,9 +85,9 @@ export default function PlaylistList({ fetchedPlaylists, fetchError, sectionTitl
             <div className="playlist-one">
                <h1>
                   <SectionHead />
-                  {components.playlistItems
-                     ? playlistObj.snippet.title
-                     : playlistObj.snippet.channelTitle
+                  {!components.playlistItems
+                     ? playlistObj.snippet.channelTitle
+                     : playlistObj.playlistTitle
                   }
                </h1>
             </div>
@@ -87,7 +100,7 @@ export default function PlaylistList({ fetchedPlaylists, fetchError, sectionTitl
                            <div className="item-title">{item.snippet.title}</div>
                         </div>
                      )
-                     : playlistItems.map((item, index) =>
+                     : playlistObj.playlistItems.map((item, index) =>
                         <div className="list-item" key={index}>
                            <div className="item-title" onClick={() => itemSelect(item)}>{item.snippet.title}</div>
                            <Qbutton className="item-button" item={item}
