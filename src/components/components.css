@@ -90,6 +90,10 @@ nav {
   border: 1px solid rgba(255, 255, 255, 0.3);
   background-color: rgba(0, 0, 0, 0.55);
 }
+.list-item-thumb{
+  padding-left: 5px;
+  height: 35px;
+}
 .list-item div {
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -292,8 +296,18 @@ button {
   overflow: hidden;
   user-select: none;
 }
-.player-controls img {
+.player-controls{
+  display: flex;
+  align-items: center;
+}
+.player-prev {
+  width: 30px;
+}
+.player-play {
   width: 35px;
+}
+.player-next {
+  width: 30px;
 }
 .range-slider {
   -webkit-appearance: none;

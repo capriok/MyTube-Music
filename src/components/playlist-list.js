@@ -96,12 +96,13 @@ export default function PlaylistList({ fetchedPlaylists, fetchError, sectionTitl
                   {!components.playlistItems
                      ? fetchedPlaylists.map((item, index) =>
                         <div className="list-item" key={index} onClick={() => fetchPlaylistItemsByPlaylistId(item)}>
-                           {/* <img src={item.snippet.thumbnails.high.url} alt="" /> */}
+                           <img className='list-item-thumb' src={item.snippet.thumbnails.high.url} alt="" />
                            <div className="item-title">{item.snippet.title}</div>
                         </div>
                      )
                      : playlistObj.playlistItems.map((item, index) =>
                         <div className="list-item" key={index}>
+                           <img className='list-item-thumb' src={item.snippet.thumbnails.high.url} alt="" />
                            <div className="item-title" onClick={() => itemSelect(item)}>{item.snippet.title}</div>
                            <Qbutton className="item-button" item={item}
                               icon={queue.some(i => i.id === item.id) ? addedtoq : addtoq} />

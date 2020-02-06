@@ -93,24 +93,26 @@ export default function MiniDisplay() {
   }
 
   const handleEnd = async () => {
-    const nextTrack = queue[0]
-    console.log('nextTrack', nextTrack)
-    await dispatch({
-      type: 'select',
-      type: 'vidObj',
-      vidObj: {
-        ...vidObj,
-        videoId: nextTrack.id.videoId || nextTrack.snippet.resourceId.videoId,
-        channelId: queue[0].snippet.channelTitle,
-        snippet: { title: nextTrack.snippet.title }
-      }
-    })
-    const newQueue = tail(queue)
-    console.log('newQueue', newQueue)
-    await dispatch({
-      type: 'addtoq',
-      queue: newQueue
-    })
+    if (queue.length !== 0 && components.audioState) {
+      const nextTrack = queue[0]
+      console.log('nextTrack', nextTrack)
+      await dispatch({
+        type: 'select',
+        type: 'vidObj',
+        vidObj: {
+          ...vidObj,
+          videoId: nextTrack.id.videoId || nextTrack.snippet.resourceId.videoId,
+          channelId: queue[0].snippet.channelTitle,
+          snippet: { title: nextTrack.snippet.title }
+        }
+      })
+      const newQueue = tail(queue)
+      console.log('newQueue', newQueue)
+      await dispatch({
+        type: 'addtoq',
+        queue: newQueue
+      })
+    }
   }
 
   // useEffect(() => {
@@ -173,7 +175,7 @@ export default function MiniDisplay() {
           onChange={e => setVolume(e.target.value)}
         />
         <div className='player-controls'>
-          <img src={prev} alt='' />
+          <img className="player-prev" src={prev} alt='' />
           {components.audioState ? (
             <img src={pause} alt='' onClick={() =>
               dispatch({
@@ -182,9 +184,9 @@ export default function MiniDisplay() {
             }
             />
           ) : (
-              <img src={play} alt='' onClick={handlePlay} />
+              <img className="player-play" src={play} alt='' onClick={handlePlay} />
             )}
-          <img src={next} onClick={handleEnd} alt='' />
+          <img className="player-next" src={next} onClick={handleEnd} alt='' />
         </div>
       </div>
     </>
