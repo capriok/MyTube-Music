@@ -129,12 +129,9 @@ function Index() {
       console.log('Logged in as ->', JSON.parse(localStorage.getItem('MT-user')).name)
       console.log('channelFetchId ->', initialState.channelId)
       console.log('----------GOALS----------');
-      console.log('in useEffect listening for auth.isAuth.. if no channel id to fetch, have user search for their channel in position(modified) search component');
       console.log('----------TODOS----------');
       console.log('fix onEnd playing nextTrack when queue is dragged');
-      console.log('set playlist title to channel title');
-      console.log('when playlist item selected from search, then goBack fires a fetch to items channelId');
-      console.log('set playlist titile to fetched channelid\'s  name');
+      console.log('move playlistTitle to context and repalce useState in app, dipatch from search-list, playlist-list, playlist-head');
 
       console.log('-----------END-----------');
     }

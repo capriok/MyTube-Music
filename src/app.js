@@ -17,7 +17,7 @@ export default function App({ googleSuccess, googleFailure, logout }) {
   const [fetchedSearch, setFetchedSearch] = useState([])
   const [fetchedPlaylists, setFetchedPlaylists] = useState([])
   const [fetchError, throwFetchError] = useState(false)
-  const [sectionTitle, setTitle] = useState(user.name)
+  const [sectionTitle, setTitle] = useState()
 
   const initialComponentState = async () => {
     await dispatch({
