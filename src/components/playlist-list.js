@@ -6,12 +6,12 @@ import addtoq from '../img/addtoq.png'
 import addedtoq from '../img/addedtoq.png'
 import Qbutton from './qbutton'
 import './components.css'
+import Axios from 'axios'
 
-export default function PlaylistList({ fetchedPlaylists, fetchError }) {
+export default function PlaylistList({ fetchedPlaylists, fetchError, sectionTitle, setTitle }) {
    const [{ components, queue, playlistObj, user }, dispatch] = useStateValue()
    const [playlistItems, setPlaylistItems] = useState([])
-   const [sectionTitle, setTitle] = useState(user.name)
-   const [ready, setReady] = useState(false)
+   // const [sectionTitle, setTitle] = useState(user.name)
 
    const playlistSelect = async (item) => {
       await youtube
@@ -53,7 +53,6 @@ export default function PlaylistList({ fetchedPlaylists, fetchError }) {
    useEffect(() => {
       if (playlistObj.id) {
          const setPlaylist = async () => {
-            // const prevId = localStorage.getItem('YT-prevPlaylistId')
             const id = playlistObj.id
             await youtube
                .get('/playlistItems', {
@@ -72,12 +71,6 @@ export default function PlaylistList({ fetchedPlaylists, fetchError }) {
       }
    }, [playlistObj])
 
-   useEffect(() => {
-      return () => {
-         setReady(true)
-      };
-   }, [])
-
    return (
       <>
          <div className="playlist-parent">
@@ -92,6 +85,7 @@ export default function PlaylistList({ fetchedPlaylists, fetchError }) {
                   {!components.playlistItems
                      ? fetchedPlaylists.map((item, index) =>
                         <div className="list-item" key={index} onClick={() => playlistSelect(item)}>
+                           {/* <img src={item.snippet.thumbnails.high.url} alt="" /> */}
                            <div className="item-title">{item.snippet.title}</div>
                         </div>
                      )

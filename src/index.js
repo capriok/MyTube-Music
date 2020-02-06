@@ -6,6 +6,7 @@ import './index.css'
 
 function Index() {
   let initialState = {
+    init: true,
     auth: {
       isAuthenticated: false,
       token: '',
@@ -42,6 +43,11 @@ function Index() {
   // UC7Zyh4_j6BZEZtjnuS-PMOg
   const reducer = (state, action) => {
     switch (action.type) {
+      case 'init':
+        return {
+          ...state,
+          init: action.init
+        }
       case 'manage':
         return {
           ...state,
@@ -116,22 +122,21 @@ function Index() {
 
   useEffect(() => {
     let authorize = localStorage.getItem('MT-token')
-    console.log(localStorage.getItem('MT-token'));
     if (authorize) {
       initialState.auth.isAuthenticated = true
       console.log('Welcome to YT Player')
       console.log('Auth Status ->', initialState.auth.isAuthenticated)
       console.log('Logged in as ->', JSON.parse(localStorage.getItem('MT-user')).name)
       console.log('channelFetchId ->', initialState.channelId)
+      console.log('----------GOALS----------');
+      console.log('in useEffect listening for auth.isAuth.. if no channel id to fetch, have user search for their channel in position(modified) search component');
       console.log('----------TODOS----------');
       console.log('fix onEnd playing nextTrack when queue is dragged');
       console.log('set playlist title to channel title');
       console.log('when playlist item selected from search, then goBack fires a fetch to items channelId');
+      console.log('set playlist titile to fetched channelid\'s  name');
+
       console.log('-----------END-----------');
-      console.log('in useEffect listening for auth.isAuth.. if no channel id to fetch, have user search for their channel in position(modified) search component');
-      console.log('somethings fucked here');
-
-
     }
 
   }, [initialState.auth.isAuthenticated, initialState.channelId, initialState.user.name])

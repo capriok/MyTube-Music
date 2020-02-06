@@ -6,8 +6,8 @@ import youtube, { params } from '../components/apis/youtube'
 import SearchList from './search-list'
 import './components.css'
 
-export default function SearchForm({ fetchedSearch, setFetchedSearch }) {
-  const [{ components }, dispatch] = useStateValue()
+export default function SearchForm({ fetchedSearch, setFetchedSearch, setTitle }) {
+  const [{ init, components, channelId }, dispatch] = useStateValue()
   const initState = { video: false, playlist: false, channel: false }
   const [boxState, setBoxState] = useState(initState)
   const [isActive, setActive] = useState(false)
@@ -37,6 +37,10 @@ export default function SearchForm({ fetchedSearch, setFetchedSearch }) {
     boxState.video ? setActive(true) : setActive(false)
   }
 
+  useEffect(() => {
+    setBoxState({ ...initState, [searchOp]: true })
+  }, [])
+
   const handleOp = e => {
     const value = e.target.value
     setSearchOp(e.target.value)
@@ -44,14 +48,15 @@ export default function SearchForm({ fetchedSearch, setFetchedSearch }) {
   }
 
   useEffect(() => {
-    setBoxState({ ...initState, [searchOp]: true })
+    if (channelId) {
+      dispatch({ type: 'init', init: false })
+    } else {
+      dispatch({ type: 'init', init: true })
+      setBoxState({ ...initState, channel: true })
+      setSearchOp('channel')
+    }
   }, [])
 
-  // const transitions = useTransition(components.results, null, {
-  //   from: { position: 'relative', marginTop: -100, opacity: 0 },
-  //   enter: { marginTop: 0, opacity: 1 },
-  //   config: { duration: 200, opacity: 0 }
-  // })
   const results = components.results
   return (
     <div className='search-parent'>
@@ -59,17 +64,21 @@ export default function SearchForm({ fetchedSearch, setFetchedSearch }) {
         <h1>Search</h1>
         <div className='search-ops'>
           <div className='ops-float'>
-            <button
-              className={!boxState.video ? 'op-box' : 'op-box active'}
-              value='video' onClick={handleOp}>
-              Video
+            {!init &&
+              <>
+                <button
+                  className={!boxState.video ? 'op-box' : 'op-box active'}
+                  value='video' onClick={handleOp}>
+                  Video
             </button>
-            <button
-              className={!boxState.playlist ? 'op-box' : 'op-box active'}
-              value='playlist'
-              onClick={handleOp}>
-              Playlist
+                <button
+                  className={!boxState.playlist ? 'op-box' : 'op-box active'}
+                  value='playlist'
+                  onClick={handleOp}>
+                  Playlist
             </button>
+              </>
+            }
             <button
               className={!boxState.channel ? 'op-box' : 'op-box active'}
               value='channel'
@@ -87,17 +96,6 @@ export default function SearchForm({ fetchedSearch, setFetchedSearch }) {
       </div>
       {components.results && (
         <div className='search-two'>
-          {/* {
-            transitions.map(({ item, key, props }) =>
-              item && <animated.div key={key} style={props}>
-                <SearchList
-                  items={fetchedSearch}
-                  activeState={boxState}
-                  isActive={isActive}
-                />
-              </animated.div>
-            )
-          } */}
           <Transition
             items={results}
             from={{ position: 'relative', marginTop: -100, opacity: 0 }}
@@ -112,6 +110,7 @@ export default function SearchForm({ fetchedSearch, setFetchedSearch }) {
                     items={fetchedSearch}
                     activeState={boxState}
                     isActive={isActive}
+                    setTitle={setTitle}
                   />
                 </div>
               ))

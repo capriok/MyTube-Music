@@ -13,13 +13,11 @@ export default function SectionHead({ updateTitle }) {
          e.preventDefault()
          dispatch({ type: 'cId', channelId: value })
          localStorage.setItem('MT-channelid', value)
+         console.log('Channel Id -> ', value);
       } catch (error) {
          console.log(error);
       }
    }
-   useEffect(() => {
-      console.log(channelId);
-   }, [channelId])
    return (
       <div className="playlist-pos">
          {components.playlistItems

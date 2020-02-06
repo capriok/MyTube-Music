@@ -13,10 +13,11 @@ import Queue from './components/queue'
 import './index.css'
 
 export default function App({ googleSuccess, googleFailure, logout }) {
-  const [{ components, queue, user, auth, channelId, display }, dispatch] = useStateValue()
+  const [{ init, components, queue, user, auth, channelId, display }, dispatch] = useStateValue()
   const [fetchedSearch, setFetchedSearch] = useState([])
   const [fetchedPlaylists, setFetchedPlaylists] = useState([])
   const [fetchError, throwFetchError] = useState(false)
+  const [sectionTitle, setTitle] = useState(user.name)
 
   const initialComponentState = async () => {
     await dispatch({
@@ -57,6 +58,7 @@ export default function App({ googleSuccess, googleFailure, logout }) {
         })
         .then(res => {
           if (res.items === undefined && auth.isAuthenticated) { console.log('playlists', res.data.items) }
+          setTitle(res.data.items[0].snippet.channelTitle)
           throwFetchError(false)
           setFetchedPlaylists(res.data.items)
           dispatch({
@@ -105,7 +107,6 @@ export default function App({ googleSuccess, googleFailure, logout }) {
     }
   }, [user])
 
-  const [init, setinit] = useState(true)
   useEffect(() => {
     console.log(channelId);
     if (channelId === '') {
@@ -118,7 +119,6 @@ export default function App({ googleSuccess, googleFailure, logout }) {
         }
       })
     }
-
   }, [])
   return (
     <div className='App'>
@@ -148,11 +148,16 @@ export default function App({ googleSuccess, googleFailure, logout }) {
                   render={() => (
                     <>
                       <div className='section nav'></div>
+                      {init && <div className="init-welcome">
+                        <h1>Welcome to MyTube Music</h1>
+                        <p>Search for a channel to begin</p>
+                      </div>}
                       {components.search && (
-                        <div className='section search'>
+                        <div className={init ? 'section search init' : 'section search'}>
                           <SearchForm
                             fetchedSearch={fetchedSearch}
                             setFetchedSearch={setFetchedSearch}
+                            setTitle={setTitle}
                           />
                         </div>
                       )}
@@ -161,6 +166,8 @@ export default function App({ googleSuccess, googleFailure, logout }) {
                           <Playlists
                             fetchedPlaylists={fetchedPlaylists}
                             fetchError={fetchError}
+                            sectionTitle={sectionTitle}
+                            setTitle={setTitle}
                           />
                         </div>
                       )}

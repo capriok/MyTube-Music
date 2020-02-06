@@ -7,8 +7,8 @@ import Qbutton from './qbutton'
 import './components.css'
 
 
-export default function SearchList({ items, activeState, isActive }) {
-   const [{ components, display, queue }, dispatch] = useStateValue()
+export default function SearchList({ items, activeState, isActive, setTitle }) {
+   const [{ init, components, display, queue }, dispatch] = useStateValue()
    const activity = activeState
 
    const handleSelect = async (item) => {
@@ -51,16 +51,25 @@ export default function SearchList({ items, activeState, isActive }) {
          })
       }
       else if (channel) {
-         await dispatch({ type: 'cId', channelId: item.snippet.channelId })
-         await dispatch({ type: 'select', display: { ...display, channelTitle: item.snippet.channelTitle } })
-         await dispatch({
-            type: 'manage',
-            components: {
-               ...components,
-               results: true,
-               playlist: true
-            }
-         })
+         if (init) {
+            localStorage.setItem('MT-channelid', item.snippet.channelId)
+            window.location.href = '/'
+            console.log(item.snippet.channelTitle);
+            setTitle(item.snippet.channelTitle)
+
+         } else {
+            setTitle(item.snippet.channelTitle)
+            await dispatch({ type: 'cId', channelId: item.snippet.channelId })
+            await dispatch({ type: 'select', display: { ...display, channelTitle: item.snippet.channelTitle } })
+            await dispatch({
+               type: 'manage',
+               components: {
+                  ...components,
+                  results: true,
+                  playlist: true
+               }
+            })
+         }
       }
    }
 
