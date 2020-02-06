@@ -8,9 +8,9 @@ import Qbutton from './qbutton'
 import './components.css'
 
 export default function PlaylistList({ fetchedPlaylists, fetchError }) {
-   const [{ components, queue, playlistObj, auth }, dispatch] = useStateValue()
+   const [{ components, queue, playlistObj, user }, dispatch] = useStateValue()
    const [playlistItems, setPlaylistItems] = useState([])
-   const [sectionTitle, setTitle] = useState(JSON.parse(auth.user).name)
+   const [sectionTitle, setTitle] = useState(user.name)
    const [ready, setReady] = useState(false)
 
    const playlistSelect = async (item) => {

@@ -98,7 +98,7 @@ function Index() {
   }
 
   const logout = () => {
-    localStorage.removeItem('token')
+    localStorage.removeItem('MT-token')
     window.location.href = '/'
   }
 
@@ -115,7 +115,8 @@ function Index() {
   }, [initialState.display.id, initialState.components.fullPlayer])
 
   useEffect(() => {
-    let authorize = JSON.stringify(localStorage.getItem('MT-token'))
+    let authorize = localStorage.getItem('MT-token')
+    console.log(localStorage.getItem('MT-token'));
     if (authorize) {
       initialState.auth.isAuthenticated = true
       console.log('Welcome to YT Player')
@@ -128,6 +129,7 @@ function Index() {
       console.log('when playlist item selected from search, then goBack fires a fetch to items channelId');
       console.log('-----------END-----------');
       console.log('in useEffect listening for auth.isAuth.. if no channel id to fetch, have user search for their channel in position(modified) search component');
+      console.log('somethings fucked here');
 
 
     }

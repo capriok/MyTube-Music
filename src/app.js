@@ -105,6 +105,21 @@ export default function App({ googleSuccess, googleFailure, logout }) {
     }
   }, [user])
 
+  const [init, setinit] = useState(true)
+  useEffect(() => {
+    console.log(channelId);
+    if (channelId === '') {
+      dispatch({
+        type: 'manage',
+        components: {
+          ...components,
+          playlist: false,
+          miniPlayer: false
+        }
+      })
+    }
+
+  }, [])
   return (
     <div className='App'>
       <Navbar
