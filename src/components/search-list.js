@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useStateValue } from '../state'
 import decoder from "./decoder"
 import addtoq from '../img/addtoq.png'
@@ -7,15 +7,11 @@ import Qbutton from './qbutton'
 import './components.css'
 
 
-export default function SearchList({ items, activeState, isActive }) {
+export default function SearchList({ items, submitState, vidActive }) {
    const [{ init, components, vidObj, playlistObj, display, queue }, dispatch] = useStateValue()
-   const activity = activeState
 
    const handleSelect = async (item) => {
-      const video = activity.video
-      const playlist = activity.playlist
-      const channel = activity.channel
-      if (video) {
+      if (submitState === 'video') {
          console.log('selected', item);
          await dispatch({
             type: 'vidObj',
@@ -26,7 +22,7 @@ export default function SearchList({ items, activeState, isActive }) {
             type: 'manage',
             components: { ...components, audioState: true, fullPlayer: true }
          })
-      } else if (playlist) {
+      } else if (submitState === 'playlist') {
          console.log('ITEM', item);
          dispatch({
             type: 'playlistObj',
@@ -43,7 +39,7 @@ export default function SearchList({ items, activeState, isActive }) {
             components: { ...components, playlistItems: true }
          })
       }
-      else if (channel) {
+      else if (submitState === 'channel') {
          if (init) {
             localStorage.setItem('MT-channelid', item.snippet.channelId)
             window.location.href = '/'
@@ -69,7 +65,7 @@ export default function SearchList({ items, activeState, isActive }) {
             <div className="list-item" key={index}>
                <img className='list-item-thumb' onClick={() => handleSelect(item)} src={item.snippet.thumbnails.high.url} alt="" />
                <div className="item-title" onClick={() => handleSelect(item)}>{decoder(item.snippet.title)}</div>
-               {isActive &&
+               {vidActive &&
                   <Qbutton item={item} icon={queue.some(i => i.id === item.id) ? addedtoq : addtoq} />
                }
             </div>

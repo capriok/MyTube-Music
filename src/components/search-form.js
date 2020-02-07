@@ -5,15 +5,16 @@ import { Transition } from 'react-spring/renderprops'
 import youtube, { params } from '../components/apis/youtube'
 import SearchList from './search-list'
 import './components.css'
+import _ from 'lodash'
 
-export default function SearchForm({ fetchedSearch, setFetchedSearch, setTitle }) {
+export default function SearchForm({ fetchedSearch, setFetchedSearch }) {
   const [{ init, components, channelObj }, dispatch] = useStateValue()
   const initState = { video: false, playlist: false, channel: false }
   const [boxState, setBoxState] = useState(initState)
-  const [isActive, setActive] = useState(false)
+  const [vidActive, setActive] = useState(false)
   const [searchValue, setSearchValue] = useState('Kyle Caprio')
   const [searchOp, setSearchOp] = useState('video')
-
+  const [submitState, setSubmitState] = useState()
   const handleSearch = async e => {
     e.preventDefault()
     if (searchValue) {
@@ -36,17 +37,21 @@ export default function SearchForm({ fetchedSearch, setFetchedSearch, setTitle }
         .catch(error => console.log(error))
     }
     boxState.video ? setActive(true) : setActive(false)
-  }
+    var keys = _.keys(_.pickBy(boxState));
+    console.log(keys);
 
-  useEffect(() => {
-    setBoxState({ ...initState, [searchOp]: true })
-  }, [])
+    setSubmitState(keys[0])
+  }
 
   const handleOp = e => {
     const value = e.target.value
     setSearchOp(e.target.value)
     setBoxState({ ...initState, [value]: true })
   }
+
+  useEffect(() => {
+    setBoxState({ ...initState, video: true })
+  }, [])
 
   useEffect(() => {
     if (channelObj.channelId) {
@@ -58,7 +63,6 @@ export default function SearchForm({ fetchedSearch, setFetchedSearch, setTitle }
     }
   }, [])
 
-  const results = components.results
   return (
     <div className='search-parent'>
       <div className='search-one'>
@@ -71,7 +75,7 @@ export default function SearchForm({ fetchedSearch, setFetchedSearch, setTitle }
                   className={!boxState.video ? 'op-box' : 'op-box active'}
                   value='video' onClick={handleOp}>
                   Video
-            </button>
+                </button>
                 <button
                   className={!boxState.playlist ? 'op-box' : 'op-box active'}
                   value='playlist'
@@ -98,7 +102,7 @@ export default function SearchForm({ fetchedSearch, setFetchedSearch, setTitle }
       {components.results && (
         <div className='search-two'>
           <Transition
-            items={results}
+            items={components.results}
             from={{ position: 'relative', marginTop: -100, opacity: 0 }}
             enter={{ position: 'relative', marginTop: 0, opacity: 1 }}
             leave={{ position: 'relative', marginTop: -500, opacity: 0 }}
@@ -109,9 +113,8 @@ export default function SearchForm({ fetchedSearch, setFetchedSearch, setTitle }
                 <div style={props}>
                   <SearchList
                     items={fetchedSearch}
-                    activeState={boxState}
-                    isActive={isActive}
-                    setTitle={setTitle}
+                    submitState={submitState}
+                    vidActive={vidActive}
                   />
                 </div>
               ))

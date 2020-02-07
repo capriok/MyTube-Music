@@ -1,10 +1,10 @@
 import axios from 'axios'
-const KEY = 'AIzaSyDJfdWzYGlbBF0DyOyF90FRSMUNfAX_onA'
+const KEY = 'AIzaSyDVoiS-O8QQ7xb2VEFCZ3Lv7rtDXrifQEs'
 
 // MAIN KEY // AIzaSyBs_y-gyjJ9ACgPoXFiaLvdn1p04BMk-vk //
+// ALT KEY // AIzaSyDJfdWzYGlbBF0DyOyF90FRSMUNfAX_onA //
 // ALT KEY // AIzaSyANq1oGYM_kIzVqJV4y8RQYNvU47O0X9gM //
 // ALT KEY // AIzaSyDOTNyAxNX1X3BjLdMKxFJk8KZc_XModCk //
-// ALT KEY // AIzaSyDJfdWzYGlbBF0DyOyF90FRSMUNfAX_onA //
 
 export const params = {
   video: {

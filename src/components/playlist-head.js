@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useStateValue } from '../state'
 import backIcon from '../img/back.png'
 import urlIcon from '../img/url.png'
@@ -13,6 +13,7 @@ export default function SectionHead({ updateTitle }) {
          e.preventDefault()
          dispatch({ type: 'cId', channelId: value })
          localStorage.setItem('MT-channelid', value)
+         dispatch({ type: 'channelObj', channelObj: { ...channelObj, channelId: value } })
          console.log('Channel Id -> ', value);
       } catch (error) {
          console.log(error);

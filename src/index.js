@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import { StateProvider } from './state'
 import App from './app'
@@ -145,9 +145,6 @@ function Index() {
       console.log('channelFetchId ->', initialState.channelObj.channelId)
       console.log('----------TODOS----------');
       console.log('fix onEnd playing nextTrack when queue is dragged');
-      console.log('move playlistTitle to context and repalce useState in app, dipatch from search-list, playlist-list, playlist-head');
-      console.log('only set activity onSubmit of search from');
-
       console.log('-----------END-----------');
     }
 

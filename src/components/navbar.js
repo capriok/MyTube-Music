@@ -13,7 +13,6 @@ export default function Navbar({ initialComponentState }) {
    function handleLogout() {
       localStorage.removeItem('MT-token')
       localStorage.removeItem('MT-user')
-      // dispatch({ type: 'logout' })
       window.location.href = '/'
    }
 
@@ -22,7 +21,6 @@ export default function Navbar({ initialComponentState }) {
       enter: { opacity: 1, left: 40 },
       leave: { opacity: 0, left: 0 },
    })
-
 
    return (
       <>

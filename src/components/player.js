@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import { useStateValue } from '../state'
 import { Transition } from 'react-spring/renderprops'
 import ReactPlayer from 'react-player'
@@ -13,7 +13,6 @@ import './components.css'
 
 export default function MiniDisplay() {
   const [{ components, queue, vidObj }, dispatch] = useStateValue()
-  const [qLen, setQlen] = useState(0)
   const [played, setPlayed] = useState(0)
   const [startTime] = useState(0)
   const [volume, setVolume] = useState(0)
@@ -97,7 +96,6 @@ export default function MiniDisplay() {
       const nextTrack = queue[0]
       console.log('nextTrack', nextTrack)
       await dispatch({
-        type: 'select',
         type: 'vidObj',
         vidObj: {
           ...vidObj,
@@ -114,13 +112,6 @@ export default function MiniDisplay() {
       })
     }
   }
-
-  // useEffect(() => {
-  //   setQlen(queue.length)
-  //   if (queue.length !== qLen) {
-  //     console.log('newQueue', queue)
-  //   }
-  // }, [queue])
 
   return (
     <>
@@ -177,7 +168,7 @@ export default function MiniDisplay() {
         <div className='player-controls'>
           <img className="player-prev" src={prev} alt='' />
           {components.audioState ? (
-            <img src={pause} alt='' onClick={() =>
+            <img className="player-play" src={pause} alt='' onClick={() =>
               dispatch({
                 type: 'manage', components: { ...components, audioState: !components.audioState }
               })

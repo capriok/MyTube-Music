@@ -13,7 +13,7 @@ import Queue from './components/queue'
 import './index.css'
 
 export default function App({ googleSuccess, googleFailure, logout }) {
-  const [{ init, components, queue, vidObj, playlistObj, channelObj, user, auth }, dispatch] = useStateValue()
+  const [{ init, components, queue, playlistObj, channelObj, user, auth }, dispatch] = useStateValue()
   const [fetchedSearch, setFetchedSearch] = useState([])
   const [fetchedPlaylists, setFetchedPlaylists] = useState([])
   const [fetchError, throwFetchError] = useState(false)

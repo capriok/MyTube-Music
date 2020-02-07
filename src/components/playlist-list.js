@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useStateValue } from '../state'
 import youtube, { params } from "./apis/youtube"
 import SectionHead from './playlist-head'
@@ -6,7 +6,6 @@ import addtoq from '../img/addtoq.png'
 import addedtoq from '../img/addedtoq.png'
 import Qbutton from './qbutton'
 import './components.css'
-import Axios from 'axios'
 
 export default function PlaylistList({ fetchedPlaylists, fetchError, sectionTitle, setTitle }) {
    const [{ components, queue, playlistObj }, dispatch] = useStateValue()
@@ -86,7 +85,7 @@ export default function PlaylistList({ fetchedPlaylists, fetchError, sectionTitl
                <h1>
                   <SectionHead />
                   {!components.playlistItems
-                     ? playlistObj.snippet.channelTitle
+                     ? playlistObj.snippet.channelTitle || 'Playlists'
                      : playlistObj.playlistTitle
                   }
                </h1>
