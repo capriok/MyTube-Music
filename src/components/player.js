@@ -85,7 +85,6 @@ export default function MiniDisplay() {
   }
 
   const handleProgress = state => {
-    //returns callback data as state
     if (!seeking) {
       setPlayed(state.played)
     }

@@ -144,7 +144,8 @@ function Index() {
       console.log('Logged in as ->', JSON.parse(localStorage.getItem('MT-user')).name)
       console.log('channelFetchId ->', initialState.channelObj.channelId)
       console.log('----------TODOS----------');
-      console.log('fix onEnd playing nextTrack when queue is dragged');
+      console.log('redesign init ui/ux. onlogin, only shopw search component and greeting(centered), walk user thru steps to populate');
+
       console.log('-----------END-----------');
     }
 

@@ -10,6 +10,8 @@ export default function Qbutton({ item, icon }) {
       type: 'addtoq',
       queue: [...remove(queue, e => e.id !== item.id), item]
     })
+    console.log(queue);
+
     await dispatch({
       type: 'manage',
       components: {

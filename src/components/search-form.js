@@ -38,8 +38,6 @@ export default function SearchForm({ fetchedSearch, setFetchedSearch }) {
     }
     boxState.video ? setActive(true) : setActive(false)
     var keys = _.keys(_.pickBy(boxState));
-    console.log(keys);
-
     setSubmitState(keys[0])
   }
 
