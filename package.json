@@ -38,6 +38,7 @@
   "scripts": {
     "start": "rescripts start",
     "browser": "react-scripts start",
+    "build-demo": "react-scripts build",
     "build": "rescripts build",
     "test": "rescripts test",
     "eject": "react-scripts eject",
