@@ -6,6 +6,21 @@
   "author": {
     "name": "Kyle Caprio"
   },
+  "build": {
+    "appId": "na",
+    "productName": "YT Player",
+    "copyright": "Copyright © 2020 Kyle Caprio",
+    "mac": {
+      "category": "public.app-category.utilities"
+    },
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
+  },
   "dependencies": {
     "axios": "^0.19.1",
     "electron-is-dev": "^1.0.1",
