@@ -6,21 +6,6 @@
   "author": {
     "name": "Kyle Caprio"
   },
-  "build": {
-    "appId": "na",
-    "productName": "YT Player",
-    "copyright": "Copyright © 2020 Kyle Caprio",
-    "mac": {
-      "category": "public.app-category.utilities"
-    },
-    "files": [
-      "build/**/*",
-      "node_modules/**/*"
-    ],
-    "directories": {
-      "buildResources": "assets"
-    }
-  },
   "dependencies": {
     "axios": "^0.19.1",
     "electron-is-dev": "^1.0.1",
@@ -36,16 +21,9 @@
   "homepage": "./",
   "main": "public/electron.js",
   "scripts": {
-    "start": "rescripts start",
-    "browser": "react-scripts start",
-    "build-demo": "react-scripts build",
-    "build": "rescripts build",
-    "test": "rescripts test",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "eject": "react-scripts eject",
-    "dev": "concurrently \"SET BROWSER=none&& npm start\" \"wait-on http://localhost:3000 && electron .\"",
-    "postinstall": "electron-builder install-app-deps",
-    "preelectron-pack": "yarn build",
-    "electron-pack": "build -mw"
   },
   "eslintConfig": {
     "extends": "react-app"
