@@ -79,6 +79,7 @@ h1{
    margin-bottom: 50px;
 }
 .search{
+   mIN-height: 12vh; 
    overflow: scroll;
 }
 .playlist{

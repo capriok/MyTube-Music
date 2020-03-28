@@ -1,5 +1,5 @@
 import axios from 'axios'
-const KEY = 'AIzaSyDVoiS-O8QQ7xb2VEFCZ3Lv7rtDXrifQEs'
+const KEY = 'AIzaSyBs_y-gyjJ9ACgPoXFiaLvdn1p04BMk-vk'
 
 // MAIN KEY // AIzaSyBs_y-gyjJ9ACgPoXFiaLvdn1p04BMk-vk //
 // ALT KEY // AIzaSyDJfdWzYGlbBF0DyOyF90FRSMUNfAX_onA //
@@ -9,18 +9,18 @@ const KEY = 'AIzaSyDVoiS-O8QQ7xb2VEFCZ3Lv7rtDXrifQEs'
 export const params = {
   video: {
     part: 'snippet',
-    maxResults: 2,
+    maxResults: 20,
     key: KEY
   },
   playlist: {
     part: 'snippet',
-    maxResults: 2,
+    maxResults: 20,
     type: 'playlist',
     key: KEY
   },
   playlistItems: {
     part: 'snippet',
-    maxResults: 2,
+    maxResults: 20,
     key: KEY
   }
 }

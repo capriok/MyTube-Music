@@ -7,7 +7,7 @@ import logout from "../img/logout.png";
 import './components.css'
 
 export default function Navbar({ initialComponentState }) {
-   const [{ components, user }, dispatch] = useStateValue()
+   const [{ init, components, user }, dispatch] = useStateValue()
    const [bin, openBin] = useState(false)
 
    function handleLogout() {
@@ -44,8 +44,10 @@ export default function Navbar({ initialComponentState }) {
                )
             }
             <div className="nav-buttons">
-               <img className="nav-button" src={search} alt=""
-                  onClick={() => dispatch({ type: 'manage', components: { ...components, search: !components.search } })} />
+               {!init &&
+                  <img className="nav-button" src={search} alt=""
+                     onClick={() => dispatch({ type: 'manage', components: { ...components, search: !components.search } })} />
+               }
             </div>
          </nav>
       </>
