@@ -114,6 +114,8 @@ function Index() {
   }
 
   const googleSuccess = res => {
+    console.log('fired');
+
     initialState.auth.isAuthenticated = true
     initialState.auth.token = res.tokenObj.access_token
     localStorage.setItem('MT-token', res.tokenObj.access_token)
