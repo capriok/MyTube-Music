@@ -46,7 +46,6 @@ export default function App({ googleSuccess, googleFailure, logout }) {
         }
       })
     }
-
     const fetchPlaylistsFromChannelId = async () => {
       await youtube
         .get('/search', {
@@ -80,7 +79,7 @@ export default function App({ googleSuccess, googleFailure, logout }) {
         })
         .catch(error => console.log(error))
     }
-    fetchPlaylistsFromChannelId()
+    auth.isAuthenticated && fetchPlaylistsFromChannelId()
   }, [channelObj.channelId])
 
   useEffect(() => {
@@ -192,7 +191,7 @@ export default function App({ googleSuccess, googleFailure, logout }) {
                   render={() => (
                     <button onClick={logout} className='logout-button'>
                       LOGOUT
-                  </button>
+                    </button>
                   )}
                 />
               </Switch>

@@ -1,5 +1,5 @@
 {
-  "name": "yt-player",
+  "name": "mytube-music",
   "description": "Youtube Data API => Music Player",
   "version": "1.0.0",
   "private": true,
@@ -18,8 +18,6 @@
     "react-scripts": "^3.3.0",
     "react-spring": "^8.0.27"
   },
-  "homepage": "./",
-  "main": "public/electron.js",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
