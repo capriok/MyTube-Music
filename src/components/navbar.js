@@ -29,7 +29,7 @@ export default function Navbar({ initialComponentState }) {
                src={user.avatar}
                onClick={() => openBin(!bin)}
             />
-            <div onClick={initialComponentState}>
+            <div onClick={!init && initialComponentState}>
                <img className="nav-logo" src={logo} alt="" />
             </div>
             {
