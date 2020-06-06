@@ -35,8 +35,7 @@
   },
   "scripts": {
     "start": "rescripts start",
-    "demo": "react-scripts start",
-    "builddemo": "react-scripts build",
+    "browser": "react-scripts start",
     "build": "rescripts build",
     "test": "rescripts test",
     "eject": "react-scripts eject",
