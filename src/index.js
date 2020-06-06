@@ -114,6 +114,7 @@ function Index() {
   }
 
   const googleSuccess = res => {
+    console.log('success');
     initialState.auth.isAuthenticated = true
     initialState.auth.token = res.tokenObj.access_token
     localStorage.setItem('MT-token', res.tokenObj.access_token)
@@ -121,6 +122,7 @@ function Index() {
     window.location.href = '/'
   }
   const googleFailure = res => {
+    console.log('fail');
     console.log(res)
   }
 
@@ -139,11 +141,10 @@ function Index() {
     let authorize = localStorage.getItem('MT-token')
     if (authorize) {
       initialState.auth.isAuthenticated = true
-      console.log('Welcome to YT Player')
+      console.log('Welcome to Mytube Music')
       console.log('Auth Status ->', initialState.auth.isAuthenticated)
       console.log('Logged in as ->', JSON.parse(localStorage.getItem('MT-user')).name)
       console.log('channelFetchId ->', initialState.channelObj.channelId)
-      console.log('----------TODOS----------');
     }
 
   }, [initialState.auth.isAuthenticated, initialState.channelId, initialState.user.name])
