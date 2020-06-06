@@ -131,7 +131,7 @@ export default function App({ googleSuccess, googleFailure, logout }) {
         {!auth.isAuthenticated ? (
           <div className="log-box">
             <GoogleLogin
-              clientId='381653406577-9qn23e2ckslrmelg9jb6grmg6taajpqm.apps.googleusercontent.com'
+              clientId={process.env.REACT_APP_CLIENT_ID}
               buttonText='LOGIN WITH GOOGLE'
               onSuccess={googleSuccess}
               onFailure={googleFailure}
