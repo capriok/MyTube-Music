@@ -22,7 +22,7 @@
     }
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "electron-is-dev": "^1.2.0",
     "lodash": "^4.17.15",
     "react": "^16.13.1",
